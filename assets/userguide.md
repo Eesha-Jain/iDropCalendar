@@ -2,7 +2,7 @@
 
 ## Local Storage
 
-#### Keys
+### Keys
 
 | Key | Value | Default Value |
 | :------------- | :----------: | -----------: |
@@ -11,7 +11,7 @@
 | generatevalues | data filled in generate tab | see below |
 | dosage | dosage of previous + current days, months, and years | see below |
 
-#### Dictionaries
+### Dictionaries
 **Generate values** is stored as the following:
 {
   numberOfDrops: Integer,
@@ -51,3 +51,10 @@
   }
   ...
 }
+
+### Import Statements
+import storage from "@react-native-async-storage/async-storage";
+
+### Functions
+await storage.setItem(KEY, newValue);
+await storage.getItem(KEY);
