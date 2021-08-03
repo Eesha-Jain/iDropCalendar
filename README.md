@@ -7,7 +7,7 @@
 
 ![qrcode](https://user-images.githubusercontent.com/68827992/128066920-8fbc0152-d483-4d2c-a3de-13a4bad6746b.PNG)
 
-Note: This method will update precisely, which means every time I save my code in the code editor, then it will update. So therefore, sometimes it might display an error while I'm typing code, or when I'm troubleshooting :)
+Note: I need to be running the expo start for the QR code to work, so let me know if you wanna test it and then I'll open the expo start!
 
 ## To-Do List
 * <s>Create a Expo React Native App</s>
