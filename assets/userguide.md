@@ -4,10 +4,10 @@
 
 ### Keys
 
-| Key | Value | Default Value |
+| Key | Value | Type |
 | :------------- | :----------: | -----------: |
-| firsttime | first time opening the app | true |
-| generatestep | which step in generate tab | 1 |
+| firsttime | first time opening the app | Boolean |
+| generatestep | which step in generate tab | Integer |
 | generatevalues | data filled in generate tab | see below |
 | dosage | dosage of previous + current days, months, and years | see below |
 

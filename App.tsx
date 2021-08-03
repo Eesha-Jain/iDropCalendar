@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import storage from "@react-native-async-storage/async-storage";
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -17,8 +17,20 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [route, setRoute] = useState(true);
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+
+  const makeRequest = async () => {
+    storage.getItem('firsttime').then((item) => {
+      if (item) {
+        setRoute("Tabs");
+      } else {
+        setRoute("FirstScreen");
+      }
+    })
+  }
+  makeRequest();
 
   if (!isLoadingComplete) {
     return null;
@@ -26,7 +38,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <NavigationContainer independent={true}>
-          <Stack.Navigator initialRouteName="FirstScreen">
+          <Stack.Navigator initialRouteName={route}>
             <Stack.Screen
               name="FirstScreen"
               options={{headerShown:false}}

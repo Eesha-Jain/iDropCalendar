@@ -16,8 +16,8 @@ Note: I need to be running the expo start for the QR code to work, so let me kno
 * <s>Color Variables</s>
 * <s>Create FirstScreen.tsx</s>
 * <s>Add navigation</s>
-* Add localstorage (asyncstorage) - create respective userguide
-* Connect FirstScreen.tsx to the application
+* <s>Add localstorage (asyncstorage) - create respective userguide</s>
+* <s>Connect FirstScreen.tsx to the application</s>
 * Finish FirstScreen.tsx
 * Navigation tabs: change tab names, icons, and remove header
 * Calendar tab: create the sad face default screen
