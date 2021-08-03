@@ -9,6 +9,7 @@ import {dic} from '../constants/Colors';
 export default function FirstScreen() {
   return (
     <View style={styles.container}>
+      <Text>testing</Text>
     </View>
   );
 }

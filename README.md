@@ -15,7 +15,7 @@ Note: I need to be running the expo start for the QR code to work, so let me kno
 * <s>Add images: logo, splash screen, design templates, etc.</s>
 * <s>Color Variables</s>
 * <s>Create FirstScreen.tsx</s>
-* Add navigation
+* <s>Add navigation</s>
 * Add localstorage (asyncstorage) - create respective userguide
 * Connect FirstScreen.tsx to the application
 * Finish FirstScreen.tsx
