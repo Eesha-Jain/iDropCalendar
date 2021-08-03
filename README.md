@@ -12,7 +12,7 @@ Note: This method will update precisely, which means every time I save my code i
 ## To-Do List
 * <s>Create a Expo React Native App</s>
 * Integrate Open Sans Font
-* Add images: logo, splash screen, etc.
+* Add images: logo, splash screen, design templates, etc.
 * Add navigation
 * Add localstorage (asyncstorage) - create respective userguide
 * Create FirstScreen.tsx and connect to the application
