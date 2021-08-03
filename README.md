@@ -13,9 +13,11 @@ Note: I need to be running the expo start for the QR code to work, so let me kno
 * <s>Create a Expo React Native App</s>
 * <s>Integrate Open Sans Font</s>
 * <s>Add images: logo, splash screen, design templates, etc.</s>
+* <s>Color Variables</s>
+* <s>Create FirstScreen.tsx</s>
 * Add navigation
 * Add localstorage (asyncstorage) - create respective userguide
-* Create FirstScreen.tsx and connect to the application
+* Connect FirstScreen.tsx to the application
 * Finish FirstScreen.tsx
 * Navigation tabs: change tab names, icons, and remove header
 * Calendar tab: create the sad face default screen
