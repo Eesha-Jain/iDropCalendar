@@ -12,7 +12,7 @@ Note: I need to be running the expo start for the QR code to work, so let me kno
 ## To-Do List
 * <s>Create a Expo React Native App</s>
 * <s>Integrate Open Sans Font</s>
-* Add images: logo, splash screen, design templates, etc.
+* <s>Add images: logo, splash screen, design templates, etc.</s>
 * Add navigation
 * Add localstorage (asyncstorage) - create respective userguide
 * Create FirstScreen.tsx and connect to the application
