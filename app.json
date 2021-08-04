@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "NanodropperApp",
-    "slug": "NanodropperApp",
+    "name": "Nanodropper",
+    "slug": "Nanodropper",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
