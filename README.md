@@ -18,6 +18,7 @@ Note: I need to be running the expo start for the QR code to work, so let me kno
 * <s>Add navigation</s>
 * <s>Add localstorage (asyncstorage) - create respective userguide</s>
 * <s>Connect FirstScreen.tsx to the application</s>
+* <s>Integrate Gradients</s>
 * Finish FirstScreen.tsx
 * Navigation tabs: change tab names, icons, and remove header
 * Calendar tab: create the sad face default screen
