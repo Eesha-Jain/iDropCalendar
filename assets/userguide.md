@@ -7,6 +7,7 @@
 | Key | Value | Type |
 | :------------- | :----------: | -----------: |
 | firsttime | first time opening the app | Boolean |
+| generatedACalendar | created a calendar before | Boolean |
 | generatestep | which step in generate tab | Integer |
 | generatevalues | data filled in generate tab | see below |
 | dosage | dosage of previous + current days, months, and years | see below |

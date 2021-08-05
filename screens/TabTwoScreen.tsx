@@ -1,32 +1,74 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
+import { StyleSheet, Image, ScrollView, TouchableHighlight, Dimensions } from 'react-native';
+import styles from './styles.ts';
 import { Text, View } from '../components/Themed';
+import { Entypo } from '@expo/vector-icons';
+import Colors from '../constants/Colors';
+import {GradientText, GradientButton} from '../assets/Gradients';
+const win = Dimensions.get('window');
+import storage from "@react-native-async-storage/async-storage";
+import {useState} from 'react';
 
-export default function TabTwoScreen() {
+export default function TabTwoScreen({ navigation }) {
+  const [opacity, setOpacity] = useState(0);
+
+  async function navigateTabs() {
+    navigation.navigate("Generate")
+  }
+
+  const makeRequest = async () => {
+    const obj = await storage.getItem('generatedACalendar');
+    if (obj == "false") {
+      setOpacity(1);
+    }
+  }
+  makeRequest();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <View style={styles.top}>
+        <Image source={require('../assets/images/logos/NanodropperLong.jpg')} style={styles.topImage} />
+        <Text style={styles.topText}>iDrop Calendar</Text>
+      </View>
+
+      <View>
+        <ScrollView>
+          <View style={singleStyles.none}>
+            <Entypo name="emoji-sad" size={150} color={Colors.regular["mediumgray"]} />
+            <Text style={{color: Colors.regular["mediumgray"], fontSize: 20, margin: 20}}>You haven't created any polls yet</Text>
+
+            <TouchableHighlight style={singleStyles.button} onPress={() => navigateTabs()}>
+              <GradientButton style={singleStyles.buttonText} text="Click here to Generate Calendar" radius="5" />
+            </TouchableHighlight>
+          </View>
+        </ScrollView>
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
+const singleStyles = StyleSheet.create({
+  none: {
+    marginTop: 40,
+    marginBottom: 40,
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center'
+  },
+  button: {
+    flexDirection: 'row',
+    marginTop: 20,
     justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: -60
   },
-  title: {
+  buttonText: {
     fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+    color: 'white',
+    margin: 10,
+    textAlign: 'center',
+    width: win.width * 0.8,
+    fontFamily: 'os-light'
+  }
 });

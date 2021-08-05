@@ -9,9 +9,10 @@ import storage from "@react-native-async-storage/async-storage";
 export default function FirstScreen ({ navigation: { navigate } }) {
   async function navigateTabs() {
     await storage.setItem('firsttime', 'false');
+    await storage.setItem('generatedACalendar', 'false');
     await storage.setItem('generatestep', '1');
-    await storage.setItem('generateValues', JSON.stringify({}));
-    await storage.setItem('dosage', JSON.stringify({}));
+    await storage.setItem('generateValues', JSON.stringify({data: 'none'}));
+    await storage.setItem('dosage', JSON.stringify({data: 'none'}));
 
     navigate("Tabs");
   }
