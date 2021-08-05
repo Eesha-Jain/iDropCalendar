@@ -20,7 +20,7 @@ Note: I need to be running the expo start for the QR code to work, so let me kno
 * <s>Connect FirstScreen.tsx to the application</s>
 * <s>Integrate Gradients</s>
 * <s>Finish FirstScreen.tsx</s>
-* Navigation tabs: change tab names, icons, and remove header
+* <s>Navigation tabs: change tab names, icons, and remove header</s>
 * Calendar tab: create the sad face default screen
 * Generate tab: create the first generate tab page
 * Generate tab: create the second generate tab page
