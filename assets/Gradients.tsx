@@ -12,7 +12,7 @@ function GradientButton(props) {
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}
         colors={[Colors.regular["teal"], Colors.regular["blue"]]}>
-        <Text styles={props.styles}>{props.text}</Text>
+        <Text style={props.style}>{props.text}</Text>
       </LinearGradient>
     </View>
   );
