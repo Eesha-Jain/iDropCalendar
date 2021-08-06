@@ -31,17 +31,13 @@ export default function TabTwoScreen({ navigation }) {
         <Text style={styles.topText}>iDrop Calendar</Text>
       </View>
 
-      <View>
-        <ScrollView>
-          <View style={singleStyles.none}>
-            <Entypo name="emoji-sad" size={150} color={Colors.regular["mediumgray"]} />
-            <Text style={{color: Colors.regular["mediumgray"], fontSize: 20, margin: 20}}>You haven't created any polls yet</Text>
+      <View style={singleStyles.none}>
+        <Entypo name="emoji-sad" size={150} color={Colors.regular["mediumgray"]} />
+        <Text style={{color: Colors.regular["mediumgray"], fontSize: 20, margin: 20}}>You haven't created any polls yet</Text>
 
-            <TouchableHighlight style={singleStyles.button} onPress={() => navigateTabs()}>
-              <GradientButton style={singleStyles.buttonText} text="Click here to Generate Calendar" radius="5" />
-            </TouchableHighlight>
-          </View>
-        </ScrollView>
+        <TouchableHighlight style={singleStyles.button} onPress={() => navigateTabs()}>
+          <GradientButton style={singleStyles.buttonText} text="Click here to Generate Calendar" radius="5" />
+        </TouchableHighlight>
       </View>
     </View>
   );
@@ -53,15 +49,12 @@ const singleStyles = StyleSheet.create({
     marginBottom: 40,
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    height: win.height
   },
   button: {
     flexDirection: 'row',
     marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: -60
+    alignItems: 'center'
   },
   buttonText: {
     fontSize: 20,

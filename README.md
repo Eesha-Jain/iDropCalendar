@@ -1,13 +1,8 @@
 # Nanodropper App
 
 ## How to test the current progress on your own?
-1. Download the "Expo Go" App (creating an account in the app should not be necessary)
-2. Open the "Camera App"
-3. Scan the following QR Code and open the App in Expo Go:
-
-![qrcode](https://user-images.githubusercontent.com/68827992/128066920-8fbc0152-d483-4d2c-a3de-13a4bad6746b.PNG)
-
-Note: I need to be running the expo start for the QR code to work, so let me know if you wanna test it and then I'll open the expo start!
+1. Download the "Expo" App (creating an account in the app should not be necessary)
+2. Scan the QR Code on this webpage: https://expo.dev/@eeja/Nanodropper
 
 ## To-Do List
 * <s>Create a Expo React Native App</s>
