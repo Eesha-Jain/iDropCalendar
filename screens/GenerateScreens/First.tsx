@@ -5,18 +5,33 @@ import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
 import {GradientButton} from '../../assets/Gradients';
-import DatePicker from 'react-native-datepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 const win = Dimensions.get('window');
 import Colors from '../../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
 
 export default function First({ navigation }) {
   const [drops, setDrops] = useState(0);
-  const [date, setDate] = useState("");
   const [message, setMessage] = useState("");
+  const d = new Date();
+  const [date, setDate] = useState(d);
 
-  const today = new Date();
-  const todayString = (today.getMonth() + 1) + "-" + (today.getDay() + 1) + "-" + today.getFullYear();
+  const onChange = (event, date) => {
+    setDate(date);
+  };
+
+  const makeRequest = async () => {
+    const step = await storage.getItem('generatestep');
+
+    console.log(step);
+
+    if (step == "2") {
+      navigate("Second");
+    } else if (step == "3") {
+      navigate("Third");
+    }
+  }
+  //makeRequest();
 
   function dropRegulate() {
     if (value >= 1 && value <= 4) {
@@ -27,7 +42,7 @@ export default function First({ navigation }) {
   }
 
   async function navigateTabs() {
-    if (drops < 1 || drops >= 4) {
+    if (drops < 1 || drops > 4) {
       setMessage("Set number of drops between 1 and 4");
     } else if (date == "") {
       setMessage("Please input an appointment date");
@@ -49,7 +64,8 @@ export default function First({ navigation }) {
         drops: dropDict
       };
 
-      await storage.setItem('generatevalues', JSON.stringify(dropDict));
+      await storage.setItem('generatestep', "2");
+      await storage.setItem('generatevalues', JSON.stringify(dict));
       navigation.navigate("Second");
     }
   }
@@ -68,23 +84,20 @@ export default function First({ navigation }) {
         <TextInput style={generateStyles.input} placeholder="Number" onChangeText={setDrops} multiline={false} keyboardType="number-pad" maxLength={1} />
 
         <Text style={generateStyles.question}>Next Appointment Date</Text>
-        <DatePicker style={[generateStyles.input, {width: win.width - 20}]} date={date} mode="date" placeholder="mm/dd/yyyy" format="MM-DD-YYYY" minDate={todayString} confirmBtnText="Confirm" cancelBtnText="Cancel" customStyles={{
-            dateIcon: {
-              display: 'none'
-            },
-            dateInput: {
-              borderWidth: 0,
-              borderRadius: 10,
-              height: 40,
-              padding: 10,
-              fontFamily: 'os-light',
-              marginBottom: 20,
-            },
-          }} onDateChange={(date) => { setDate(date); }} />
+        <DateTimePicker
+          style={[generateStyles.input, {width: win.width - 20}]}
+          testID="dateTimePicker"
+          value={date}
+          mode="date"
+          display="calendar"
+          onChange={onChange}
+          placeholder="mm/dd/yyyy"
+          minimumDate={d}
+        />
 
-          <TouchableHighlight style={generateStyles.button} onPress={() => navigateTabs()}>
-            <GradientButton style={generateStyles.buttonText} text="Click here to Continue" radius="5" />
-          </TouchableHighlight>
+        <TouchableHighlight style={generateStyles.button} onPress={() => navigateTabs()}>
+          <GradientButton style={generateStyles.buttonText} text="Click here to Continue" radius="5" />
+        </TouchableHighlight>
       </View>
 
       <Text style={{color: 'red', fontSize: 18}}>{message}</Text>
