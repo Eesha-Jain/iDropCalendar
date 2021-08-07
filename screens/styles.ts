@@ -7,6 +7,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    fontFamily: 'os-light'
   },
   title: {
     fontSize: 20,
