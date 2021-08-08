@@ -9,7 +9,7 @@ const win = Dimensions.get('window');
 import storage from "@react-native-async-storage/async-storage";
 import {useState} from 'react';
 
-export default function TabTwoScreen({ navigation }) {
+export default function TabTwoScreen({ navigation: { navigate } }) {
   const [opacity, setOpacity] = useState(0);
 
   async function navigateTabs() {

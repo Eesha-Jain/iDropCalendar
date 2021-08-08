@@ -11,7 +11,7 @@ import First from './GenerateScreens/First';
 import Second from './GenerateScreens/Second';
 import Third from './GenerateScreens/Third';
 
-export default function TabOneScreen({ navigation }) {
+export default function TabOneScreen({ navigation: { navigate } }) {
   const [route, setRoute] = useState("First");
 
   const makeRequest = async () => {
