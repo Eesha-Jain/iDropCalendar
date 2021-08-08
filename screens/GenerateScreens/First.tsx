@@ -10,7 +10,7 @@ const win = Dimensions.get('window');
 import Colors from '../../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
 
-export default function First({ navigation }) {
+export default function First({ navigation: { navigate } }) {
   const [drops, setDrops] = useState(0);
   const [message, setMessage] = useState("");
   const d = new Date();
@@ -22,16 +22,13 @@ export default function First({ navigation }) {
 
   const makeRequest = async () => {
     const step = await storage.getItem('generatestep');
-
-    console.log(step);
-
-    if (step == "2") {
+    if (step == '2') {
       navigate("Second");
-    } else if (step == "3") {
+    } else if (step == '3') {
       navigate("Third");
     }
   }
-  //makeRequest();
+  makeRequest();
 
   function dropRegulate() {
     if (value >= 1 && value <= 4) {
