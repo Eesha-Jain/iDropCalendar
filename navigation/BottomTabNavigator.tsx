@@ -55,7 +55,7 @@ function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        name="Generate"
+        name="Gen"
         component={TabOneScreen}
         options={{ headerTitle: 'Generate', headerShown:false }}
       />
@@ -69,7 +69,7 @@ function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
-        name="Calendar"
+        name="Cal"
         component={TabTwoScreen}
         options={{ headerTitle: 'Calendar', headerShown:false }}
       />

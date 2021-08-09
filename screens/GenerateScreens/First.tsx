@@ -63,7 +63,7 @@ export default function First({ navigation: { navigate } }) {
 
       await storage.setItem('generatestep', "2");
       await storage.setItem('generatevalues', JSON.stringify(dict));
-      navigation.navigate("Second");
+      navigate("Second");
     }
   }
 
