@@ -18,7 +18,7 @@
 * <s>Navigation tabs: change tab names, icons, and remove header</s>
 * <s>Calendar tab: create the sad face default screen</s>
 * <s>Generate tab: create the first generate tab page</s>
-* Generate tab: create the second generate tab page
+* <s>Generate tab: create the second generate tab page</s>
 * Generate tab: create the third generate tab page
 * Calendar tab: finish calendar tab if there is generated calendar
 * Fix calendar tab + generate tab based on regeneration of calendar (make sure regenerated calendar only changes today and upcoming dates, not previous months)
