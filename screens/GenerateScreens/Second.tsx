@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {useState} from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, Picker, ScrollView } from 'react-native';
+import {useState, useEffect} from 'react';
+import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, ScrollView } from 'react-native';
 import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
@@ -9,31 +9,60 @@ import DatePicker from 'react-native-datepicker';
 const win = Dimensions.get('window');
 import Colors from '../../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
-import CheckBox from 'react-native-check-box'
+import CheckBox from '@react-native-community/checkbox';
+import {Picker} from '@react-native-picker/picker';
 
 export default function Second({ navigation: { navigate } }) {
   const [message, setMessage] = useState("");
-  const [drop1, setDrop1] = useState(["", false, false, false, "", 'none']); //index 5 is the visibility
+  const [drop1, setDrop1] = useState(["", false, false, false, "", 'none']);
   const [drop2, setDrop2] = useState(["", false, false, false, "", 'none']);
   const [drop3, setDrop3] = useState(["", false, false, false, "", 'none']);
   const [drop4, setDrop4] = useState(["", false, false, false, "", 'none']);
 
-  const drop1Name = (val) => { setDrop1([val, drop1[1], drop1[2], drop1[3], drop1[4], drop1[5]]); };
-  const drop2Name = (val) => { setDrop1([val, drop2[1], drop2[2], drop2[3], drop2[4], drop2[5]]); };
-  const drop3Name = (val) => { setDrop1([val, drop3[1], drop3[2], drop3[3], drop3[4], drop3[5]]); };
-  const drop4Name = (val) => { setDrop1([val, drop4[1], drop4[2], drop4[3], drop4[4], drop4[5]]); };
+  useEffect(() => {
+    const makeRequest = async () => {
+      const generateValueDataUnparsed = await storage.getItem('generatevalues');
+      const generateValueData = JSON.parse(generateValueDataUnparsed);
+      const num = Number(generateValueData["numberOfDrops"]);
 
-  const makeRequest = async () => {
-    const generateValueDataUnparsed = await storage.getItem('generatevalues');
-    const generateValueData = JSON.parse(generateValueDataUnparsed);
-    const num = Number(generateValueData["numberOfDrops"]);
+      if (num >= 1) { updateDrop(1, 5, 'block'); }
+      if (num >= 2) { updateDrop(2, 5, 'block'); }
+      if (num >= 3) { updateDrop(3, 5, 'block'); }
+      if (num >= 4) { updateDrop(4, 5, 'block'); }
+    }
+    makeRequest();
+  });
 
-    if (num >= 1) { setDrop1([drop1[0], drop1[1], drop1[2], drop1[3], drop1[4], 'block']); }
-    if (num >= 2) { setDrop2([drop2[0], drop2[1], drop1[2], drop2[3], drop2[4], 'block']); }
-    if (num >= 3) { setDrop3([drop3[0], drop3[1], drop3[2], drop3[3], drop3[4], 'block']); }
-    if (num >= 4) { setDrop4([drop4[0], drop4[1], drop4[2], drop4[3], drop4[4], 'block']); }
+  let indexes = [1, 2, 3, 4];
+  const times = ["morning", "afternoon", "night"];
+
+  function getValue(drop, index) {
+    if (drop == 1) { return drop1[index]; }
+    else if (drop == 2) { return drop2[index]; }
+    else if (drop == 3) { return drop3[index]; }
+    else { return drop4[index]; }
   }
-  makeRequest();
+
+  function updateDrop(drop, valIndex, value) {
+    let arr = [];
+    if (drop == 1) {
+      arr = [drop1[0], drop1[1], drop1[2], drop1[3], drop1[4], drop1[5]];
+      arr[valIndex] = value;
+      setDrop1(arr);
+    } else if (drop == 2) {
+      arr = [drop2[0], drop2[1], drop2[2], drop2[3], drop2[4], drop2[5]];
+      arr[valIndex] = value;
+      setDrop2(arr);
+    } else if (drop == 3) {
+      arr = [drop3[0], drop3[1], drop3[2], drop3[3], drop3[4], drop3[5]];
+      arr[valIndex] = value;
+      setDrop3(arr);
+    } else {
+      arr = [drop4[0], drop4[1], drop4[2], drop4[3], drop4[4], drop4[5]];
+      arr[valIndex] = value;
+      setDrop4(arr);
+    }
+  }
 
   async function navigateTabs() {
     navigation.navigate("Third");
@@ -50,84 +79,41 @@ export default function Second({ navigation: { navigate } }) {
 
       <ScrollView>
         <View style={generateStyles.inputBox}>
+          {indexes.map((index, i) => {
+            return (
+              <View key={i} style={{display: getValue(i, 5)}}>
+                <Text style={generateStyles.question}>Drop {i}</Text>
+                <TextInput style={generateStyles.input} placeholder="Name" onChangeText={(val) => { updateDrop(i, 0, val); }} value={getValue(i, 0)} multiline={false} />
+                <View style={{alignItems: 'left', marginBottom: 10, paddingBottom: 10}}>
+                  {times.map((timeValue, j) => {
+                    return (
+                      <View key={j}>
+                        <CheckBox style={{marginLeft: 15}} disabled={false} value={getValue(i, j + 1)} tintColors={Colors.regular["blue"]}
+                          tintColor={Colors.regular["blue"]}
+                          onFillColor={Colors.regular["blue"]}
+                          onValueChange={(newValue) => { updateDrop(i, j + 1, newValue);}}
+                        />
 
-          <View style={{display: drop1[5]}}>
-            <Text style={generateStyles.question}>Drop 1</Text>
-            <TextInput style={generateStyles.input} placeholder="Name" onChangeText={drop1Name} value={drop1[0]} multiline={false} />
-            <View style={{alignItems: 'left', marginBottom: 10, paddingBottom: 10}}>
-              <CheckBox style={{marginLeft: 15}} isChecked={drop1[1]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop1([drop1[0], !drop1[1], drop1[2], drop1[3], drop1[4], drop1[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 1" in the morning</Text>} />
-              <CheckBox style={{marginLeft: 15}} isChecked={drop1[2]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop1([drop1[0], drop1[1], !drop1[2], drop1[3], drop1[4], drop1[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 1" in the afternoon</Text>} />
-              <CheckBox style={{marginLeft: 15}} isChecked={drop1[3]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop1([drop1[0], drop1[1], drop1[2], !drop1[3], drop1[4], drop1[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 1" in the night</Text>} />
-            </View>
-            <Text style={{fontFamily: 'os-light', color: 'rgb(51, 51, 51)', marginBottom: 0, paddingBottom: 0}}>Which eye(s) do you put "drop 1"?</Text>
-            <Picker style={{marginTop: 0, paddingTop: 0}} selectedValue={drop1[4]} onValueChange={(itemValue, itemIndex) => {
-               setDrop1([drop1[0], drop1[1], drop1[2], drop1[3], itemValue, drop1[5]]);
-            }} itemStyle={{fontFamily: 'os-light', fontSize: 16, padding: 0, margin: 10, height: 100}} >
-              <Picker.Item label="Both" value="Both Eyes" />
-              <Picker.Item label="Left" value="Left Eye" />
-              <Picker.Item label="Right" value="Right Eye" />
-            </Picker>
-          </View>
-
-          <View style={{display: drop2[5]}}>
-            <Text style={generateStyles.question}>Drop 2</Text>
-            <TextInput style={generateStyles.input} placeholder="Name" onChangeText={drop2Name} value={drop2[0]} multiline={false} />
-            <View style={{alignItems: 'left', marginBottom: 10, paddingBottom: 10}}>
-              <CheckBox style={{marginLeft: 15}} isChecked={drop2[1]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop2([drop2[0], !drop2[1], drop2[2], drop2[3], drop2[4], drop2[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 2" in the morning</Text>} />
-              <CheckBox style={{marginLeft: 15}} isChecked={drop2[2]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop2([drop2[0], drop2[1], !drop2[2], drop2[3], drop2[4], drop2[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 2" in the afternoon</Text>} />
-              <CheckBox style={{marginLeft: 15}} isChecked={drop2[3]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop2([drop2[0], drop2[1], drop2[2], !drop2[3], drop2[4], drop2[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 2" in the night</Text>} />
-            </View>
-            <Text style={{fontFamily: 'os-light', color: 'rgb(51, 51, 51)', marginBottom: 0, paddingBottom: 0}}>Which eye(s) do you put "drop 2"?</Text>
-            <Picker style={{marginTop: 0, paddingTop: 0}} selectedValue={drop2[4]} onValueChange={(itemValue, itemIndex) => {
-               setDrop2([drop2[0], drop2[1], drop2[2], drop2[3], itemValue, drop2[5]]);
-            }} itemStyle={{fontFamily: 'os-light', fontSize: 16, padding: 0, margin: 10, height: 100}} >
-              <Picker.Item label="Both" value="Both Eyes" />
-              <Picker.Item label="Left" value="Left Eye" />
-              <Picker.Item label="Right" value="Right Eye" />
-            </Picker>
-          </View>
-
-          <View style={{display: drop3[5]}}>
-            <Text style={generateStyles.question}>Drop 3</Text>
-            <TextInput style={generateStyles.input} placeholder="Name" onChangeText={drop3Name} value={drop3[0]} multiline={false} />
-            <View style={{alignItems: 'left', marginBottom: 10, paddingBottom: 10}}>
-              <CheckBox style={{marginLeft: 15}} isChecked={drop3[1]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop3([drop3[0], !drop3[1], drop3[2], drop3[3], drop3[4], drop3[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 3" in the morning</Text>} />
-              <CheckBox style={{marginLeft: 15}} isChecked={drop3[2]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop3([drop3[0], drop3[1], !drop3[2], drop3[3], drop3[4], drop3[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 3" in the afternoon</Text>} />
-              <CheckBox style={{marginLeft: 15}} isChecked={drop3[3]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop3([drop3[0], drop3[1], drop3[2], !drop3[3], drop3[4], drop3[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 3" in the night</Text>} />
-            </View>
-            <Text style={{fontFamily: 'os-light', color: 'rgb(51, 51, 51)', marginBottom: 0, paddingBottom: 0}}>Which eye(s) do you put "drop 3"?</Text>
-            <Picker style={{marginTop: 0, paddingTop: 0}} selectedValue={drop3[4]} onValueChange={(itemValue, itemIndex) => {
-               setDrop3([drop3[0], drop3[1], drop3[2], drop3[3], itemValue, drop3[5]]);
-            }} itemStyle={{fontFamily: 'os-light', fontSize: 16, padding: 0, margin: 10, height: 100}} >
-              <Picker.Item label="Both" value="Both Eyes" />
-              <Picker.Item label="Left" value="Left Eye" />
-              <Picker.Item label="Right" value="Right Eye" />
-            </Picker>
-          </View>
-
-          <View style={{display: drop4[5]}}>
-            <Text style={generateStyles.question}>Drop 4</Text>
-            <TextInput style={generateStyles.input} placeholder="Name" onChangeText={drop4Name} value={drop4[0]} multiline={false} />
-            <View style={{alignItems: 'left', marginBottom: 10, paddingBottom: 10}}>
-              <CheckBox style={{marginLeft: 15}} isChecked={drop4[1]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop4([drop4[0], !drop4[1], drop4[2], drop4[3], drop4[4], drop4[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 4" in the morning</Text>} />
-              <CheckBox style={{marginLeft: 15}} isChecked={drop4[2]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop4([drop4[0], drop4[1], !drop4[2], drop4[3], drop4[4], drop4[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 4" in the afternoon</Text>} />
-              <CheckBox style={{marginLeft: 15}} isChecked={drop4[3]} checkBoxColor={Colors.regular["blue"]} onClick={() => { setDrop4([drop4[0], drop4[1], drop4[2], !drop3[3], drop4[4], drop4[5]]); }} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop 4" in the night</Text>} />
-            </View>
-            <Text style={{fontFamily: 'os-light', color: 'rgb(51, 51, 51)', marginBottom: 0, paddingBottom: 0}}>Which eye(s) do you put "drop 4"?</Text>
-            <Picker style={{marginTop: 0, paddingTop: 0}} selectedValue={drop4[4]} onValueChange={(itemValue, itemIndex) => {
-               setDrop4([drop4[0], drop4[1], drop4[2], drop4[3], itemValue, drop4[5]]);
-            }} itemStyle={{fontFamily: 'os-light', fontSize: 16, padding: 0, margin: 10, height: 100}} >
-              <Picker.Item label="Both" value="Both Eyes" />
-              <Picker.Item label="Left" value="Left Eye" />
-              <Picker.Item label="Right" value="Right Eye" />
-            </Picker>
-          </View>
+                        <Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop {i}" in the {timeValue}</Text>
+                      </View>
+                    );
+                  })}
+                </View>
+                <Text style={{fontFamily: 'os-light', color: 'rgb(51, 51, 51)', marginBottom: 0, paddingBottom: 0}}>Which eye(s) do you put "drop {i}"?</Text>
+                <Picker style={{marginTop: 0, paddingTop: 0}} selectedValue={getValue(i, 4)} onValueChange={(itemValue, itemIndex) => {
+                   updateDrop(i, 1, itemValue);
+                }} itemStyle={{fontFamily: 'os-light', fontSize: 16, padding: 0, margin: 10, height: 100}} >
+                  <Picker.Item label="Both" value="Both Eyes" />
+                  <Picker.Item label="Left" value="Left Eye" />
+                  <Picker.Item label="Right" value="Right Eye" />
+                </Picker>
+              </View>
+            );
+          })}
 
           <TouchableHighlight style={generateStyles.button} onPress={() => navigateTabs()}>
             <GradientButton style={generateStyles.buttonText} text="Click here to Submit" radius="5" />
           </TouchableHighlight>
-
-          <Text style={{color: 'red', fontSize: 18}}>{message}</Text>
         </View>
       </ScrollView>
     </View>
