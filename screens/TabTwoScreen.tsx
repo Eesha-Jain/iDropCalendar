@@ -13,7 +13,7 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
   const [opacity, setOpacity] = useState(0);
 
   async function navigateTabs() {
-    navigation.navigate("Generate")
+    navigate("Generate")
   }
 
   const makeRequest = async () => {
