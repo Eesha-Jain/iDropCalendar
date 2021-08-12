@@ -20,7 +20,8 @@
 * <s>Generate tab: create the first generate tab page</s>
 * <s>Generate tab: create the second generate tab page</s>
 * <s>Generate tab: create the third generate tab page</s>
-* Calendar tab: finish calendar tab if there is generated calendar
+* Calendar tab: finish calendar tab appearance
+* Calendar tab: finish calendar tab click on items and it works
 * Fix calendar tab + generate tab based on regeneration of calendar (make sure regenerated calendar only changes today and upcoming dates, not previous months)
 * Push notifications
 * Final touches & Debugging

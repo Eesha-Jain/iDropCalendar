@@ -11,7 +11,7 @@ import Colors from '../../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
 import CheckBox from 'react-native-check-box';
 import {Picker} from '@react-native-picker/picker';
-import {CalendarDay, Calendar, Legend} from './CalendarCreation';
+import {CalendarDay, Calendar, CalendarLegend} from './CalendarCreation';
 
 export default function Third({ navigation: { navigate } }) {
   return (
@@ -41,7 +41,7 @@ export default function Third({ navigation: { navigate } }) {
         </TouchableHighlight>
 
         <Calendar />
-        <Legend />
+        <CalendarLegend style={{marginTop: 20}} />
 
         <View style={{marginTop: 30}}></View>
       </ScrollView>

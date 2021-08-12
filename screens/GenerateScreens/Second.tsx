@@ -87,6 +87,7 @@ export default function Second({ navigation: { navigate } }) {
     generateValueData["drops"] = drops;
     await storage.setItem('generatevalues', JSON.stringify(generateValueData));
     await storage.setItem('generatestep', "3");
+    await storage.setItem('generatedACalendar', 'true');
     navigate("Third");
   }
 
