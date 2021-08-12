@@ -33,7 +33,7 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
 
       <View style={singleStyles.none}>
         <Entypo name="emoji-sad" size={150} color={Colors.regular["mediumgray"]} />
-        <Text style={{color: Colors.regular["mediumgray"], fontSize: 20, margin: 20}}>You haven't created any polls yet</Text>
+        <Text style={{color: Colors.regular["mediumgray"], fontSize: 20, margin: 20}}>You haven't created a calendar yet</Text>
 
         <TouchableHighlight style={singleStyles.button} onPress={() => navigateTabs()}>
           <GradientButton style={singleStyles.buttonText} text="Click here to Generate Calendar" radius="5" />

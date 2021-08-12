@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, ScrollView } from 'react-native';
+import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, ScrollView, Linking } from 'react-native';
 import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
@@ -11,6 +11,7 @@ import Colors from '../../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
 import CheckBox from 'react-native-check-box';
 import {Picker} from '@react-native-picker/picker';
+import {CalendarDay, Calendar, Legend} from './CalendarCreation';
 
 export default function Third({ navigation: { navigate } }) {
   return (
@@ -27,17 +28,22 @@ export default function Third({ navigation: { navigate } }) {
           <GradientButton style={generateStyles.buttonText} text="Click here to Fill Out Digitally" radius="5" />
         </TouchableHighlight>
 
-        <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {}}>
-          <GradientButton style={generateStyles.buttonText} text="Click here to Download Calendar" radius="5" />
+        <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
+          <GradientButton style={generateStyles.buttonText} text="Click here to Download Calendar on Website" radius="5" />
         </TouchableHighlight>
 
-        <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={async () => {
+        <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 20}]} onPress={async () => {
           await storage.setItem('generatevalues', JSON.stringify({}));
           await storage.setItem('generatestep', "1");
           navigate("First");
         }}>
           <GradientButton style={generateStyles.buttonText} text="Click here to Generate New Calendar" radius="5" />
         </TouchableHighlight>
+
+        <Calendar />
+        <Legend />
+
+        <View style={{marginTop: 30}}></View>
       </ScrollView>
     </View>
   );

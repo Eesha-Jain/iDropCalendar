@@ -33,18 +33,9 @@
 {
   ...
   2021: {
-    january: {
+    January: {
       1: {
-        numberOfDrops: Integer,
-        information: {
-          drop1: {
-            name: String
-            eyes: String
-          }
-        },
-        calendar: {
-          drop1: Integer [_M_, _A_, _N_] (0 = n/a, 1 = supposed, but not took, 2=took)
-        },
+        status: String (completed, notcompleted)
       }
       ...
     }
@@ -52,6 +43,18 @@
   }
   ...
 }
+
+Maybe later:
+numberOfDrops: Integer,
+information: {
+  drop1: {
+    name: String
+    eyes: String
+  }
+},
+calendar: {
+  drop1: Integer [_M_, _A_, _N_] (0 = n/a, 1 = supposed, but not took, 2=took)
+},
 
 ### Import Statements
 import storage from "@react-native-async-storage/async-storage";

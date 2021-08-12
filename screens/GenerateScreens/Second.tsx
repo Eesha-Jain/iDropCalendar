@@ -101,7 +101,8 @@ export default function Second({ navigation: { navigate } }) {
 
       <ScrollView>
         <View style={generateStyles.inputBox}>
-          {indexes.map((index, i) => {
+          {indexes.map((index, id) => {
+            var i = id + 1;
             if (getValue(i, 5) == 'block') {
               return (
                 <View key={i}>
