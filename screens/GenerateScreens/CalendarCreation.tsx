@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, ScrollView, Linking } from 'react-native';
+import { StyleSheet, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
@@ -160,49 +160,86 @@ function Calendar(props) {
   );
 }
 
+function getDropShape(props) {
+  if (props.drop == "drop1") {
+    return ( <View style={{width: 20, height: 20, borderWidth: 1, backgroundColor: props.backColor, borderColor: props.color}}></View> );
+  } else if (props.drop == "drop2") {
+    return ( <View style={{width: 20, height: 20, borderRadius: 20/2, backgroundColor: props.backColor, borderWidth: 1, borderColor: props.color}}></View> );
+  } else if (props.drop == "drop3") {
+    return ( <View style={{width: 17, height: 17, borderWidth: 1, backgroundColor: props.backColor, borderColor: props.color, marginLeft: 3, transform: [{rotate: "45deg"}]}}></View> );
+  } else {
+    return ( <FontAwesome style={{color: '#5d8abd'}} name={props.color} size={27} /> );
+  }
+}
+
 function CalendarDay(props) {
   let dic = {};
-  let [time, setTime] = useState([]);
+  const [time, setTime] = useState([]);
+  const [full, setFull] = useState([]);
+  let colors = ['#293caa', '#585bc4', '#7f7dde', 'star-o'];
+  let trans = ['transparent', 'transparent', 'transparent', 'star'];
+  const [set, setSet] = useState(<View></View>);
 
-  var shapes = {
-    drop1: [<View style={{width: 20, height: 20, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#293caa'}}></View>],
-    drop2: [<View style={{width: 20, height: 20, borderRadius: 20/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#585bc4'}}></View>],
-    drop3: [<View style={{width: 19, height: 19, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#7f7dde', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
-    drop4: [<FontAwesome style={{color: '#5d8abd'}} name={'star-o'} size={27} />]
+  function onClick(my, mx) {
+    var x = mx - 1;
+    var y = my - 1;
+    var dup = time;
+    var dup2 = full;
+
+    if (full[x][y] == 'e') {
+      var arr = [<TouchableOpacity onPress={() => {onClick(my, mx)}}>{getDropShape({drop: "drop" + mx, backColor: colors[x], color: trans[x]})}</TouchableOpacity>];
+      dup[my][mx] = arr[0];
+      dup2[x][y] = 'f';
+    } else {
+      var arr = [<TouchableOpacity onPress={() => {onClick(my, mx)}}>{getDropShape({drop: "drop" + mx, backColor: trans[x], color: colors[x]})}</TouchableOpacity>];
+      dup[my][mx] = arr[0];
+      dup2[x][y] = 'e';
+    }
+
+    setTime(dup);
+    setFull(dup2);
+    setSet(<Rows data={time} flexArr={[1, 1, 1, 1]}/>);
   }
 
   useEffect(() => {
     const makeRequest = async () => {
       const obj = await storage.getItem('generatevalues');
       dic = JSON.parse(obj);
+
       var times = [[<View style={{borderWidth: 1, borderColor: 'gray', backgroundColor: 'transparent', borderRadius: 50, width: 25, height: 25}}><Text style={{textAlign: 'center', fontSize: 18}}>{props.day}</Text></View>], [<FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} />],[<Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} />], [<MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} />]];
 
       for (var j = 1; j <= dic.numberOfDrops; j++) {
-          times[1].push('');
-          times[2].push('');
-          times[3].push('');
-      }
-
-      for (var j = 1; j <= dic.numberOfDrops; j++) {
+          times[1].push(<View></View>);
+          times[2].push(<View></View>);
+          times[3].push(<View></View>);
           times[0][j + 1] = <Text style={{fontSize: 18}}>{j}</Text>;
       }
 
-      for (var i = 1; i <= dic.numberOfDrops; i++) {
+      var arrNums = [];
+      for (var i = 1; i <= dic.numberOfDrops; i++) {arrNums.push(i);}
+
+      arrNums.forEach(i => {
         var key = "drop" + i;
+        full.push(['e', 'e', 'e']);
+
         if (dic.drops[key]['morning'] == 1) {
-            times[1][i] = shapes[key][0];
+            var x = [<TouchableOpacity onPress={() => {onClick(1, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[1][i] = x[0];
         }
 
         if (dic.drops[key]['afternoon'] == 1) {
-            times[2][i] = shapes[key][0];
+          var x = [<TouchableOpacity onPress={() => {onClick(2, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[2][i] = x[0];
         }
 
         if (dic.drops[key]['night'] == 1) {
-            times[3][i] = shapes[key][0];
+          var x = [<TouchableOpacity onPress={() => {onClick(3, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[3][i] = x[0];
         }
+      });
+
+      for (var i = 0; i < times.length; i++) {
+        time.push(times[i]);
       }
 
-      setTime(times);
+      setSet(<Rows data={time} flexArr={[1, 1, 1, 1]}/>);
     }
     makeRequest();
   }, []);
@@ -210,7 +247,7 @@ function CalendarDay(props) {
   return (
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
       <Table style={{width: '100%'}}>
-        <Rows data={time} flexArr={[1, 1, 1, 1]}/>
+        {set}
       </Table>
     </View>
   );
