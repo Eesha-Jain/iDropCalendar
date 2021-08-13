@@ -40,5 +40,10 @@ export default StyleSheet.create({
     textAlign: 'center',
     width: win.width - 30,
     fontFamily: 'os-light'
+  },
+  dosingLegendRepeat: {
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    padding: 3
   }
 });

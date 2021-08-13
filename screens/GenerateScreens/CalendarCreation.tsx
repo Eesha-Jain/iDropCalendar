@@ -23,10 +23,10 @@ function DayOfWeek(props) {
 function DosingLegend(props) {
   const [arr, setArr] = useState([]);
   var shapes = {
-    drop1: [<View style={{width: 15, height: 15, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#293caa'}}></View>],
-    drop2: [<View style={{width: 15, height: 15, borderRadius: 15/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#585bc4'}}></View>],
-    drop3: [<View style={{width: 14, height: 14, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#7f7dde', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
-    drop4: [<FontAwesome style={{color: '#5d8abd'}} name={'star-o'} size={18} />]
+    drop1: [<View key={0} style={{width: 15, height: 15, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#293caa'}}></View>],
+    drop2: [<View key={1} style={{width: 15, height: 15, borderRadius: 15/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#585bc4'}}></View>],
+    drop3: [<View key={2} style={{width: 14, height: 14, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#7f7dde', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
+    drop4: [<FontAwesome key={3} style={{color: '#5d8abd'}} name={'star-o'} size={18} />]
   }
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function DosingLegend(props) {
         if (drop.afternoon) {num++;}
         if (drop.night) {num++;}
 
-        let arr = [<View key={0} style={{backgroundColor: 'transparent'}}><Text>{i}</Text></View>, <View style={{backgroundColor: 'transparent'}} key={1}>{shapes["drop" + i]}</View>, <View style={{backgroundColor: 'transparent'}} key={2}><Text>{drop.name}</Text></View>, <View style={{backgroundColor: 'transparent'}} key={3}><Text>{num + "x / day"}</Text></View>, <View style={{backgroundColor: 'transparent'}} key={4}><Text>{drop.eyes}</Text></View>];
+        let arr = [<View key={0} style={generateStyles.dosingLegendRepeat}><Text>{i}</Text></View>, <View style={generateStyles.dosingLegendRepeat} key={1}>{shapes["drop" + i]}</View>, <View style={generateStyles.dosingLegendRepeat} key={2}><Text>{drop.name}</Text></View>, <View style={generateStyles.dosingLegendRepeat} key={3}><Text>{num + "x / day"}</Text></View>, <View style={generateStyles.dosingLegendRepeat} key={4}><Text>{drop.eyes}</Text></View>];
         list.push(arr);
       }
 
@@ -55,8 +55,8 @@ function DosingLegend(props) {
   return (
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10}]}>
       <Text style={{fontSize: 15, fontFamily: 'os-bold', marginBottom: 5}}>Dosing Legend:</Text>
-      <Table borderStyle={{borderWidth: 1, borderColor: 'gray'}} style={{width: '100%'}}>
-        <Rows data={arr}/>
+      <Table borderStyle={{borderWidth: 0.2, borderColor: 'gray'}} style={{width: '100%'}}>
+        <Rows data={arr} flexArr={[1, 1, 2, 2, 2]}/>
       </Table>
     </View>
   );
@@ -165,17 +165,17 @@ function CalendarDay(props) {
   let [time, setTime] = useState([]);
 
   var shapes = {
-    drop1: [<View style={{width: 15, height: 15, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#293caa'}}></View>],
-    drop2: [<View style={{width: 15, height: 15, borderRadius: 15/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#585bc4'}}></View>],
-    drop3: [<View style={{width: 14, height: 14, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#7f7dde', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
-    drop4: [<FontAwesome style={{color: '#5d8abd'}} name={'star-o'} size={18} />]
+    drop1: [<View style={{width: 20, height: 20, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#293caa'}}></View>],
+    drop2: [<View style={{width: 20, height: 20, borderRadius: 20/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#585bc4'}}></View>],
+    drop3: [<View style={{width: 19, height: 19, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#7f7dde', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
+    drop4: [<FontAwesome style={{color: '#5d8abd'}} name={'star-o'} size={27} />]
   }
 
   useEffect(() => {
     const makeRequest = async () => {
       const obj = await storage.getItem('generatevalues');
       dic = JSON.parse(obj);
-      var times = [[<View style={{borderWidth: 1, borderColor: 'gray', backgroundColor: 'transparent', borderRadius: 50, width: 20, height: 20}}><Text style={{textAlign: 'center'}}>{props.day}</Text></View>], [<FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} />],[<Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} />], [<MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} />]];
+      var times = [[<View style={{borderWidth: 1, borderColor: 'gray', backgroundColor: 'transparent', borderRadius: 50, width: 25, height: 25}}><Text style={{textAlign: 'center', fontSize: 18}}>{props.day}</Text></View>], [<FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} />],[<Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} />], [<MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} />]];
 
       for (var j = 1; j <= dic.numberOfDrops; j++) {
           times[1].push('');
@@ -184,7 +184,7 @@ function CalendarDay(props) {
       }
 
       for (var j = 1; j <= dic.numberOfDrops; j++) {
-          times[0][j + 1] = <Text>{j}</Text>;
+          times[0][j + 1] = <Text style={{fontSize: 18}}>{j}</Text>;
       }
 
       for (var i = 1; i <= dic.numberOfDrops; i++) {
