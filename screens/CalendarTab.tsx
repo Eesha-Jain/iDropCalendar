@@ -13,7 +13,7 @@ import {CalendarDay, Calendar, CalendarLegend, DosingLegend} from './GenerateScr
 
 export default function TabTwoScreen({ navigation: { navigate } }) {
   const [display, setDisplay] = useState('none');
-  const [otherDisplay, setOtherDisplay] = useState('block');
+  const [otherDisplay, setOtherDisplay] = useState('flex');
   const [appointment, setAppointment] = useState("");
 
   const day = new Date().getDay();
@@ -26,7 +26,7 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
     const makeRequest = async () => {
       const obj = await storage.getItem('generatedACalendar');
       if (obj == "false") {
-        setDisplay('block');
+        setDisplay('flex');
         setOtherDisplay('none');
       }
 

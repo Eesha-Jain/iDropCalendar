@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, ScrollView } from 'react-native';
+import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
@@ -25,10 +25,10 @@ export default function Second({ navigation: { navigate } }) {
       const generateValueData = JSON.parse(generateValueDataUnparsed);
       const num = Number(generateValueData["numberOfDrops"]);
 
-      if (num >= 1) { updateDrop(1, 5, 'block'); }
-      if (num >= 2) { updateDrop(2, 5, 'block'); }
-      if (num >= 3) { updateDrop(3, 5, 'block'); }
-      if (num >= 4) { updateDrop(4, 5, 'block'); }
+      if (num >= 1) { updateDrop(1, 5, 'flex'); }
+      if (num >= 2) { updateDrop(2, 5, 'flex'); }
+      if (num >= 3) { updateDrop(3, 5, 'flex'); }
+      if (num >= 4) { updateDrop(4, 5, 'flex'); }
     }
     makeRequest();
   }, []);
@@ -104,12 +104,12 @@ export default function Second({ navigation: { navigate } }) {
         <View style={generateStyles.inputBox}>
           {indexes.map((index, id) => {
             var i = id + 1;
-            if (getValue(i, 5) == 'block') {
+            if (getValue(i, 5) == 'flex') {
               return (
                 <View key={i}>
-                  <Text style={generateStyles.question}>Drop {i}</Text>
+                  <Text style={[generateStyles.question, {marginTop: 10}]}>Drop {i}</Text>
                   <TextInput style={generateStyles.input} placeholder="Name" onChangeText={(val) => { updateDrop(i, 0, val); }} value={getValue(i, 0)} multiline={false} />
-                  <View style={{alignItems: 'left', marginBottom: 10, paddingBottom: 10}}>
+                  <View style={{marginBottom: 10, paddingBottom: 10}}>
                     {times.map((timeValue, j) => {
                       return (
                         <CheckBox key={j} style={{marginLeft: 15}} isChecked={getValue(i, j + 1)} onClick={() => { updateDrop(i, j + 1, !getValue(i, j + 1)); }} checkBoxColor={Colors.regular["blue"]} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop {i}" in the {timeValue}</Text>} />
@@ -117,10 +117,11 @@ export default function Second({ navigation: { navigate } }) {
                     })}
                   </View>
                   <Text style={{fontFamily: 'os-light', color: 'rgb(51, 51, 51)', marginBottom: 0, paddingBottom: 0}}>Which eye(s) do you put "drop {i}"?</Text>
+
                   <Picker style={{marginTop: 0, paddingTop: 0}} selectedValue={getValue(i, 4)} onValueChange={(itemValue, itemIndex) => {
                      updateDrop(i, 4, itemValue);
-                  }} itemStyle={{fontFamily: 'os-light', fontSize: 16, padding: 0, margin: 10, height: 100}} >
-                    <Picker.Item label="Both" value="Both Eyes" />
+                  }} itemStyle={{fontSize: 16, padding: 0, margin: 10, height: 100, fontFamily: 'os-light'}} >
+                    <Picker.Item label="Both" value="Both Eyes"/>
                     <Picker.Item label="Left" value="Left Eye" />
                     <Picker.Item label="Right" value="Right Eye" />
                   </Picker>
@@ -129,7 +130,7 @@ export default function Second({ navigation: { navigate } }) {
             } else { return ( <View key={i}></View> ); }
           })}
 
-          <TouchableHighlight style={generateStyles.button} onPress={() => navigateTabs()}>
+          <TouchableHighlight style={[generateStyles.button, {marginTop: 10}]} onPress={() => navigateTabs()}>
             <GradientButton style={generateStyles.buttonText} text="Click here to Submit" radius="5" />
           </TouchableHighlight>
 
@@ -139,3 +140,4 @@ export default function Second({ navigation: { navigate } }) {
     </View>
   );
 }
+//alignItems: 'left', (112)

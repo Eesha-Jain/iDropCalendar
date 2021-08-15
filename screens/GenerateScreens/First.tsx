@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {useState} from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight } from 'react-native';
+import {useState, useEffect} from 'react';
+import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, TouchableOpacity } from 'react-native';
 import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
@@ -13,11 +13,26 @@ import storage from "@react-native-async-storage/async-storage";
 export default function First({ navigation: { navigate } }) {
   const [drops, setDrops] = useState(0);
   const [message, setMessage] = useState("");
+  const [show, setShow] = useState(Platform.OS === 'ios');
+  const [oppoShow, setOppoShow] = useState('flex');
   const d = new Date();
   const [date, setDate] = useState(d);
 
-  const onChange = (event, date) => {
-    setDate(date);
+  useEffect(() => {
+    const makeRequest = async () => {
+      if (Platform.OS === 'ios') { setOppoShow('none'); }
+    }
+    makeRequest();
+  }, []);
+
+  const onChange = (event, paraDate) => {
+    const currentDate = paraDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
   };
 
   const makeRequest = async () => {
@@ -81,20 +96,26 @@ export default function First({ navigation: { navigate } }) {
         <TextInput style={generateStyles.input} placeholder="Number" onChangeText={setDrops} multiline={false} keyboardType="number-pad" maxLength={1} />
 
         <Text style={generateStyles.question}>Next Appointment Date</Text>
-        <DateTimePicker
-          style={[generateStyles.input, {width: win.width - 20}]}
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          display="calendar"
-          onChange={onChange}
-          placeholder="mm/dd/yyyy"
-          minimumDate={d}
-        />
+        <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: oppoShow}]} onPress={showMode}>
+          <Text style={[generateStyles.input, {width: win.width - 20, color: Colors.regular["blue"]}]}>{date.toString()}</Text>
+        </TouchableOpacity>
 
-        <TouchableHighlight style={generateStyles.button} onPress={() => navigateTabs()}>
+        {show && (
+            <DateTimePicker
+              style={[generateStyles.input, {width: win.width - 20}]}
+              testID="dateTimePicker"
+              value={date}
+              mode="date"
+              display="calendar"
+              onChange={onChange}
+              placeholder="mm/dd/yyyy"
+              minimumDate={d}
+            />
+        )}
+
+        <TouchableOpacity style={generateStyles.button} onPress={() => navigateTabs()}>
           <GradientButton style={generateStyles.buttonText} text="Click here to Continue" radius="5" />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
 
       <Text style={{color: 'red', fontSize: 18}}>{message}</Text>

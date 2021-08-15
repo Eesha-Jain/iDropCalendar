@@ -55,7 +55,7 @@ function DosingLegend(props) {
   return (
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10}]}>
       <Text style={{fontSize: 15, fontFamily: 'os-bold', marginBottom: 5}}>Dosing Legend:</Text>
-      <Table borderStyle={{borderWidth: 0.2, borderColor: 'gray'}} style={{width: '100%'}}>
+      <Table borderStyle={{borderWidth: 0.5, borderColor: 'gray'}} style={{width: '100%'}}>
         <Rows data={arr} flexArr={[1, 1, 2, 2, 2]}/>
       </Table>
     </View>
