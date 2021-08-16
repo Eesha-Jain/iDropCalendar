@@ -232,14 +232,24 @@ function CalendarDay(props) {
     setFull(dup2);
     setSet(<Rows data={time} flexArr={[1, 1, 1, 1]}/>);
     await storage.setItem('dosage', JSON.stringify(parsed));
-
-    console.log(parsed);
   }
 
   useEffect(() => {
     const makeRequest = async () => {
       const obj = await storage.getItem('generatevalues');
       dic = JSON.parse(obj);
+      var unparsed = await storage.getItem('dosage');
+      var parsed = JSON.parse(unparsed);
+      var exists = false;
+      var today = new Date();
+      var year = today.getFullYear();
+      var month = today.getMonth() + 1;
+      var day = today.getDate();
+
+      try {
+        var a = parsed[year][month][day];
+        exists = true;
+      } catch(e) {exists = false;}
 
       var times = [[<View style={{borderWidth: 1, borderColor: 'gray', backgroundColor: 'transparent', borderRadius: 50, width: 25, height: 25}}><Text style={{textAlign: 'center', fontSize: 18}}>{props.day}</Text></View>], [<FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} />],[<Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} />], [<MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} />]];
 
@@ -255,21 +265,35 @@ function CalendarDay(props) {
 
       arrNums.forEach(i => {
         var key = "drop" + i;
-        var aa = ['n', 'n', 'n'];
+        var aa = [];
+        if (!exists) {aa = ['n', 'n', 'n'];}
+        else {aa = parsed[year][month][day]["full"][i - 1];}
 
         if (dic.drops[key]['morning'] == 1) {
-          var x = [<TouchableOpacity onPress={() => {onClick(1, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[1][i] = x[0];
-          aa[0] = 'e';
+          if (!exists || aa[0] == 'e') {
+            var x = [<TouchableOpacity onPress={() => {onClick(1, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[1][i] = x[0];
+            aa[0] = 'e';
+          } else {
+              var x = [<TouchableOpacity onPress={() => {onClick(1, i)}}>{getDropShape({drop: key, backColor: colors[i - 1], color: trans[i - 1]})}</TouchableOpacity>]; times[1][i] = x[0];
+          }
         }
 
         if (dic.drops[key]['afternoon'] == 1) {
-          var x = [<TouchableOpacity onPress={() => {onClick(2, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[2][i] = x[0];
-          aa[1] = 'e';
+          if (!exists || aa[1] == 'e') {
+            var x = [<TouchableOpacity onPress={() => {onClick(2, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[2][i] = x[0];
+            aa[1] = 'e';
+          } else {
+              var x = [<TouchableOpacity onPress={() => {onClick(2, i)}}>{getDropShape({drop: key, backColor: colors[i - 1], color: trans[i - 1]})}</TouchableOpacity>]; times[2][i] = x[0];
+          }
         }
 
         if (dic.drops[key]['night'] == 1) {
-          var x = [<TouchableOpacity onPress={() => {onClick(3, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[3][i] = x[0];
-          aa[2] = 'e';
+          if (!exists || aa[2] == 'e') {
+            var x = [<TouchableOpacity onPress={() => {onClick(3, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[3][i] = x[0];
+            aa[2] = 'e';
+          } else {
+              var x = [<TouchableOpacity onPress={() => {onClick(3, i)}}>{getDropShape({drop: key, backColor: colors[i - 1], color: trans[i - 1]})}</TouchableOpacity>]; times[3][i] = x[0];
+          }
         }
 
         full.push(aa);
