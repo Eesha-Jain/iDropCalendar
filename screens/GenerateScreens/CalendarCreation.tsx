@@ -93,7 +93,7 @@ function Calendar(props) {
       var month = today.getMonth();
       daysLeft += today.getDate();
       var year = today.getFullYear();
-      var todayDay = today.getDay();
+      var todayDay = today.getDate();
 
       setMonths(months[month]);
 
@@ -113,7 +113,7 @@ function Calendar(props) {
               currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
             } else {
               try {
-                var x = dic2[year][months[month]][day];
+                var x = dic2[year][month + 1][day];
                 currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
               } catch(e) {
                 currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
@@ -180,25 +180,60 @@ function CalendarDay(props) {
   let trans = ['transparent', 'transparent', 'transparent', 'star'];
   const [set, setSet] = useState(<View></View>);
 
-  function onClick(my, mx) {
+  async function onClick(my, mx) {
     var x = mx - 1;
     var y = my - 1;
     var dup = time;
     var dup2 = full;
 
+    var unparsed = await storage.getItem('dosage');
+    var parsed = JSON.parse(unparsed);
+
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+    var day = today.getDate();
+
+    parsed["data"] = "have";
+    if (!(year in parsed)) { parsed[year] = {};}
+    if (!(month in parsed[year])) { parsed[year][month] = {};}
+    if (!(day in parsed[year][month])) { parsed[year][month][day] = {
+      status: "notcompleted",
+      full: full
+    };}
+
     if (full[x][y] == 'e') {
       var arr = [<TouchableOpacity onPress={() => {onClick(my, mx)}}>{getDropShape({drop: "drop" + mx, backColor: colors[x], color: trans[x]})}</TouchableOpacity>];
       dup[my][mx] = arr[0];
       dup2[x][y] = 'f';
+
+      var completed = true;
+      full.forEach(element => {
+        for (var i = 0; i < element.length; i++) {
+          if (element[i] == 'e') {
+            completed = false;
+            break;
+          }
+        }
+      });
+
+      if (completed) { parsed[year][month][day]["status"] = "completed"; }
     } else {
       var arr = [<TouchableOpacity onPress={() => {onClick(my, mx)}}>{getDropShape({drop: "drop" + mx, backColor: trans[x], color: colors[x]})}</TouchableOpacity>];
       dup[my][mx] = arr[0];
       dup2[x][y] = 'e';
+
+      parsed[year][month][day]["status"] = "notcompleted";
     }
+
+    parsed[year][month][day]["full"] = full;
 
     setTime(dup);
     setFull(dup2);
     setSet(<Rows data={time} flexArr={[1, 1, 1, 1]}/>);
+    await storage.setItem('dosage', JSON.stringify(parsed));
+
+    console.log(parsed);
   }
 
   useEffect(() => {
@@ -220,19 +255,24 @@ function CalendarDay(props) {
 
       arrNums.forEach(i => {
         var key = "drop" + i;
-        full.push(['e', 'e', 'e']);
+        var aa = ['n', 'n', 'n'];
 
         if (dic.drops[key]['morning'] == 1) {
-            var x = [<TouchableOpacity onPress={() => {onClick(1, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[1][i] = x[0];
+          var x = [<TouchableOpacity onPress={() => {onClick(1, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[1][i] = x[0];
+          aa[0] = 'e';
         }
 
         if (dic.drops[key]['afternoon'] == 1) {
           var x = [<TouchableOpacity onPress={() => {onClick(2, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[2][i] = x[0];
+          aa[1] = 'e';
         }
 
         if (dic.drops[key]['night'] == 1) {
           var x = [<TouchableOpacity onPress={() => {onClick(3, i)}}>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[3][i] = x[0];
+          aa[2] = 'e';
         }
+
+        full.push(aa);
       });
 
       for (var i = 0; i < times.length; i++) {

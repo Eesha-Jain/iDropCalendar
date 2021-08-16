@@ -32,10 +32,11 @@
 **Dosage** is stored as the following:
 {
   ...
-  2021: {
-    January: {
+  2021: { // year
+    1: { //month
       1: {
-        status: String (completed, notcompleted)
+        status: String (completed / notcompleted / na),
+        full: String [] [] (e, f, n)
       }
       ...
     }
