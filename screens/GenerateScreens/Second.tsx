@@ -100,7 +100,8 @@ export default function Second({ navigation: { navigate } }) {
       },
       trigger: {
         hours: 8,
-        minutes: 0
+        minutes: 0,
+        repeats: true
       },
     });
 
@@ -112,7 +113,8 @@ export default function Second({ navigation: { navigate } }) {
       },
       trigger: {
         hours: 12,
-        minutes: 0
+        minutes: 0,
+        repeats: true
       },
     });
 
@@ -124,7 +126,8 @@ export default function Second({ navigation: { navigate } }) {
       },
       trigger: {
         hours: 19,
-        minutes: 0
+        minutes: 0,
+        repeats: true
       },
     });
   }

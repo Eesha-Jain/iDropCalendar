@@ -25,6 +25,7 @@
 * <s>Calendar tab: go to previous months</s>
 * <s>Push notifications</s>
 * Final touches & Debugging
+      - Fix bug where if you regenerate a calendar on the day, it doesn't update to the regeneration and sends error to console
 * Feedback from the team
 * Deployment
 * Testing and more Debugging
