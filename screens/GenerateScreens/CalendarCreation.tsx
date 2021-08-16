@@ -77,7 +77,7 @@ function CalendarLegend(props) {
 
 function Calendar(props) {
   const [calendar, setCalendar] = useState([]);
-  const [months, setMonths] = useState("");
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -87,15 +87,12 @@ function Calendar(props) {
       let dic2 = JSON.parse(obj2);
 
       var today = new Date();
-      var daysLeft = Math.round((new Date(dic.nextAppointment).getTime() - today.getTime()) / (1000 * 3600 * 24)) + 2;
-      var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       var finalCalendar = "";
-      var month = today.getMonth();
-      daysLeft += today.getDate();
-      var year = today.getFullYear();
+      var month = props.month;
+      var year = props.year;
       var todayDay = today.getDate();
-
-      setMonths(months[month]);
+      var todayMonth = today.getMonth();
+      var todayYear = today.getFullYear();
 
       var arr = [[<DayOfWeek day="SUN" />, <DayOfWeek day="MON" />, <DayOfWeek day="TUE" />, <DayOfWeek day="WED" />, <DayOfWeek day="THU" />, <DayOfWeek day="FRI" />, <DayOfWeek day="SAT" />]];
       var day = 1;
@@ -107,9 +104,11 @@ function Calendar(props) {
         var currentTable = [];
         for (var j = 0; j < 7; j++) {
           if (dayOfTheWeek == 0 && day <= dayMonth) {
-            if (todayDay == day) {
+            if (todayDay == day && todayMonth == month && todayYear == year) {
               currentTable.push(<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center'}}><Text>{day}</Text></View>);
-            } else if (day > todayDay) {
+            } else if (day > todayDay && month == todayMonth && year == todayYear) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else if (month > todayMonth || year > todayYear) {
               currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
             } else {
               try {
@@ -120,7 +119,7 @@ function Calendar(props) {
               }
             }
             day++;
-          } else { dayOfTheWeek--; }
+          } else { currentTable.push(<View></View>); dayOfTheWeek--; }
         }
 
         while (currentTable.length != 7) {
@@ -133,9 +132,22 @@ function Calendar(props) {
         var currentTable = [];
         for (var j = 0; j < 7; j++) {
           if (dayOfTheWeek == 0 && day <= dayMonth) {
-              currentTable.push(<View style={{backgroundColor: 'transparent', alignItems: 'center'}}><Text>{day}</Text></View>);
-              day++;
-          } else { dayOfTheWeek--; }
+            if (todayDay == day && todayMonth == month && todayYear == year) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else if (day > todayDay && month == todayMonth && year == todayYear) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else if (month > todayMonth || year > todayYear) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else {
+              try {
+                var x = dic2[year][month + 1][day];
+                currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
+              } catch(e) {
+                currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
+              }
+            }
+            day++;
+          } else { currentTable.push(<View></View>); dayOfTheWeek--; }
         }
 
         while (currentTable.length != 7) {
@@ -148,11 +160,11 @@ function Calendar(props) {
       setCalendar(arr);
     }
     makeRequest();
-  }, []);
+  }, [props.month, props.year]);
 
   return (
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
-      <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5}}>{months}</Text>
+      <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5}}>{months[props.month]} {props.year}</Text>
       <Table style={{width: '100%'}}>
         <Rows data={calendar}/>
       </Table>

@@ -22,7 +22,7 @@
 * <s>Generate tab: create the third generate tab page</s>
 * <s>Calendar tab: finish calendar tab appearance></s>
 * <s>Calendar tab: finish calendar tab click on items and it works</s>
-* Calendar tab: go to previous months
+* <s>Calendar tab: go to previous months</s>
 * Push notifications
 * Final touches & Debugging
 * Feedback from the team
