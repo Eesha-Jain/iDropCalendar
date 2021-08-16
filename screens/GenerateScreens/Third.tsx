@@ -33,7 +33,6 @@ export default function Third({ navigation: { navigate } }) {
         </TouchableHighlight>
 
         <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 20}]} onPress={async () => {
-          await storage.setItem('generatevalues', JSON.stringify({}));
           await storage.setItem('generatestep', "1");
           navigate("First");
         }}>

@@ -23,7 +23,7 @@
 * <s>Calendar tab: finish calendar tab appearance></s>
 * <s>Calendar tab: finish calendar tab click on items and it works</s>
 * <s>Calendar tab: go to previous months</s>
-* Push notifications
+* <s>Push notifications</s>
 * Final touches & Debugging
 * Feedback from the team
 * Deployment

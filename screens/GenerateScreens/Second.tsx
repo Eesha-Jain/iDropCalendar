@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
@@ -11,6 +11,16 @@ import Colors from '../../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
 import CheckBox from 'react-native-check-box';
 import {Picker} from '@react-native-picker/picker';
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 export default function Second({ navigation: { navigate } }) {
   const [message, setMessage] = useState("");
@@ -18,6 +28,10 @@ export default function Second({ navigation: { navigate } }) {
   const [drop2, setDrop2] = useState(["", false, false, false, "Both Eyes", 'none']);
   const [drop3, setDrop3] = useState(["", false, false, false, "Both Eyes", 'none']);
   const [drop4, setDrop4] = useState(["", false, false, false, "Both Eyes", 'none']);
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -30,7 +44,20 @@ export default function Second({ navigation: { navigate } }) {
       if (num >= 3) { updateDrop(3, 5, 'flex'); }
       if (num >= 4) { updateDrop(4, 5, 'flex'); }
     }
+
+    const pushFunction = async () => {
+      const token = await storage.getItem('expopushtoken');
+      setExpoPushToken(token);
+
+      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+      });
+
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {});
+    }
+
     makeRequest();
+    pushFunction();
   }, []);
 
   let indexes = [1, 2, 3, 4];
@@ -64,6 +91,44 @@ export default function Second({ navigation: { navigate } }) {
     }
   }
 
+  async function schedulePushNotifications() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Good Morning ☕",
+        body: "Don't forget to take your morning eyedrops!",
+        sound: 'default'
+      },
+      trigger: {
+        hours: 8,
+        minutes: 0
+      },
+    });
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Good Afternoon 🌞",
+        body: "Don't forget to take your afternoon eyedrops!",
+        sound: 'default',
+      },
+      trigger: {
+        hours: 12,
+        minutes: 0
+      },
+    });
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Good Night 🌙",
+        body: "Don't forget to take your night eyedrops!",
+        sound: 'default',
+      },
+      trigger: {
+        hours: 19,
+        minutes: 0
+      },
+    });
+  }
+
   async function navigateTabs() {
     const generateValueDataUnparsed = await storage.getItem('generatevalues');
     const generateValueData = JSON.parse(generateValueDataUnparsed);
@@ -85,6 +150,8 @@ export default function Second({ navigation: { navigate } }) {
 
     setMessage("");
     generateValueData["drops"] = drops;
+    schedulePushNotifications();
+
     await storage.setItem('generatevalues', JSON.stringify(generateValueData));
     await storage.setItem('generatestep', "3");
     await storage.setItem('generatedACalendar', 'true');

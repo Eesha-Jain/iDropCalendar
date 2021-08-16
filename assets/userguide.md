@@ -7,6 +7,7 @@
 | Key | Value | Type |
 | :------------- | :----------: | -----------: |
 | firsttime | first time opening the app | Boolean |
+| expopushtoken | sending push notifications token | String |
 | generatedACalendar | created a calendar before | Boolean |
 | generatestep | which step in generate tab | Integer |
 | generatevalues | data filled in generate tab | see below |
