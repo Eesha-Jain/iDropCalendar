@@ -252,7 +252,6 @@ function CalendarDay(props) {
       dic = JSON.parse(obj);
       var unparsed = await storage.getItem('dosage');
       var parsed = JSON.parse(unparsed);
-      var exists = false;
       var today = new Date();
       var year = today.getFullYear();
       var month = today.getMonth() + 1;
@@ -260,7 +259,8 @@ function CalendarDay(props) {
 
       try {
         var a = parsed[year][month][day];
-        exists = true;
+        if (a.hasOwnProperty("full")) { exists = true; }
+        else { exists = false; }
       } catch(e) {exists = false;}
 
       var times = [[<View style={{borderWidth: 1, borderColor: 'gray', backgroundColor: 'transparent', borderRadius: 50, width: 25, height: 25}}><Text style={{textAlign: 'center', fontSize: 18}}>{props.day}</Text></View>], [<FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} />],[<Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} />], [<MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} />]];
@@ -278,8 +278,15 @@ function CalendarDay(props) {
       arrNums.forEach(i => {
         var key = "drop" + i;
         var aa = [];
-        if (!exists) {aa = ['n', 'n', 'n'];}
-        else {aa = parsed[year][month][day]["full"][i - 1];}
+        try {
+          if (exists) {
+            aa = parsed[year][month][day]["full"][i - 1];
+          } else {
+            aa = ["n", "n", "n"];
+          }
+        } catch (e) {
+          aa = ['n', 'n', 'n'];
+        }
 
         if (dic.drops[key]['morning'] == 1) {
           if (!exists || aa[0] == 'e') {
