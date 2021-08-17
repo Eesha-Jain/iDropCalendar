@@ -1,7 +1,7 @@
 # Nanodropper App
 
 ## How to test the current progress on your own?
-1. Download the "Expo" App (creating an account in the app should not be necessary)
+1. Download the "Expo" App
 2. Scan the QR Code on this webpage: https://expo.dev/@eeja/Nanodropper
 
 ## To-Do List
@@ -26,6 +26,7 @@
 * <s>Push notifications</s>
 * Final touches & Debugging
       - Fix bug where if you regenerate a calendar on the day, it doesn't update to the regeneration and sends error to console
+      - dosing table doesn't update (have to sign out of app and sign back in to update) - pass in a param in the useEffect?
 * Feedback from the team
 * Deployment
 * Testing and more Debugging

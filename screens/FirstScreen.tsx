@@ -21,6 +21,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
         }
         if (finalStatus !== 'granted') {
           alert('Please enable push notifications to get dosing and appointment reminders!');
+          await storage.setItem('expopushtoken', "");
           return;
         }
         const token = (await Notifications.getExpoPushTokenAsync()).data;

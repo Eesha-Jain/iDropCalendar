@@ -92,6 +92,8 @@ export default function Second({ navigation: { navigate } }) {
   }
 
   async function schedulePushNotifications() {
+    Notifications.cancelAllScheduledNotificationsAsync();
+
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "Good Morning ☕",
@@ -99,8 +101,8 @@ export default function Second({ navigation: { navigate } }) {
         sound: 'default'
       },
       trigger: {
-        hours: 8,
-        minutes: 0,
+        hour: 8,
+        minute: 0,
         repeats: true
       },
     });
@@ -112,8 +114,8 @@ export default function Second({ navigation: { navigate } }) {
         sound: 'default',
       },
       trigger: {
-        hours: 12,
-        minutes: 0,
+        hour: 12,
+        minute: 0,
         repeats: true
       },
     });
@@ -125,8 +127,8 @@ export default function Second({ navigation: { navigate } }) {
         sound: 'default',
       },
       trigger: {
-        hours: 19,
-        minutes: 0,
+        hour: 20,
+        minute: 21,
         repeats: true
       },
     });
@@ -137,6 +139,7 @@ export default function Second({ navigation: { navigate } }) {
     const generateValueData = JSON.parse(generateValueDataUnparsed);
     const num = Number(generateValueData["numberOfDrops"]);
     const drops = {};
+    const token = await storage.getItem('expopushtoken');
 
     if (num >= 1) {
       if (drop1[0] == "") {setMessage("Please set a name for drop 1"); return;}
@@ -153,7 +156,10 @@ export default function Second({ navigation: { navigate } }) {
 
     setMessage("");
     generateValueData["drops"] = drops;
-    schedulePushNotifications();
+
+    if (token != "") {
+      schedulePushNotifications();
+    }
 
     await storage.setItem('generatevalues', JSON.stringify(generateValueData));
     await storage.setItem('generatestep', "3");
