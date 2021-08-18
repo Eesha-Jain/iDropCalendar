@@ -50,7 +50,7 @@ function DosingLegend(props) {
       setArr(list);
     }
     makeRequest();
-  }, []);
+  }, [arr]);
 
   return (
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10}]}>
@@ -322,20 +322,15 @@ function CalendarDay(props) {
         full.push(aa);
       });
 
-      for (var i = 0; i < times.length; i++) {
-        time.push(times[i]);
-      }
-
-      setSet(<Rows data={time} flexArr={[1, 1, 1, 1]}/>);
+      setTime(times);
+      setSet(<Table style={{width: '100%'}}><Rows data={time} flexArr={[1, 1, 1, 1]}/></Table>);
     }
     makeRequest();
-  }, []);
+  }, [set]);
 
   return (
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
-      <Table style={{width: '100%'}}>
-        {set}
-      </Table>
+    {set}
     </View>
   );
 }

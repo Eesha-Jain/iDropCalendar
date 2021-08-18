@@ -25,7 +25,6 @@
 * <s>Calendar tab: go to previous months</s>
 * <s>Push notifications</s>
 * Final touches & Debugging
-      - dosing table doesn't update (have to sign out of app and sign back in to update) - pass in a param in the useEffect?
       - test on android
 * Feedback from the team
 * Deployment
