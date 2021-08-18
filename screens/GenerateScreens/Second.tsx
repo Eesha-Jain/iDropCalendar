@@ -133,18 +133,20 @@ export default function Second({ navigation: { navigate } }) {
       },
     });
 
-    const schedule = new Date(appointment);
+    if (Platform.OS == 'ios') {
+      const schedule = new Date(appointment);
 
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Appointment 👨‍⚕️",
-        body: "Your eyecare appointment is today. Don't forget to show this app to your doctor",
-        sound: 'default',
-      },
-      trigger: {
-        schedule
-      },
-    });
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Appointment 👨‍⚕️",
+          body: "Your eyecare appointment is today. Don't forget to show this app to your doctor",
+          sound: 'default',
+        },
+        trigger: {
+          schedule
+        },
+      });
+    }
   }
 
   async function navigateTabs() {

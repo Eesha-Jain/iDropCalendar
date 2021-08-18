@@ -200,7 +200,6 @@ function CalendarDay(props) {
     var x = mx - 1;
     var y = my - 1;
     var dup = time;
-    var dup2 = full;
 
     var unparsed = await storage.getItem('dosage');
     var parsed = JSON.parse(unparsed);
@@ -219,7 +218,7 @@ function CalendarDay(props) {
     if (full[x][y] == 'e') {
       var arr = [<TouchableOpacity onPress={() => {onClick(my, mx)}}>{getDropShape({drop: "drop" + mx, backColor: colors[x], color: trans[x]})}</TouchableOpacity>];
       dup[my][mx] = arr[0];
-      dup2[x][y] = 'f';
+      full[x][y] = 'f';
 
       var completed = true;
       full.forEach(element => {
@@ -235,7 +234,7 @@ function CalendarDay(props) {
     } else {
       var arr = [<TouchableOpacity onPress={() => {onClick(my, mx)}}>{getDropShape({drop: "drop" + mx, backColor: trans[x], color: colors[x]})}</TouchableOpacity>];
       dup[my][mx] = arr[0];
-      dup2[x][y] = 'e';
+      full[x][y] = 'e';
 
       parsed[year][month][day]["status"] = "notcompleted";
     }
@@ -243,8 +242,6 @@ function CalendarDay(props) {
     parsed[year][month][day]["full"] = full;
 
     setTime(dup);
-    setFull(dup2);
-    setSet(<Rows data={time} flexArr={[1, 1, 1, 1]}/>);
     await storage.setItem('dosage', JSON.stringify(parsed));
   }
 

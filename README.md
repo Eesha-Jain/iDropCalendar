@@ -24,8 +24,7 @@
 * <s>Calendar tab: finish calendar tab click on items and it works</s>
 * <s>Calendar tab: go to previous months</s>
 * <s>Push notifications</s>
-* Final touches & Debugging
-      - test on android
+* <s>Final touches & Debugging</s>
 * Feedback from the team
 * Deployment
 * Testing and more Debugging
