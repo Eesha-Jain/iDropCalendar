@@ -185,10 +185,10 @@ export default function Second({ navigation: { navigate } }) {
       schedulePushNotifications(generateValueData["nextAppointment"]);
     }
 
+    await storage.setItem('dosage', JSON.stringify(parsed));
     await storage.setItem('generatevalues', JSON.stringify(generateValueData));
     await storage.setItem('generatestep', "3");
     await storage.setItem('generatedACalendar', 'true');
-    await storage.getItem('dosage', JSON.stringify(parsed));
     navigate("Third");
   }
 
@@ -241,4 +241,3 @@ export default function Second({ navigation: { navigate } }) {
     </View>
   );
 }
-//alignItems: 'left', (112)

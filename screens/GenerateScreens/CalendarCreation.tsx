@@ -113,7 +113,11 @@ function Calendar(props) {
             } else {
               try {
                 var x = dic2[year][month + 1][day];
-                currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
+                if (x.hasOwnProperty("status")) {
+                  currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
+                } else {
+                  currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
+                }
               } catch(e) {
                 currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
               }
@@ -207,12 +211,10 @@ function CalendarDay(props) {
     var day = today.getDate();
 
     parsed["data"] = "have";
-    if (!(year in parsed)) { parsed[year] = {};}
-    if (!(month in parsed[year])) { parsed[year][month] = {};}
-    if (!(day in parsed[year][month])) { parsed[year][month][day] = {
+    parsed[year][month][day] = {
       status: "notcompleted",
       full: full
-    };}
+    };
 
     if (full[x][y] == 'e') {
       var arr = [<TouchableOpacity onPress={() => {onClick(my, mx)}}>{getDropShape({drop: "drop" + mx, backColor: colors[x], color: trans[x]})}</TouchableOpacity>];

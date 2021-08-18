@@ -6852,7 +6852,7 @@ react-native-shape@^1.1.2:
   resolved "https://registry.yarnpkg.com/react-native-shape/-/react-native-shape-1.1.2.tgz#723d592a878d457b5b5c4ce326a11ce04c538a9d"
   integrity sha512-qDYG6LZveeY6hJbWFx2PamCJvMJqe81Hfvf+CPXSB9DR5+/pk5XelwRCO9NtBgotAkZYi1GY2Gd4jvf8yeWZnw==
 
-react-native-svg@^12.1.1:
+react-native-svg@12.1.1:
   version "12.1.1"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-12.1.1.tgz#5f292410b8bcc07bbc52b2da7ceb22caf5bcaaee"
   integrity sha512-NIAJ8jCnXGCqGWXkkJ1GTzO4a3Md5at5sagYV8Vh4MXYnL4z5Rh428Wahjhh+LIjx40EE5xM5YtwyJBqOIba2Q==
