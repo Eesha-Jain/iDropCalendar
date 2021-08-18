@@ -91,7 +91,7 @@ export default function Second({ navigation: { navigate } }) {
     }
   }
 
-  async function schedulePushNotifications() {
+  async function schedulePushNotifications(appointment) {
     Notifications.cancelAllScheduledNotificationsAsync();
 
     await Notifications.scheduleNotificationAsync({
@@ -132,6 +132,19 @@ export default function Second({ navigation: { navigate } }) {
         repeats: true
       },
     });
+
+    const schedule = new Date(appointment);
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Appointment 👨‍⚕️",
+        body: "Your eyecare appointment is today. Don't forget to show this app to your doctor",
+        sound: 'default',
+      },
+      trigger: {
+        schedule
+      },
+    });
   }
 
   async function navigateTabs() {
@@ -140,6 +153,12 @@ export default function Second({ navigation: { navigate } }) {
     const num = Number(generateValueData["numberOfDrops"]);
     const drops = {};
     const token = await storage.getItem('expopushtoken');
+    const dosage = await storage.getItem('dosage');
+    const parsed = JSON.parse(dosage);
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+    var day = today.getDate();
 
     if (num >= 1) {
       if (drop1[0] == "") {setMessage("Please set a name for drop 1"); return;}
@@ -157,13 +176,19 @@ export default function Second({ navigation: { navigate } }) {
     setMessage("");
     generateValueData["drops"] = drops;
 
+    if (!(year in parsed)) { parsed[year] = {};}
+    if (!(month in parsed[year])) { parsed[year][month] = {};}
+    if (day in parsed[year][month]) {delete parsed[year][month][day];};
+    parsed[year][month][day] = {};
+
     if (token != "") {
-      schedulePushNotifications();
+      schedulePushNotifications(generateValueData["nextAppointment"]);
     }
 
     await storage.setItem('generatevalues', JSON.stringify(generateValueData));
     await storage.setItem('generatestep', "3");
     await storage.setItem('generatedACalendar', 'true');
+    await storage.getItem('dosage', JSON.stringify(parsed));
     navigate("Third");
   }
 

@@ -69,7 +69,7 @@ function CalendarLegend(props) {
       <View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center', padding: 5}}><Text>Today</Text></View>
       <View style={{backgroundColor: Colors.calendar["completed"], alignItems: 'center', padding: 5}}><Text>Took All Your Medication</Text></View>
       <View style={{backgroundColor: Colors.calendar["notcompleted"], alignItems: 'center', padding: 5}}><Text>Didn't Take All Your Medication</Text></View>
-      <View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center', padding: 5}}><Text>Not on App Yet</Text></View>
+      <View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center', padding: 5}}><Text>Not on App</Text></View>
       <View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center', padding: 5}}><Text>Day in the Future</Text></View>
     </View>
   );
@@ -187,7 +187,7 @@ function getDropShape(props) {
 function CalendarDay(props) {
   let dic = {};
   const [time, setTime] = useState([]);
-  const [full, setFull] = useState([]);
+  const [full, setFull] = useState([])
   let colors = ['#293caa', '#585bc4', '#7f7dde', 'star-o'];
   let trans = ['transparent', 'transparent', 'transparent', 'star'];
   const [set, setSet] = useState(<View></View>);
@@ -256,6 +256,7 @@ function CalendarDay(props) {
       var year = today.getFullYear();
       var month = today.getMonth() + 1;
       var day = today.getDate();
+      var exists = false;
 
       try {
         var a = parsed[year][month][day];
@@ -284,6 +285,7 @@ function CalendarDay(props) {
           } else {
             aa = ["n", "n", "n"];
           }
+          var testingtoseeifworks = aa[i];
         } catch (e) {
           aa = ['n', 'n', 'n'];
         }
