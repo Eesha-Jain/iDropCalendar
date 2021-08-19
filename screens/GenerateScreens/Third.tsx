@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, ScrollView, Linking } from 'react-native';
+import { StyleSheet, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
@@ -24,20 +24,20 @@ export default function Third({ navigation: { navigate } }) {
       </View>
 
       <ScrollView style={{padding: 10}}>
-        <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {navigate("Calendar")}}>
+        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {navigate("Calendar")}}>
           <GradientButton style={[generateStyles.buttonText, {padding: 7}]} text="Click here to Fill Out Digitally" radius="5" />
-        </TouchableHighlight>
+        </TouchableOpacity>
 
-        <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
+        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
           <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to Download Calendar on Website</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
-        <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 20}]} onPress={async () => {
+        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 20}]} onPress={async () => {
           await storage.setItem('generatestep', "1");
           navigate("First");
         }}>
           <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, marginTop: 0, paddingRight: 0, width: '100%'}]}>Click here to Generate New Calendar</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         <Calendar month={new Date().getMonth()} year={new Date().getFullYear()} />
         <CalendarLegend style={{marginTop: 20}} />

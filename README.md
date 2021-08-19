@@ -29,7 +29,8 @@
   * <s>Change "which eyes" font size</s>
   * <s>Divider between drops</s>
   * <s>1st button in 3rd tab stands out from other two buttons</s>
-  * Set times of push notifications morning/afternoon/night
+  * <s>Set times of push notifications morning/afternoon/night</s>
+  * <s>Change calendar legend colors</s>
 * Feedback from the team (all hands message)
 * Deployment onto App Store and Google Play
   * Find links

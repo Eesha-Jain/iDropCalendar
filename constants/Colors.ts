@@ -27,10 +27,12 @@ export default {
     gradient: 'linear-gradient(to right, rgb(0, 148, 162), #2A3B9F)'
   },
   calendar: {
-    notcompleted: 'rgb(248, 164, 148)',
-    completed: 'rgb(164, 210, 138)',
-    today: 'rgb(251, 244, 156)',
+    notcompleted: '#83bcb5',
+    completed: '#00a9d6',
+    today: '#fcbc58',
     future: 'rgb(255, 255, 255)',
     noton: 'rgb(204, 204, 204)'
   }
 };
+
+//https://gka.github.io/palettes/#/3|s|00a9d6,ffff2c,fcbc58|ffffe0,ff005e,93003a|1|1

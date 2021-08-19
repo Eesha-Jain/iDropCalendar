@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, TextInput, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
@@ -13,6 +13,7 @@ import CheckBox from 'react-native-check-box';
 import {Picker} from '@react-native-picker/picker';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -32,6 +33,28 @@ export default function Second({ navigation: { navigate } }) {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const day = today.getDate();
+  let [pushnotif, setPushnotif] = useState([[new Date(year, month, day, 8, 0, 0), Platform.OS === 'ios'], [new Date(year, month, day, 12, 0, 0), Platform.OS === 'ios'], [new Date(year, month, day, 20, 0, 0), Platform.OS === 'ios']]);
+
+  function showMode(i) {
+    var dup = [...pushnotif];
+    dup[i][1] = true;
+    setPushnotif(dup);
+  };
+
+  function onChange(i, para) {
+    var dup = [...pushnotif];
+    if (Platform.OS === 'android') {
+      dup[i][0] = para["nativeEvent"]["timestamp"];
+    } else {
+      dup[i][0] = para;
+    }
+    dup[i][1] = Platform.OS === 'ios';
+    setPushnotif(dup);
+  }
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -101,8 +124,8 @@ export default function Second({ navigation: { navigate } }) {
         sound: 'default'
       },
       trigger: {
-        hour: 8,
-        minute: 0,
+        hour: pushnotif[0][0].getHours(),
+        minute: pushnotif[0][0].getMinutes(),
         repeats: true
       },
     });
@@ -114,8 +137,8 @@ export default function Second({ navigation: { navigate } }) {
         sound: 'default',
       },
       trigger: {
-        hour: 12,
-        minute: 0,
+        hour: pushnotif[1][0].getHours(),
+        minute: pushnotif[1][0].getMinutes(),
         repeats: true
       },
     });
@@ -127,8 +150,8 @@ export default function Second({ navigation: { navigate } }) {
         sound: 'default',
       },
       trigger: {
-        hour: 20,
-        minute: 21,
+        hour: pushnotif[2][0].getHours(),
+        minute: pushnotif[2][0].getMinutes(),
         repeats: true
       },
     });
@@ -247,9 +270,55 @@ export default function Second({ navigation: { navigate } }) {
             } else { return ( <View key={i}></View> ); }
           })}
 
-          <TouchableHighlight style={[generateStyles.button, {marginTop: 10}]} onPress={() => navigateTabs()}>
+          <Text style={[generateStyles.question, {marginTop: 10}]}>Times for Notification Reminders</Text>
+          <Text style={[generateStyles.question, {marginTop: 10, fontFamily: 'os-lightitalic'}]}>Morning: </Text>
+          <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: Platform.OS == 'ios' ? 'none' : 'flex'}]} onPress={() => {showMode(0)}}>
+            <Text style={[generateStyles.input, {width: win.width - 30, color: Colors.regular["blue"]}]}>{pushnotif[0][0].getHours()}:{pushnotif[0][0].getMinutes()}</Text>
+          </TouchableOpacity>
+          {pushnotif[0][1] && (
+              <DateTimePicker
+                style={[generateStyles.input, {width: win.width - 30}]}
+                testID="dateTimePicker"
+                value={pushnotif[0][0]}
+                mode="time"
+                display="default"
+                onChange={(val) => onChange(0, val)}
+              />
+          )}
+
+          <Text style={[generateStyles.question, {marginTop: 10, fontFamily: 'os-lightitalic'}]}>Afternoon: </Text>
+          <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: Platform.OS == 'ios' ? 'none' : 'flex'}]} onPress={() => {showMode(1)}}>
+            <Text style={[generateStyles.input, {width: win.width - 30, color: Colors.regular["blue"]}]}>{pushnotif[1][0].getHours()}:{pushnotif[1][0].getMinutes()}</Text>
+          </TouchableOpacity>
+          {pushnotif[1][1] && (
+              <DateTimePicker
+                style={[generateStyles.input, {width: win.width - 30}]}
+                testID="dateTimePicker"
+                value={pushnotif[1][0]}
+                mode="time"
+                display="default"
+                onChange={(val) => onChange(1, val)}
+              />
+          )}
+
+          <Text style={[generateStyles.question, {marginTop: 10, fontFamily: 'os-lightitalic'}]}>Night: </Text>
+          <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: Platform.OS == 'ios' ? 'none' : 'flex'}]} onPress={() => {showMode(2)}}>
+            <Text style={[generateStyles.input, {width: win.width - 30, color: Colors.regular["blue"]}]}>{pushnotif[2][0].getHours()}:{pushnotif[2][0].getMinutes()}</Text>
+          </TouchableOpacity>
+          {pushnotif[2][1] && (
+              <DateTimePicker
+                style={[generateStyles.input, {width: win.width - 30}]}
+                testID="dateTimePicker"
+                value={pushnotif[2][0]}
+                mode="time"
+                display="default"
+                onChange={(val) => onChange(2, val)}
+              />
+          )}
+
+          <TouchableOpacity style={[generateStyles.button, {marginTop: 10}]} onPress={() => navigateTabs()}>
             <GradientButton style={generateStyles.buttonText} text="Click here to Submit" radius="5" />
-          </TouchableHighlight>
+          </TouchableOpacity>
 
           <Text style={{fontSize: 20, color: 'red', marginTop: 10, textAlign: 'center'}}>{message}</Text>
         </View>
