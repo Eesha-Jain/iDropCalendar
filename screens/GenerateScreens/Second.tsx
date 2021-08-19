@@ -134,7 +134,7 @@ export default function Second({ navigation: { navigate } }) {
     });
 
     if (Platform.OS == 'ios') {
-      const schedule = new Date(appointment);
+      const schedule = new Date(appointment.split("T"));
 
       await Notifications.scheduleNotificationAsync({
         content: {
