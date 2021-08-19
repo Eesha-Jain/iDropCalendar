@@ -231,7 +231,7 @@ export default function Second({ navigation: { navigate } }) {
                       );
                     })}
                   </View>
-                  <Text style={{fontFamily: 'os-light', color: 'rgb(51, 51, 51)', marginBottom: 0, paddingBottom: 0}}>Which eye(s) do you put "drop {i}"?</Text>
+                  <Text style={{fontFamily: 'os-light', color: 'rgb(51, 51, 51)', marginBottom: 0, paddingBottom: 0, fontSize: 16}}>Which eye(s) do you put "drop {i}"?</Text>
 
                   <Picker style={{marginTop: 0, paddingTop: 0}} selectedValue={getValue(i, 4)} onValueChange={(itemValue, itemIndex) => {
                      updateDrop(i, 4, itemValue);
@@ -240,6 +240,8 @@ export default function Second({ navigation: { navigate } }) {
                     <Picker.Item label="Left" value="Left Eye" />
                     <Picker.Item label="Right" value="Right Eye" />
                   </Picker>
+
+                  <View style={{ borderBottomColor: Colors.regular["lightgray"], borderBottomWidth: 1, marginTop: 5, marginBottom: 5}}/>
                 </View>
               );
             } else { return ( <View key={i}></View> ); }

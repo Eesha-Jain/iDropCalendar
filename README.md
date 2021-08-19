@@ -25,7 +25,18 @@
 * <s>Calendar tab: go to previous months</s>
 * <s>Push notifications</s>
 * <s>Final touches & Debugging</s>
-* Feedback from the team
-* Deployment
-* Testing and more Debugging
-* Finalized!
+* <s>Mackenzie Feedback</s>
+      <s>- Change "which eyes" font size</s>
+      - Divider between drops
+      - 1st button in 3rd tab stands out from other two buttons
+      - Set times of push notifications morning/afternoon/night
+* Feedback from the team (all hands message)
+* Deployment onto App Store and Google Play
+      - Find links
+* Testing and more Debugging with App Download
+* Gamification
+      - Add a third tab
+      - Add stats (day vs % of drops taken graph - dropdown to select which month + year)
+      - Badges (perfect week, etc.) - related push notifications
+* Feedback & Debugging
+* Republish App & Related Debugging
