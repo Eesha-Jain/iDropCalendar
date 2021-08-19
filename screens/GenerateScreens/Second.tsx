@@ -241,7 +241,7 @@ export default function Second({ navigation: { navigate } }) {
                     <Picker.Item label="Right" value="Right Eye" />
                   </Picker>
 
-                  <View style={{ borderBottomColor: Colors.regular["lightgray"], borderBottomWidth: 1, marginTop: 5, marginBottom: 5}}/>
+                  <View style={{ borderBottomColor: Colors.regular["darkgray"], borderBottomWidth: 1, marginTop: 5, marginBottom: 5}}/>
                 </View>
               );
             } else { return ( <View key={i}></View> ); }

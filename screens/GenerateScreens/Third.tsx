@@ -25,18 +25,18 @@ export default function Third({ navigation: { navigate } }) {
 
       <ScrollView style={{padding: 10}}>
         <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {navigate("Calendar")}}>
-          <GradientButton style={generateStyles.buttonText} text="Click here to Fill Out Digitally" radius="5" />
+          <GradientButton style={[generateStyles.buttonText, {padding: 7}]} text="Click here to Fill Out Digitally" radius="5" />
         </TouchableHighlight>
 
         <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
-          <GradientButton style={generateStyles.buttonText} text="Click here to Download Calendar on Website" radius="5" />
+          <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to Download Calendar on Website</Text>
         </TouchableHighlight>
 
         <TouchableHighlight style={[generateStyles.button, {marginTop: 5, marginBottom: 20}]} onPress={async () => {
           await storage.setItem('generatestep', "1");
           navigate("First");
         }}>
-          <GradientButton style={generateStyles.buttonText} text="Click here to Generate New Calendar" radius="5" />
+          <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, marginTop: 0, paddingRight: 0, width: '100%'}]}>Click here to Generate New Calendar</Text>
         </TouchableHighlight>
 
         <Calendar month={new Date().getMonth()} year={new Date().getFullYear()} />
