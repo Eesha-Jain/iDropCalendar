@@ -132,7 +132,7 @@ export default function Second({ navigation: { navigate } }) {
         repeats: true
       },
     });
-    
+
     try {
       let trigger = new Date(appointment);
       trigger.setHours(7);
@@ -203,7 +203,7 @@ export default function Second({ navigation: { navigate } }) {
     await storage.setItem('generatevalues', JSON.stringify(generateValueData));
     await storage.setItem('generatestep', "3");
     await storage.setItem('generatedACalendar', 'true');
-    //navigate("Third");
+    navigate("Third");
   }
 
   return (
