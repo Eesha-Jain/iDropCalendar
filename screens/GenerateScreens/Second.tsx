@@ -132,21 +132,33 @@ export default function Second({ navigation: { navigate } }) {
         repeats: true
       },
     });
-
-    if (Platform.OS == 'ios') {
-      const schedule = new Date(appointment.split("T"));
+    
+    try {
+      let trigger = new Date(appointment);
+      trigger.setHours(7);
+      trigger.setMinutes(0);
+      trigger.setSeconds(0);
 
       await Notifications.scheduleNotificationAsync({
         content: {
-          title: "Appointment 👨‍⚕️",
+          title: "Appointment - Today 👨‍⚕️",
           body: "Your eyecare appointment is today. Don't forget to show this app to your doctor",
           sound: 'default',
         },
-        trigger: {
-          schedule
-        },
+        trigger
       });
-    }
+
+      trigger.setDate(trigger.getDate() - 7);
+
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Appointment - One Week 👨‍⚕️",
+          body: "Your eyecare appointment is in one week. Don't forget to show this app to your doctor",
+          sound: 'default',
+        },
+        trigger
+      });
+    } catch(e) {}
   }
 
   async function navigateTabs() {
@@ -191,7 +203,7 @@ export default function Second({ navigation: { navigate } }) {
     await storage.setItem('generatevalues', JSON.stringify(generateValueData));
     await storage.setItem('generatestep', "3");
     await storage.setItem('generatedACalendar', 'true');
-    navigate("Third");
+    //navigate("Third");
   }
 
   return (

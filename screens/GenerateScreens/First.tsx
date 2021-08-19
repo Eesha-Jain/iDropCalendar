@@ -15,7 +15,8 @@ export default function First({ navigation: { navigate } }) {
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(Platform.OS === 'ios');
   const [oppoShow, setOppoShow] = useState('flex');
-  const d = new Date();
+  var d = new Date();
+  d.setDate(d.getDate() + 1);
   const [date, setDate] = useState(d);
 
   useEffect(() => {
