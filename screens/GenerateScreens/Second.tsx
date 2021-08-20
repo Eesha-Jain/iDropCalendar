@@ -50,7 +50,7 @@ export default function Second({ navigation: { navigate } }) {
     if (Platform.OS === 'android') {
       dup[i][0] = para["nativeEvent"]["timestamp"];
     } else {
-      dup[i][0] = para;
+      dup[i][0] = new Date(para["nativeEvent"]["timestamp"]);
     }
     dup[i][1] = Platform.OS === 'ios';
     setPushnotif(dup);
