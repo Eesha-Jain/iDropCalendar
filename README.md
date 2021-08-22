@@ -33,7 +33,7 @@
   * <s>Change calendar legend colors</s>
 * Feedback from the team (all hands message)
 * Deployment onto App Store and Google Play
-  * Find links
+  * <s>Find links</s>
 * Testing and more Debugging with App Download
 * Gamification
   * Add a third tab

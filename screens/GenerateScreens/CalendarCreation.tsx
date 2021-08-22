@@ -191,7 +191,7 @@ function getDropShape(props) {
 function CalendarDay(props) {
   let dic = {};
   const [time, setTime] = useState([]);
-  const [full, setFull] = useState([])
+  let [full, setFull] = useState([])
   let colors = ['#293caa', '#585bc4', '#7f7dde', 'star-o'];
   let trans = ['transparent', 'transparent', 'transparent', 'star'];
   const [set, setSet] = useState(<View></View>);
@@ -274,6 +274,7 @@ function CalendarDay(props) {
 
       var arrNums = [];
       for (var i = 1; i <= dic.numberOfDrops; i++) {arrNums.push(i);}
+      full = [];
 
       arrNums.forEach(i => {
         var key = "drop" + i;
