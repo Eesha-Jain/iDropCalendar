@@ -1,8 +1,19 @@
 # Nanodropper App
 
 ## How to test the current progress on your own?
-1. Download the "Expo" App
-2. Scan the QR Code on this webpage: https://expo.dev/@eeja/Nanodropper
+How to test (Android):
+    1. Go to the Google Play Store
+    2. Download "Expo"
+    3. Create an account
+    4. Once downloaded, open this link: https://expo.dev/@eeja/Nanodropper
+    5. Scan the QR Code on the app
+
+How to test (iPhone):
+    1. Go to the App Store
+    2. Download "Expo Go"
+    3. Create an account
+    4. Once downloaded, open this link: https://expo.dev/@eeja/Nanodropper
+    5. Scan the QR Code on the "Camera" App and then open the pop-up that leads to Expo Go
 
 ## To-Do List
 * <s>Create a Expo React Native App</s>
@@ -31,7 +42,7 @@
   * <s>1st button in 3rd tab stands out from other two buttons</s>
   * <s>Set times of push notifications morning/afternoon/night</s>
   * <s>Change calendar legend colors</s>
-* Feedback from the team (all hands message)
+* Feedback from the team
 * Deployment onto App Store and Google Play
   * <s>Find links</s>
 * Testing and more Debugging with App Download
