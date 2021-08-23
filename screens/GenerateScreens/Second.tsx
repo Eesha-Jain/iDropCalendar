@@ -56,6 +56,14 @@ export default function Second({ navigation: { navigate } }) {
     setPushnotif(dup);
   }
 
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
+
   useEffect(() => {
     const makeRequest = async () => {
       const generateValueDataUnparsed = await storage.getItem('generatevalues');
@@ -79,8 +87,10 @@ export default function Second({ navigation: { navigate } }) {
       responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {});
     }
 
-    makeRequest();
-    pushFunction();
+    if (mountedRef.current) {
+      makeRequest();
+      pushFunction();
+    }
   }, []);
 
   let indexes = [1, 2, 3, 4];
@@ -159,7 +169,7 @@ export default function Second({ navigation: { navigate } }) {
     try {
       let trigger = new Date(appointment);
       trigger.setHours(7);
-      trigger.setMinutes(0);
+      trigger.setMinutes(30);
       trigger.setSeconds(0);
 
       await Notifications.scheduleNotificationAsync({
