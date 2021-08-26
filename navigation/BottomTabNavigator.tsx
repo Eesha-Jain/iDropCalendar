@@ -12,7 +12,8 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/GenerateTab';
 import TabTwoScreen from '../screens/CalendarTab';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import TabThreeScreen from '../screens/Stats';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -35,6 +36,13 @@ export default function BottomTabNavigator() {
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="calendar-outline" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Stats"
+        component={TabThreeNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="stats-chart" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -74,5 +82,19 @@ function TabTwoNavigator() {
         options={{ headerTitle: 'Calendar', headerShown:false }}
       />
     </TabTwoStack.Navigator>
+  );
+}
+
+const TabThreeStack = createStackNavigator<TabThreeParamList>();
+
+function TabThreeNavigator() {
+  return (
+    <TabThreeStack.Navigator>
+      <TabThreeStack.Screen
+        name="Stat"
+        component={TabThreeScreen}
+        options={{ headerTitle: 'Stats', headerShown:false }}
+      />
+    </TabThreeStack.Navigator>
   );
 }
