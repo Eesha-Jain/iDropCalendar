@@ -32,6 +32,9 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
       }
       setEarn(badge);
 
+      console.log(earn);
+      console.log(badge);
+
       await storage.setItem('badges', JSON.stringify(badge));
 
       for (var i = 0; i < 30; i++) {
@@ -100,6 +103,8 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
           <Text>{message}</Text>
         <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 20}}>Badges</Text>
         <View style={{flexDirection: 'row'}}>
+          <Image source={require('../assets/images/badges/perfectWeek.png')} style={[singleStyles.badge, {opacity: earn[0]}]} />
+          <Image source={require('../assets/images/badges/perfectMonth.png')} style={[singleStyles.badge, {opacity: earn[1]}]} />
         </View>
       </ScrollView>
     </View>
