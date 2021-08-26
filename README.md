@@ -46,9 +46,9 @@ How to test (iPhone):
 * Deployment onto App Store and Google Play
   * <s>Find links</s>
 * Testing and more Debugging with App Download
-* Gamification
+* <s>Gamification</s>
   * <s>Add a third tab</s>
-  * Add stats (day vs % of drops taken graph - dropdown to select which month + year)
-  * Badges (perfect week, etc.) - related push notifications
+  * <s>Add stats (day vs % of drops taken graph)</s>
+  * <s>Badges (perfect week, etc.) - related push notifications</s>
 * Feedback & Debugging
 * Republish App & Related Debugging

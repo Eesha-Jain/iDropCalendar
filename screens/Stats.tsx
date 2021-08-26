@@ -32,9 +32,6 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
       }
       setEarn(badge);
 
-      console.log(earn);
-      console.log(badge);
-
       await storage.setItem('badges', JSON.stringify(badge));
 
       for (var i = 0; i < 30; i++) {
