@@ -2,18 +2,18 @@
 
 ## How to test the current progress on your own?
 How to test (Android):
-    1. Go to the Google Play Store
-    2. Download "Expo"
-    3. Create an account
-    4. Once downloaded, open this link: https://expo.dev/@eeja/Nanodropper
-    5. Scan the QR Code on the app
+* Go to the Google Play Store
+* Download "Expo"
+* Create an account
+* Once downloaded, open this link: https://expo.dev/@eeja/Nanodropper
+* Scan the QR Code on the app
 
 How to test (iPhone):
-    1. Go to the App Store
-    2. Download "Expo Go"
-    3. Create an account
-    4. Once downloaded, open this link: https://expo.dev/@eeja/Nanodropper
-    5. Scan the QR Code on the "Camera" App and then open the pop-up that leads to Expo Go
+* Go to the App Store
+* Download "Expo Go"
+* Create an account
+* Once downloaded, open this link: https://expo.dev/@eeja/Nanodropper
+* Scan the QR Code on the "Camera" App and then open the pop-up that leads to Expo Go
 
 ## To-Do List
 * <s>Create a Expo React Native App</s>
