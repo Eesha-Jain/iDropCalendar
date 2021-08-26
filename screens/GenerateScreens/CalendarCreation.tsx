@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import { StyleSheet, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
@@ -13,6 +13,16 @@ import CheckBox from 'react-native-check-box';
 import {Picker} from '@react-native-picker/picker';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 function DayOfWeek(props) {
   return (
@@ -196,6 +206,33 @@ function CalendarDay(props) {
   let trans = ['transparent', 'transparent', 'transparent', 'star'];
   const [set, setSet] = useState(<View></View>);
 
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  async function schedulePushNotifWeek() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "New Badge Unlocked - Perfect Week 🏆",
+        body: "Took all eyedrops for a week!",
+        sound: 'default'
+      },
+      trigger: { seconds: 1 },
+    });
+  }
+
+  async function schedulePushNotifMonth() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "New Badge Unlocked - Perfect Month 🏆",
+        body: "Took all eyedrops for a month!",
+        sound: 'default'
+      },
+      trigger: { seconds: 1 },
+    });
+  }
+
   async function onClick(my, mx) {
     var x = mx - 1;
     var y = my - 1;
@@ -230,7 +267,7 @@ function CalendarDay(props) {
         }
       });
 
-      if (completed) { parsed[year][month][day]["status"] = "completed"; }
+      if (completed) { parsed[year][month][day]["status"] = "completed"; testPerfect(); }
     } else {
       var arr = [<TouchableOpacity onPress={() => {onClick(my, mx)}}>{getDropShape({drop: "drop" + mx, backColor: trans[x], color: colors[x]})}</TouchableOpacity>];
       dup[my][mx] = arr[0];
@@ -245,7 +282,57 @@ function CalendarDay(props) {
     await storage.setItem('dosage', JSON.stringify(parsed));
   }
 
+  async function testPerfect() {
+    var dosageUnparsed = await storage.getItem('dosage');
+    var dosageParsed = JSON.parse(dosageUnparsed);
+    var badgeUnparsed = await storage.getItem('badges');
+    var badge = JSON.parse(badgeUnparsed);
+    var earned = [0.3, 0.3];
+    var incase = true;
+
+    if (badge.length >= 1 && badge[0] != 1) {
+      for (var i = 0; i < 7; i++) {
+        var today = new Date();
+        today.setDate(today.getDate() - i);
+        try {
+          var day = dosageParsed[today.getFullYear()][today.getMonth() + 1][today.getDate()]["full"];
+          day.forEach(arr => { arr.forEach(ele => { if (ele == 'e') { incase = false; } }) });
+        } catch (e) {}
+      }
+      if (incase) {earned[0] = 1};
+    }
+
+    if (badge.length >= 2 && badge[1] != 1 && incase) {
+      for (var i = 0; i < 30; i++) {
+        var today = new Date();
+        today.setDate(today.getDate() - i);
+        try {
+          var day = dosageParsed[today.getFullYear()][today.getMonth() + 1][today.getDate()]["full"];
+          day.forEach(arr => { arr.forEach(ele => { if (ele == 'e') { incase = false; } }) });
+        } catch (e) { incase = false; }
+      }
+      if (incase) {earned[1] = 1};
+    }
+
+    if (earned[0] == 1) { if (badge.length < 1 || (badge.length >= 1 && badge[0] != 1)) {schedulePushNotifWeek();} }
+    if (earned[1] == 1) { if (badge.length < 2 || (badge.length >= 2 && badge[1] != 1)) {schedulePushNotifMonth();} }
+
+    for (var i = 0; i < earned.length; i++) { if (badge.length > i && badge[i] > earned[i]) { earned[i] = badge[i]; } }
+    await storage.setItem('badges', JSON.stringify(earned));
+  }
+
   useEffect(() => {
+    const pushFunction = async () => {
+      const token = await storage.getItem('expopushtoken');
+      setExpoPushToken(token);
+
+      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+      });
+
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {});
+    }
+
     const makeRequest = async () => {
       const obj = await storage.getItem('generatevalues');
       dic = JSON.parse(obj);
@@ -323,6 +410,7 @@ function CalendarDay(props) {
       setTime(times);
       setSet(<Table style={{width: '100%'}}><Rows data={time} flexArr={[1, 1, 1, 1]}/></Table>);
     }
+    pushFunction();
     makeRequest();
   }, [set]);
 
