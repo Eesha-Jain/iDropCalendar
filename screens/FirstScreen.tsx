@@ -46,6 +46,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
     await storage.setItem('generatestep', '1');
     await storage.setItem('generateValues', JSON.stringify({data: 'none'}));
     await storage.setItem('dosage', JSON.stringify({data: 'none'}));
+    await storage.setItem('badges', JSON.stringify({badges: []}));
 
     navigate("Tabs");
   }

@@ -12,6 +12,7 @@
 | generatestep | which step in generate tab | Integer |
 | generatevalues | data filled in generate tab | see below |
 | dosage | dosage of previous + current days, months, and years | see below |
+| badges | whether users have received badges or not | Integer [] |
 
 ### Dictionaries
 **Generate values** is stored as the following:
