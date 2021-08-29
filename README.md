@@ -50,5 +50,6 @@ How to test (iPhone):
   * <s>Add a third tab</s>
   * <s>Add stats (day vs % of drops taken graph)</s>
   * <s>Badges (perfect week, etc.) - related push notifications</s>
+* Click on a previous day to see the drops (but not clickable) - and then we can see what day we clicked
 * Feedback & Debugging
 * Republish App & Related Debugging

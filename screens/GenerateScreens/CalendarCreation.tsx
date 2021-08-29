@@ -350,7 +350,7 @@ function CalendarDay(props) {
         else { exists = false; }
       } catch(e) {exists = false;}
 
-      var times = [[<View style={{borderWidth: 1, borderColor: 'gray', backgroundColor: 'transparent', borderRadius: 50, width: 25, height: 25}}><Text style={{textAlign: 'center', fontSize: 18}}>{props.day}</Text></View>], [<FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} />],[<Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} />], [<MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} />]];
+      var times = [[<View style={{borderWidth: 1, borderColor: 'gray', backgroundColor: 'transparent', borderRadius: 50, width: 25, height: 25}}><Text style={{textAlign: 'center', fontSize: 18}}>{day}</Text></View>], [<FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} />],[<Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} />], [<MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} />]];
 
       for (var j = 1; j <= dic.numberOfDrops; j++) {
           times[1].push(<View></View>);
@@ -415,10 +415,117 @@ function CalendarDay(props) {
   }, [set]);
 
   return (
+      <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
+      {set}
+      </View>
+  );
+}
+
+function PreviousCalendarDay(props) {
+  let dic = {};
+  const [time, setTime] = useState([]);
+  let [full, setFull] = useState([])
+  let colors = ['#293caa', '#585bc4', '#7f7dde', 'star-o'];
+  let trans = ['transparent', 'transparent', 'transparent', 'star'];
+  const [set, setSet] = useState(<View></View>);
+
+  useEffect(() => {
+    const pushFunction = async () => {
+      const token = await storage.getItem('expopushtoken');
+      setExpoPushToken(token);
+
+      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+      });
+
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {});
+    }
+
+    const makeRequest = async () => {
+      const obj = await storage.getItem('generatevalues');
+      dic = JSON.parse(obj);
+      var unparsed = await storage.getItem('dosage');
+      var parsed = JSON.parse(unparsed);
+      var year = props.year;
+      var month = props.month;
+      var day = props.day;
+      var exists = false;
+
+      try {
+        var a = parsed[year][month][day];
+        if (a.hasOwnProperty("full")) { exists = true; }
+        else { exists = false; }
+      } catch(e) {exists = false;}
+
+      var times = [[<View style={{borderWidth: 1, borderColor: 'gray', backgroundColor: 'transparent', borderRadius: 50, width: 25, height: 25}}><Text style={{textAlign: 'center', fontSize: 18}}>{props.day}</Text></View>], [<FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} />],[<Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} />], [<MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} />]];
+
+      for (var j = 1; j <= dic.numberOfDrops; j++) {
+          times[1].push(<View></View>);
+          times[2].push(<View></View>);
+          times[3].push(<View></View>);
+          times[0][j + 1] = <Text style={{fontSize: 18}}>{j}</Text>;
+      }
+
+      var arrNums = [];
+      for (var i = 1; i <= dic.numberOfDrops; i++) {arrNums.push(i);}
+      full = [];
+
+      arrNums.forEach(i => {
+        var key = "drop" + i;
+        var aa = [];
+        try {
+          if (exists) {
+            aa = parsed[year][month][day]["full"][i - 1];
+          } else {
+            aa = ["n", "n", "n"];
+          }
+          var testingtoseeifworks = aa[i];
+        } catch (e) {
+          aa = ['n', 'n', 'n'];
+        }
+
+        if (dic.drops[key]['morning'] == 1) {
+          if (!exists || aa[0] == 'e') {
+            var x = [<TouchableOpacity>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[1][i] = x[0];
+            aa[0] = 'e';
+          } else {
+              var x = [<TouchableOpacity>{getDropShape({drop: key, backColor: colors[i - 1], color: trans[i - 1]})}</TouchableOpacity>]; times[1][i] = x[0];
+          }
+        }
+
+        if (dic.drops[key]['afternoon'] == 1) {
+          if (!exists || aa[1] == 'e') {
+            var x = [<TouchableOpacity>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[2][i] = x[0];
+            aa[1] = 'e';
+          } else {
+              var x = [<TouchableOpacity>{getDropShape({drop: key, backColor: colors[i - 1], color: trans[i - 1]})}</TouchableOpacity>]; times[2][i] = x[0];
+          }
+        }
+
+        if (dic.drops[key]['night'] == 1) {
+          if (!exists || aa[2] == 'e') {
+            var x = [<TouchableOpacity>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[3][i] = x[0];
+            aa[2] = 'e';
+          } else {
+              var x = [<TouchableOpacity>{getDropShape({drop: key, backColor: colors[i - 1], color: trans[i - 1]})}</TouchableOpacity>]; times[3][i] = x[0];
+          }
+        }
+
+        full.push(aa);
+      });
+
+      setTime(times);
+      setSet(<Table style={{width: '100%'}}><Rows data={time} flexArr={[1, 1, 1, 1]}/></Table>);
+    }
+    pushFunction();
+    makeRequest();
+  }, [set]);
+
+  return (
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
     {set}
     </View>
   );
 }
 
-export {CalendarDay, Calendar, CalendarLegend, DosingLegend};
+export {CalendarDay, PreviousCalendarDay, Calendar, CalendarLegend, DosingLegend, DayOfWeek};

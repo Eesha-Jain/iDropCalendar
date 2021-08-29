@@ -9,7 +9,8 @@ const win = Dimensions.get('window');
 import Colors from '../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
-import {CalendarDay, Calendar, CalendarLegend, DosingLegend} from './GenerateScreens/CalendarCreation';
+import {CalendarDay, Calendar, CalendarLegend, DosingLegend, PreviousCalendarDay, DayOfWeek} from './GenerateScreens/CalendarCreation';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 export default function TabTwoScreen({ navigation: { navigate } }) {
   const [display, setDisplay] = useState('none');
@@ -17,9 +18,10 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
   const [appointment, setAppointment] = useState("");
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
-  const [cal, setCal] = useState([]);
-
-  const day = new Date().getDay();
+  const [day, setDay] = useState(new Date().getDate());
+  const [calendar, setCalendar] = useState([]);
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const [dosing, setDosing] = useState(true);
 
   async function navigateTabs() {
     navigate("Generate")
@@ -38,10 +40,91 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
       const appoint = parsed.nextAppointment.split("T");
 
       setAppointment(appoint[0]);
-      setCal([<Calendar key={0} style={{width: '88%'}} month={month} year={year} />]);
+    }
+    const calendarMakeRequest = async () => {
+      const obj = await storage.getItem('generatevalues');
+      let dic = JSON.parse(obj);
+      const obj2 = await storage.getItem('dosage');
+      let dic2 = JSON.parse(obj2);
+
+      var today = new Date();
+      var finalCalendar = "";
+      var todayDay = today.getDate();
+      var todayMonth = today.getMonth();
+      var todayYear = today.getFullYear();
+
+      var arr = [[<DayOfWeek day="SUN" />, <DayOfWeek day="MON" />, <DayOfWeek day="TUE" />, <DayOfWeek day="WED" />, <DayOfWeek day="THU" />, <DayOfWeek day="FRI" />, <DayOfWeek day="SAT" />]];
+      var day = 1;
+
+      var dayMonth = new Date(year, month + 1, 0).getDate();
+      var dayOfTheWeek = new Date(year, month, 1).getDay();
+
+      for (var i = 0; i < 5; i++) {
+        var currentTable = [];
+        for (var j = 0; j < 7; j++) {
+          if (dayOfTheWeek == 0 && day <= dayMonth) {
+            if (todayDay == day && todayMonth == month && todayYear == year) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else if (day > todayDay && month == todayMonth && year == todayYear) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else if (month > todayMonth || year > todayYear) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else {
+              try {
+                var x = dic2[year][month + 1][day];
+                if (x.hasOwnProperty("status")) {
+                  currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
+                } else {
+                  currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
+                }
+              } catch(e) {
+                currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
+              }
+            }
+            day++;
+          } else { currentTable.push(<View></View>); dayOfTheWeek--; }
+        }
+
+        while (currentTable.length != 7) {
+          currentTable.push(<View style={{backgroundColor: 'transparent', alignItems: 'center'}}><Text></Text></View>);
+        }
+        arr.push(currentTable);
+      }
+
+      if (dayMonth - day >= 0) {
+        var currentTable = [];
+        for (var j = 0; j < 7; j++) {
+          if (dayOfTheWeek == 0 && day <= dayMonth) {
+            if (todayDay == day && todayMonth == month && todayYear == year) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else if (day > todayDay && month == todayMonth && year == todayYear) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else if (month > todayMonth || year > todayYear) {
+              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+            } else {
+              try {
+                var x = dic2[year][month + 1][day];
+                currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
+              } catch(e) {
+                currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
+              }
+            }
+            day++;
+          } else { currentTable.push(<View></View>); dayOfTheWeek--; }
+        }
+
+        while (currentTable.length != 7) {
+          currentTable.push(<View style={{backgroundColor: 'transparent', alignItems: 'center'}}><Text></Text></View>);
+        }
+
+        arr.push(currentTable);
+      }
+
+      setCalendar(arr);
     }
     makeRequest();
-  }, [cal, month, year]);
+    calendarMakeRequest();
+  }, [month, year]);
 
   function forward() {
     var amonth = month + 1;
@@ -52,7 +135,6 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
     }
     setMonth(amonth);
     setYear(ayear);
-    setCal([<Calendar key={0} style={{width: '88%'}} month={month} year={year} />]);
   }
 
   function backward() {
@@ -64,7 +146,6 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
     }
     setMonth(amonth);
     setYear(ayear);
-    setCal([<Calendar key={0} style={{width: '88%'}} month={month} year={year} />]);
   }
 
   return (
@@ -88,13 +169,19 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
           <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 20}}>Next Appointment: {appointment}</Text>
           <View style={{flexDirection: 'row', flex: 1}}>
             <TouchableOpacity onPress={() => backward()} style={{width: '5%', marginRight: '1%', justifyContent: 'center'}}><AntDesign name="caretleft" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
-            {cal[0]}
+            <View style={{backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center', width: '88%'}}>
+              <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5}}>{months[month]} {year}</Text>
+              <Table style={{width: '100%'}}>
+                <Rows data={calendar}/>
+              </Table>
+            </View>
             <TouchableOpacity onPress={() => forward()} style={{width: '5%', marginLeft: '0%', justifyContent: 'center'}}><AntDesign name="caretright" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
           </View>
+
           <CalendarLegend style={{marginTop: 10, marginBottom: 20, width: '100%'}} />
 
-          <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>Today</Text>
-          <CalendarDay day={day} style={{width: '100%', marginTop: 10, marginBottom: 10}} />
+          <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>{dosing ? "Today" : "Not today"}</Text>
+          {dosing ? <CalendarDay style={{width: '100%', marginTop: 10, marginBottom: 10}} /> : <PreviousCalendarDay day={day} month={month} year={year} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
           <DosingLegend style={{width: '100%', marginBottom: 10}} />
         </View>
       </ScrollView>
