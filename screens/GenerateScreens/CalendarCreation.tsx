@@ -267,7 +267,7 @@ function CalendarDay(props) {
         }
       });
 
-      if (completed) { parsed[year][month][day]["status"] = "completed"; testPerfect(); }
+      if (completed) { parsed[year][month][day]["status"] = "completed"; testPerfect(parsed); }
     } else {
       var arr = [<TouchableOpacity onPress={() => {onClick(my, mx)}}>{getDropShape({drop: "drop" + mx, backColor: trans[x], color: colors[x]})}</TouchableOpacity>];
       dup[my][mx] = arr[0];
@@ -282,38 +282,36 @@ function CalendarDay(props) {
     await storage.setItem('dosage', JSON.stringify(parsed));
   }
 
-  async function testPerfect() {
-    var dosageUnparsed = await storage.getItem('dosage');
-    var dosageParsed = JSON.parse(dosageUnparsed);
+  async function testPerfect(dosageParsed) {
     var badgeUnparsed = await storage.getItem('badges');
     var badge = JSON.parse(badgeUnparsed);
     var earned = [0.3, 0.3];
     var incase = true;
 
     if (badge.length >= 1 && badge[0] != 1) {
-      for (var i = 0; i < 7; i++) {
+      for (var i = 0; i <= 7; i++) {
         var today = new Date();
         today.setDate(today.getDate() - i);
         try {
-          var day = dosageParsed[today.getFullYear()][today.getMonth() + 1][today.getDate()]["full"];
-          day.forEach(arr => { arr.forEach(ele => { if (ele == 'e') { incase = false; } }) });
+          var day = dosageParsed[today.getFullYear()][today.getMonth() + 1][today.getDate()]["status"];
+          if (day == "notcompleted") {incase = false;}
         } catch (e) {}
       }
       if (incase) {earned[0] = 1};
     }
 
     if (badge.length >= 2 && badge[1] != 1 && incase) {
-      for (var i = 0; i < 30; i++) {
+      for (var i = 8; i < 30; i++) {
         var today = new Date();
         today.setDate(today.getDate() - i);
         try {
-          var day = dosageParsed[today.getFullYear()][today.getMonth() + 1][today.getDate()]["full"];
-          day.forEach(arr => { arr.forEach(ele => { if (ele == 'e') { incase = false; } }) });
+          var day = dosageParsed[today.getFullYear()][today.getMonth() + 1][today.getDate()]["status"];
+          if (day == "notcompleted") {incase = false;}
         } catch (e) { incase = false; }
       }
       if (incase) {earned[1] = 1};
     }
-
+    
     if (earned[0] == 1) { if (badge.length < 1 || (badge.length >= 1 && badge[0] != 1)) {schedulePushNotifWeek();} }
     if (earned[1] == 1) { if (badge.length < 2 || (badge.length >= 2 && badge[1] != 1)) {schedulePushNotifMonth();} }
 
