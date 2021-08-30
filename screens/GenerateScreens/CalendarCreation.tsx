@@ -311,7 +311,7 @@ function CalendarDay(props) {
       }
       if (incase) {earned[1] = 1};
     }
-    
+
     if (earned[0] == 1) { if (badge.length < 1 || (badge.length >= 1 && badge[0] != 1)) {schedulePushNotifWeek();} }
     if (earned[1] == 1) { if (badge.length < 2 || (badge.length >= 2 && badge[1] != 1)) {schedulePushNotifMonth();} }
 
@@ -428,24 +428,13 @@ function PreviousCalendarDay(props) {
   const [set, setSet] = useState(<View></View>);
 
   useEffect(() => {
-    const pushFunction = async () => {
-      const token = await storage.getItem('expopushtoken');
-      setExpoPushToken(token);
-
-      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-        setNotification(notification);
-      });
-
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {});
-    }
-
     const makeRequest = async () => {
       const obj = await storage.getItem('generatevalues');
       dic = JSON.parse(obj);
       var unparsed = await storage.getItem('dosage');
       var parsed = JSON.parse(unparsed);
       var year = props.year;
-      var month = props.month;
+      var month = props.month + 1;
       var day = props.day;
       var exists = false;
 
@@ -515,7 +504,6 @@ function PreviousCalendarDay(props) {
       setTime(times);
       setSet(<Table style={{width: '100%'}}><Rows data={time} flexArr={[1, 1, 1, 1]}/></Table>);
     }
-    pushFunction();
     makeRequest();
   }, [set]);
 

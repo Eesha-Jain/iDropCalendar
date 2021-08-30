@@ -18,13 +18,36 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
   const [appointment, setAppointment] = useState("");
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
-  const [day, setDay] = useState(new Date().getDate());
+  const [dayDif, setDayDif] = useState(new Date().getDate());
+  const [monthDif, setMonthDif] = useState(new Date().getDate());
+  const [yearDif, setYearDif] = useState(new Date().getDate());
   const [calendar, setCalendar] = useState([]);
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const [dosing, setDosing] = useState(true);
 
   async function navigateTabs() {
     navigate("Generate")
+  }
+
+  async function lookAtDate(dayp, monthp, yearp) {
+    const obj2 = await storage.getItem('dosage');
+    let dic2 = JSON.parse(obj2);
+
+    try {
+      var x = dic2[yearp][monthp + 1][dayp];
+      if (x.hasOwnProperty("status")) {
+        var today = new Date();
+        if (dayp == today.getDate() && monthp == today.getMonth() && yearp == today.getFullYear()) {
+          setDosing(true);
+        } else {
+          setMonthDif(monthp);
+          setDayDif(dayp);
+          setYearDif(yearp);
+          setDosing(false);
+        }
+      }
+      else {return;}
+    } catch(e) {return;}
   }
 
   useEffect(() => {
@@ -54,7 +77,7 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
       var todayYear = today.getFullYear();
 
       var arr = [[<DayOfWeek day="SUN" />, <DayOfWeek day="MON" />, <DayOfWeek day="TUE" />, <DayOfWeek day="WED" />, <DayOfWeek day="THU" />, <DayOfWeek day="FRI" />, <DayOfWeek day="SAT" />]];
-      var day = 1;
+      let day = 1;
 
       var dayMonth = new Date(year, month + 1, 0).getDate();
       var dayOfTheWeek = new Date(year, month, 1).getDay();
@@ -63,24 +86,25 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
         var currentTable = [];
         for (var j = 0; j < 7; j++) {
           if (dayOfTheWeek == 0 && day <= dayMonth) {
+            var color = Colors.calendar["noton"];
             if (todayDay == day && todayMonth == month && todayYear == year) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center'}}><Text>{day}</Text></View>);
+              color = Colors.calendar["today"];
             } else if (day > todayDay && month == todayMonth && year == todayYear) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+              color = Colors.calendar["future"];
             } else if (month > todayMonth || year > todayYear) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+              color = Colors.calendar["future"];
             } else {
               try {
                 var x = dic2[year][month + 1][day];
-                if (x.hasOwnProperty("status")) {
-                  currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
-                } else {
-                  currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
-                }
-              } catch(e) {
-                currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
-              }
+                if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
+                else { color = Colors.calendar["noton"];}
+              } catch(e) { color = Colors.calendar["noton"];}
             }
+
+            let newDay = day;
+            let newMonth = month;
+            let newYear = year;
+            currentTable.push(<TouchableOpacity onPress={() => {lookAtDate(newDay, newMonth, newYear)}} style={{backgroundColor: color, alignItems: 'center'}}><Text>{day}</Text></TouchableOpacity>);
             day++;
           } else { currentTable.push(<View></View>); dayOfTheWeek--; }
         }
@@ -95,20 +119,25 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
         var currentTable = [];
         for (var j = 0; j < 7; j++) {
           if (dayOfTheWeek == 0 && day <= dayMonth) {
+            var color = Colors.calendar["noton"];
             if (todayDay == day && todayMonth == month && todayYear == year) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center'}}><Text>{day}</Text></View>);
+              color = Colors.calendar["today"];
             } else if (day > todayDay && month == todayMonth && year == todayYear) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+              color = Colors.calendar["future"];
             } else if (month > todayMonth || year > todayYear) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
+              color = Colors.calendar["future"];
             } else {
               try {
                 var x = dic2[year][month + 1][day];
-                currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
-              } catch(e) {
-                currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
-              }
+                if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
+                else { color = Colors.calendar["noton"];}
+              } catch(e) { color = Colors.calendar["noton"];}
             }
+
+            let newDay = day;
+            let newMonth = month;
+            let newYear = year;
+            currentTable.push(<TouchableOpacity onPress={() => {lookAtDate(newDay, newMonth, newYear)}} style={{backgroundColor: color, alignItems: 'center'}}><Text>{day}</Text></TouchableOpacity>);
             day++;
           } else { currentTable.push(<View></View>); dayOfTheWeek--; }
         }
@@ -180,8 +209,8 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
 
           <CalendarLegend style={{marginTop: 10, marginBottom: 20, width: '100%'}} />
 
-          <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>{dosing ? "Today" : "Not today"}</Text>
-          {dosing ? <CalendarDay style={{width: '100%', marginTop: 10, marginBottom: 10}} /> : <PreviousCalendarDay day={day} month={month} year={year} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
+          <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>{dosing ? `Today` : `${months[monthDif]} ${dayDif}, ${yearDif}`}</Text>
+          {dosing ? <CalendarDay style={{width: '100%', marginTop: 10, marginBottom: 10}} /> : <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
           <DosingLegend style={{width: '100%', marginBottom: 10}} />
         </View>
       </ScrollView>
