@@ -42,14 +42,12 @@ How to test (iPhone):
   * <s>1st button in 3rd tab stands out from other two buttons</s>
   * <s>Set times of push notifications morning/afternoon/night</s>
   * <s>Change calendar legend colors</s>
-* Feedback from the team
-* Deployment onto App Store and Google Play
-  * <s>Find links</s>
-* Testing and more Debugging with App Download
 * <s>Gamification</s>
   * <s>Add a third tab</s>
   * <s>Add stats (day vs % of drops taken graph)</s>
   * <s>Badges (perfect week, etc.) - related push notifications</s>
-* Click on a previous day to see the drops (but not clickable) - and then we can see what day we clicked
-* Feedback & Debugging
-* Republish App & Related Debugging
+* <s>Click on a previous day to see the drops</s>
+* Feedback from the team
+* Deployment onto App Store and Google Play
+  * <s>Find links</s>
+* Testing and more Debugging with App Download

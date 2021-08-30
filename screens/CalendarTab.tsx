@@ -46,8 +46,7 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
           setDosing(false);
         }
       }
-      else {return;}
-    } catch(e) {return;}
+    } catch(e) {}
   }
 
   useEffect(() => {
@@ -153,7 +152,7 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
     }
     makeRequest();
     calendarMakeRequest();
-  }, [month, year]);
+  }, [month, year, dayDif, monthDif]);
 
   function forward() {
     var amonth = month + 1;
