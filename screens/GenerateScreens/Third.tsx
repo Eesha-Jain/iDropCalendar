@@ -165,7 +165,7 @@ export default function Third({ navigation: { navigate } }) {
         </View>
       </View>
 
-      <ScrollView style={{padding: 10}}>
+      <ScrollView style={{padding: 10}} persistentScrollbar={true}>
         <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {navigate("Calendar")}}>
           <GradientButton style={[generateStyles.buttonText, {padding: 7}]} text="Click here to Fill Out Digitally" radius="5" />
         </TouchableOpacity>
@@ -191,7 +191,7 @@ export default function Third({ navigation: { navigate } }) {
           </View>
           <TouchableOpacity onPress={() => forward()} style={{width: '5%', marginLeft: '0%', justifyContent: 'center'}}><AntDesign name="caretright" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
         </View>
-                
+
         {!dosing && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
 
         <CalendarLegend style={{marginTop: 10, marginBottom: 20, width: '100%'}} />

@@ -248,7 +248,7 @@ export default function Second({ navigation: { navigate } }) {
         </View>
       </View>
 
-      <ScrollView>
+      <ScrollView persistentScrollbar={true}>
         <View style={generateStyles.inputBox}>
           {indexes.map((index, id) => {
             var i = id + 1;

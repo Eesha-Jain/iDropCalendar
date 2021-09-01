@@ -58,13 +58,10 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
         </TouchableHighlight>
       </View>
 
-      <ScrollView>
+      <ScrollView persistentScrollbar={true}>
         <View style={{display: otherDisplay, padding: 20, alignItems: 'center', width: win.width}}>
           <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 10, backgroundColor: '#ADD8E6', padding: 10}}>Next Appointment: {appointment}</Text>
-
-
           <CalendarDay style={{width: '100%', marginTop: 10, marginBottom: 10}} />
-
           <Calendar style={{width: '100%'}} month={new Date().getMonth()} year={new Date().getFullYear()} />
         </View>
       </ScrollView>

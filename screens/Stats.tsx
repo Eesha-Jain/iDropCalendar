@@ -82,7 +82,7 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
         <Text style={styles.topText}>Statistics & Badges</Text>
       </View>
 
-      <ScrollView>
+      <ScrollView persistentScrollbar={true}>
         <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5}}>Statistics - Past 30 Days</Text>
           <LineChart
             data={data}
