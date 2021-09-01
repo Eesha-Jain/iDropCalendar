@@ -53,7 +53,7 @@ How to test (iPhone):
   * Click on any day to see what drops you took - instructions
   * Scrollbar by default or have like a "scroll down"
   * Legend calendar smaller
-  * Calendar + dosing (two separate pages - generate 3rd tab has calendar)??
+  * <s>Calendar + dosing (two separate pages)??</s>
   * <s>Drops main page - automatically go to that page</s>
 * Deployment onto App Store and Google Play
   * <s>Find links</s>

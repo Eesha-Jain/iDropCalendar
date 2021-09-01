@@ -414,7 +414,8 @@ function CalendarDay(props) {
 
   return (
       <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
-      {set}
+        <Text style={{fontSize: 20, fontFamily: 'os-bold', textAlign: 'center'}}>Today</Text>
+        {set}
       </View>
   );
 }
@@ -425,6 +426,7 @@ function PreviousCalendarDay(props) {
   let [full, setFull] = useState([])
   let colors = ['#293caa', '#585bc4', '#7f7dde', 'star-o'];
   let trans = ['transparent', 'transparent', 'transparent', 'star'];
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const [set, setSet] = useState(<View></View>);
 
   useEffect(() => {
@@ -509,7 +511,8 @@ function PreviousCalendarDay(props) {
 
   return (
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
-    {set}
+      <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>{`${months[props.month]} ${props.day}, ${props.year}`}</Text>
+      {set}
     </View>
   );
 }
