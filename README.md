@@ -52,7 +52,7 @@ How to test (iPhone):
   * Make it say "didn't take medications" if no drops on a day instead of "not on app"
   * Click on any day to see what drops you took - instructions
   * Scrollbar by default or have like a "scroll down"
-  * Legend calendar smaller
+  * <s>Legend calendar smaller</s>
   * <s>Calendar + dosing (two separate pages)??</s>
   * <s>Drops main page - automatically go to that page</s>
 * Deployment onto App Store and Google Play

@@ -73,14 +73,14 @@ function DosingLegend(props) {
 }
 
 function CalendarLegend(props) {
+  var arr = [[<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center', padding: 5}}><Text>Today</Text></View>, <View style={{backgroundColor: Colors.calendar["completed"], alignItems: 'center', padding: 5}}><Text>Took All Your Medication</Text></View>], [<View style={{backgroundColor: Colors.calendar["notcompleted"], alignItems: 'center', padding: 5}}><Text>Didn't Take All Your Medication</Text></View>], [ <View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center', padding: 5}}><Text>Not on App</Text></View>, <View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center', padding: 5}}><Text>Day in the Future</Text></View>]];
+
   return (
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10}]}>
       <Text style={{fontSize: 15, fontFamily: 'os-bold', marginBottom: 5}}>Calendar Legend:</Text>
-      <View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center', padding: 5}}><Text>Today</Text></View>
-      <View style={{backgroundColor: Colors.calendar["completed"], alignItems: 'center', padding: 5}}><Text>Took All Your Medication</Text></View>
-      <View style={{backgroundColor: Colors.calendar["notcompleted"], alignItems: 'center', padding: 5}}><Text>Didn't Take All Your Medication</Text></View>
-      <View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center', padding: 5}}><Text>Not on App</Text></View>
-      <View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center', padding: 5}}><Text>Day in the Future</Text></View>
+      <Table borderStyle={{borderWidth: 0}} style={{width: '100%'}}>
+        <Rows data={arr} flexArr={[1, 1]}/>
+      </Table>
     </View>
   );
 }
