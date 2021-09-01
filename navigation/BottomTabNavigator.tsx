@@ -22,20 +22,20 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Generate"
+      initialRouteName="Calendar"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
-      <BottomTab.Screen
-        name="Generate"
-        component={TabOneNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="pencil" color={color} />,
-        }}
-      />
       <BottomTab.Screen
         name="Calendar"
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="calendar-outline" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Generate"
+        component={TabOneNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="pencil" color={color} />,
         }}
       />
       <BottomTab.Screen

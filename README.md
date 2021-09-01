@@ -48,6 +48,13 @@ How to test (iPhone):
   * <s>Badges (perfect week, etc.) - related push notifications</s>
 * <s>Click on a previous day to see the drops</s>
 * Feedback from the team
+  * Write instructions next to dosing calendar to say "click on shapes"
+  * Make it say "didn't take medications" if no drops on a day instead of "not on app"
+  * Click on any day to see what drops you took - instructions
+  * Scrollbar by default or have like a "scroll down"
+  * Legend calendar smaller
+  * Calendar + dosing (two separate pages - generate 3rd tab has calendar)??
+  * <s>Drops main page - automatically go to that page</s>
 * Deployment onto App Store and Google Play
   * <s>Find links</s>
 * Testing and more Debugging with App Download
