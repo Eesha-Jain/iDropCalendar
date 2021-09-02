@@ -177,12 +177,18 @@ export default function Third({ navigation: { navigate } }) {
           <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to Download Calendar on Website</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 20}]} onPress={async () => {
+        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 10}]} onPress={async () => {
           await storage.setItem('generatestep', "1");
           navigate("First");
         }}>
           <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, marginTop: 0, paddingRight: 0, width: '100%'}]}>Click here to Generate New Calendar</Text>
         </TouchableOpacity>
+
+        <View style={{marginBottom: 10, padding: 10, backgroundColor: Colors.regular["lightgray"], width: '100%'}}>
+          <Text style={{fontFamily: 'os-regular'}}>Instructions: Click on the blue and green days below to view the drops that you took those days.</Text>
+        </View>
+
+        {!dosing && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
 
         <View style={{flexDirection: 'row', flex: 1}}>
           <TouchableOpacity onPress={() => backward()} style={{width: '5%', marginRight: '1%', justifyContent: 'center'}}><AntDesign name="caretleft" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
@@ -195,10 +201,7 @@ export default function Third({ navigation: { navigate } }) {
           <TouchableOpacity onPress={() => forward()} style={{width: '5%', marginLeft: '0%', justifyContent: 'center'}}><AntDesign name="caretright" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
         </View>
 
-        {!dosing && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
-
         <CalendarLegend style={{marginTop: 10, marginBottom: 20, width: '100%'}} />
-
         <View style={{marginTop: 30}}></View>
       </ScrollView>
     </View>
