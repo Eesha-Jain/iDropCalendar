@@ -60,9 +60,17 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
 
       <ScrollView persistentScrollbar={true}>
         <View style={{display: otherDisplay, padding: 20, alignItems: 'center', width: win.width}}>
-          <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 10, backgroundColor: '#ADD8E6', padding: 10}}>Next Appointment: {appointment}</Text>
-          <CalendarDay style={{width: '100%', marginTop: 10, marginBottom: 10}} />
+          <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 15, width: '100%', backgroundColor: '#ADD8E6', padding: 10}}>Next Appointment: {appointment}</Text>
           <DosingLegend style={{width: '100%', marginBottom: 10}} />
+          <CalendarDay style={{width: '100%', marginTop: 5, marginBottom: 10}} />
+          
+          <View style={{marginBottom: 10, padding: 10, backgroundColor: Colors.regular["lightgray"], width: '100%'}}>
+            <Text style={{fontSize: 16, fontFamily: 'os-semibold'}}>Instructions:</Text>
+            <Text style={{fontSize: 16}}>- Click on the shapes to mark them taken</Text>
+            <Text style={{fontSize: 16}}>- Take <FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} /> drops in the morning</Text>
+            <Text style={{fontSize: 16}}>- Take <Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} /> drops in the afternoon</Text>
+            <Text style={{fontSize: 16}}>- Take <MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} /> drops in the night</Text>
+          </View>
         </View>
       </ScrollView>
     </View>
