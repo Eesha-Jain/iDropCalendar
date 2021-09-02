@@ -115,6 +115,11 @@ export default function Third({ navigation: { navigate } }) {
   }, [month, year, dayDif, monthDif]);
 
   async function lookAtDate(dayp, monthp, yearp) {
+    var today = new Date();
+    if (today.getDate() == dayp && today.getFullYear() == yearp && today.getMonth() == monthp) {
+      return;
+    }
+
     const obj2 = await storage.getItem('dosage');
     let dic2 = JSON.parse(obj2);
 

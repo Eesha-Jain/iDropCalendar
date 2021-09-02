@@ -448,7 +448,9 @@ function PreviousCalendarDay(props) {
 
       var times = [[<View style={{borderWidth: 1, borderColor: 'gray', backgroundColor: 'transparent', borderRadius: 50, width: 25, height: 25}}><Text style={{textAlign: 'center', fontSize: 18}}>{props.day}</Text></View>], [<FontAwesome5 name="coffee" size={15} color="#2A3B9F" style={{margin: 5}} />],[<Ionicons name="sunny" size={15} color="#2A3B9F" style={{margin: 5}} />], [<MaterialIcons name="nightlight-round" size={15} color="#2A3B9F" style={{margin: 5}} />]];
 
-      for (var j = 1; j <= dic.numberOfDrops; j++) {
+      var cougarday = parsed[year][month][day];
+
+      for (var j = 1; j <= cougarday["full"].length; j++) {
           times[1].push(<View></View>);
           times[2].push(<View></View>);
           times[3].push(<View></View>);
@@ -464,7 +466,7 @@ function PreviousCalendarDay(props) {
         var aa = [];
         try {
           if (exists) {
-            aa = parsed[year][month][day]["full"][i - 1];
+            aa = cougarday["full"][i - 1];
           } else {
             aa = ["n", "n", "n"];
           }
@@ -473,7 +475,7 @@ function PreviousCalendarDay(props) {
           aa = ['n', 'n', 'n'];
         }
 
-        if (dic.drops[key]['morning'] == 1) {
+        if (aa[0] != 'n') {
           if (!exists || aa[0] == 'e') {
             var x = [<TouchableOpacity>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[1][i] = x[0];
             aa[0] = 'e';
@@ -482,7 +484,7 @@ function PreviousCalendarDay(props) {
           }
         }
 
-        if (dic.drops[key]['afternoon'] == 1) {
+        if (aa[1] != 'n') {
           if (!exists || aa[1] == 'e') {
             var x = [<TouchableOpacity>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[2][i] = x[0];
             aa[1] = 'e';
@@ -491,7 +493,7 @@ function PreviousCalendarDay(props) {
           }
         }
 
-        if (dic.drops[key]['night'] == 1) {
+        if (aa[2] != 'n') {
           if (!exists || aa[2] == 'e') {
             var x = [<TouchableOpacity>{getDropShape({drop: key, backColor: trans[i - 1], color: colors[i - 1]})}</TouchableOpacity>]; times[3][i] = x[0];
             aa[2] = 'e';

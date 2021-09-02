@@ -51,6 +51,7 @@ How to test (iPhone):
   * Write instructions next to dosing calendar to say "click on shapes"
   * Make it say "didn't take medications" if no drops on a day instead of "not on app"
   * Click on any day to see what drops you took - instructions
+  * Fix bug can't view current day
   * <s>Scrollbar by default or have like a "scroll down"</s>
   * <s>Legend calendar smaller</s>
   * <s>Calendar + dosing (two separate pages)??</s>
