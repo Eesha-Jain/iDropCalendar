@@ -11,11 +11,13 @@ import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
 import {CalendarDay, Calendar, CalendarLegend, DosingLegend} from './GenerateScreens/CalendarCreation';
 import { LineChart, BarChart, PieChart, ProgressChart, ContributionGraph, StackedBarChart } from 'react-native-chart-kit';
+import { useIsFocused } from "@react-navigation/native";
 
 export default function TabThreeScreen({ navigation: { navigate } }) {
   const [dataset, setDataSet] = useState([{ data: [0] }]);
   const [message, setMessage] = useState("");
   const [earn, setEarn] = useState([0, 0]);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -56,8 +58,8 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
       }
       setDataSet([{ data: ans }]);
     }
-    makeRequest();
-  }, []);
+    if (isFocused) { makeRequest(); }
+  }, [isFocused]);
 
   const data = {
     datasets: dataset,

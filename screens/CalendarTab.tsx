@@ -11,6 +11,7 @@ import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
 import {CalendarDay, CalendarLegend, DosingLegend, PreviousCalendarDay, DayOfWeek} from './GenerateScreens/CalendarCreation';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import { useIsFocused } from "@react-navigation/native";
 
 export default function TabTwoScreen({ navigation: { navigate } }) {
   const [display, setDisplay] = useState('none');
@@ -20,6 +21,7 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
   const [year, setYear] = useState(new Date().getFullYear());
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const [dosing, setDosing] = useState(true);
+  const isFocused = useIsFocused();
 
   async function navigateTabs() {
     navigate("Generate")
@@ -39,9 +41,9 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
 
       setAppointment(appoint[0]);
     }
-    makeRequest();
-  }, [month, year]);
-
+    if (isFocused) { makeRequest(); }
+  }, [month, year, isFocused]);
+  
   return (
     <View style={styles.container}>
       <View style={styles.top}>
