@@ -22,6 +22,7 @@ export default function Third({ navigation: { navigate } }) {
   const [calendar, setCalendar] = useState([]);
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const [dosing, setDosing] = useState(true);
+  const [empty, setEmpty] = useState(false);
 
   useEffect(() => {
     const calendarMakeRequest = async () => {
@@ -33,12 +34,11 @@ export default function Third({ navigation: { navigate } }) {
 
       try {
         var dateOnString = await storage.getItem('dateOn');
-        throw 'datestring null';
         if (dateOnString == null) {throw 'datestring null';}
         dateOn = new Date(dateOnString);
       } catch(e) {
-        await storage.setItem('dateOn', new Date('August 25, 2021').toString());
-        dateOn = new Date('August 25, 2021');
+        await storage.setItem('dateOn', new Date('August 20, 2021').toString());
+        dateOn = new Date('August 20, 2021');
       }
 
       var today = new Date();
@@ -59,18 +59,12 @@ export default function Third({ navigation: { navigate } }) {
           if (dayOfTheWeek == 0 && day <= dayMonth) {
             var color = Colors.calendar["notcompleted"];
 
-            if (todayDay == day && todayMonth == month && todayYear == year) {
-              color = Colors.calendar["today"];
-            } else if (day > todayDay && month == todayMonth && year == todayYear) {
-              color = Colors.calendar["future"];
-            } else if (month > todayMonth || year > todayYear) {
-              color = Colors.calendar["future"];
-            } else if (day < dateOn.getDate() && month == dateOn.getMonth() && year == dateOn.getFullYear()) {
-              color = Colors.calendar["noton"];
-            } else if (month < dateOn.getMonth() && year == dateOn.getFullYear() ) {
-              color = Colors.calendar["noton"];
-            } else if (year < dateOn.getFullYear() ) {
-              color = Colors.calendar["noton"];
+            if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
+            else if (day > todayDay && month == todayMonth && year == todayYear) { color = Colors.calendar["future"]; }
+            else if (month > todayMonth || year > todayYear) { color = Colors.calendar["future"]; }
+            else if (day < dateOn.getDate() && month == dateOn.getMonth() && year==dateOn.getFullYear()) {color = Colors.calendar["noton"];}
+            else if (month < dateOn.getMonth() && year == dateOn.getFullYear() ) { color = Colors.calendar["noton"]; }
+            else if (year < dateOn.getFullYear() ) { color = Colors.calendar["noton"];
             } else {
               try {
                 var x = dic2[year][month + 1][day];
@@ -97,19 +91,20 @@ export default function Third({ navigation: { navigate } }) {
         var currentTable = [];
         for (var j = 0; j < 7; j++) {
           if (dayOfTheWeek == 0 && day <= dayMonth) {
-            var color = Colors.calendar["noton"];
-            if (todayDay == day && todayMonth == month && todayYear == year) {
-              color = Colors.calendar["today"];
-            } else if (day > todayDay && month == todayMonth && year == todayYear) {
-              color = Colors.calendar["future"];
-            } else if (month > todayMonth || year > todayYear) {
-              color = Colors.calendar["future"];
+            var color = Colors.calendar["notcompleted"];
+
+            if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
+            else if (day > todayDay && month == todayMonth && year == todayYear) { color = Colors.calendar["future"]; }
+            else if (month > todayMonth || year > todayYear) { color = Colors.calendar["future"]; }
+            else if (day < dateOn.getDate() && month == dateOn.getMonth() && year==dateOn.getFullYear()) {color = Colors.calendar["noton"];}
+            else if (month < dateOn.getMonth() && year == dateOn.getFullYear() ) { color = Colors.calendar["noton"]; }
+            else if (year < dateOn.getFullYear() ) { color = Colors.calendar["noton"];
             } else {
               try {
                 var x = dic2[year][month + 1][day];
                 if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
-                else { color = Colors.calendar["noton"];}
-              } catch(e) { color = Colors.calendar["noton"];}
+                else { color = Colors.calendar["notcompleted"];}
+              } catch(e) { color = Colors.calendar["notcompleted"]; }
             }
 
             let newDay = day;
@@ -151,8 +146,21 @@ export default function Third({ navigation: { navigate } }) {
           setYearDif(yearp);
           setDosing(false);
         }
+
+        setEmpty(false);
       }
-    } catch(e) {}
+    } catch(e) {
+      let dateOnString = await storage.getItem('dateOn');
+      let dateOn = new Date(dateOnString);
+
+      if (!((dayp < dateOn.getDate() && monthp == dateOn.getMonth() && yearp == dateOn.getFullYear()) || (monthp < dateOn.getMonth() && yearp == dateOn.getFullYear() ) || (yearp < dateOn.getFullYear() ))) {
+        setEmpty(true);
+        setMonthDif(monthp);
+        setDayDif(dayp);
+        setYearDif(yearp);
+        setDosing(false);
+      }
+    }
   }
 
   function forward() {
@@ -217,7 +225,14 @@ export default function Third({ navigation: { navigate } }) {
           <TouchableOpacity onPress={() => forward()} style={{width: '5%', marginLeft: '0%', justifyContent: 'center'}}><AntDesign name="caretright" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
         </View>
 
-        {!dosing && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
+        {(!dosing && !empty) && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
+        {(!dosing && empty) &&
+          <View style={{backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}}>
+            <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>{`${months[monthDif]} ${dayDif}, ${yearDif}`}</Text>
+            <Text>No drops taken on this day</Text>
+          </View>
+        }
+
         <CalendarLegend style={{marginTop: 10, marginBottom: 20, width: '100%'}} />
         <View style={{marginTop: 30}}></View>
       </ScrollView>
