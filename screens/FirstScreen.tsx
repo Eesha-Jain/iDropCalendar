@@ -41,6 +41,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
     };
 
     registerForPushNotificationsAsync();
+    await storage.setItem('dateOn', new Date().toString());
     await storage.setItem('firsttime', 'false');
     await storage.setItem('generatedACalendar', 'false');
     await storage.setItem('generatestep', '1');

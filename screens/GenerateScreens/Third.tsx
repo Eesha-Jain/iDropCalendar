@@ -29,6 +29,17 @@ export default function Third({ navigation: { navigate } }) {
       let dic = JSON.parse(obj);
       const obj2 = await storage.getItem('dosage');
       let dic2 = JSON.parse(obj2);
+      let dateOn = new Date();
+
+      try {
+        var dateOnString = await storage.getItem('dateOn');
+        throw 'datestring null';
+        if (dateOnString == null) {throw 'datestring null';}
+        dateOn = new Date(dateOnString);
+      } catch(e) {
+        await storage.setItem('dateOn', new Date('August 25, 2021').toString());
+        dateOn = new Date('August 25, 2021');
+      }
 
       var today = new Date();
       var finalCalendar = "";
@@ -46,19 +57,26 @@ export default function Third({ navigation: { navigate } }) {
         var currentTable = [];
         for (var j = 0; j < 7; j++) {
           if (dayOfTheWeek == 0 && day <= dayMonth) {
-            var color = Colors.calendar["noton"];
+            var color = Colors.calendar["notcompleted"];
+
             if (todayDay == day && todayMonth == month && todayYear == year) {
               color = Colors.calendar["today"];
             } else if (day > todayDay && month == todayMonth && year == todayYear) {
               color = Colors.calendar["future"];
             } else if (month > todayMonth || year > todayYear) {
               color = Colors.calendar["future"];
+            } else if (day < dateOn.getDate() && month == dateOn.getMonth() && year == dateOn.getFullYear()) {
+              color = Colors.calendar["noton"];
+            } else if (month < dateOn.getMonth() && year == dateOn.getFullYear() ) {
+              color = Colors.calendar["noton"];
+            } else if (year < dateOn.getFullYear() ) {
+              color = Colors.calendar["noton"];
             } else {
               try {
                 var x = dic2[year][month + 1][day];
                 if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
-                else { color = Colors.calendar["noton"];}
-              } catch(e) { color = Colors.calendar["noton"];}
+                else { color = Colors.calendar["notcompleted"];}
+              } catch(e) { color = Colors.calendar["notcompleted"]; }
             }
 
             let newDay = day;

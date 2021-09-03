@@ -13,6 +13,7 @@
 | generatevalues | data filled in generate tab | see below |
 | dosage | dosage of previous + current days, months, and years | see below |
 | badges | whether users have received badges or not | Integer [] |
+| dateOn | the day they first downloaded the app | date |
 
 ### Dictionaries
 **Generate values** is stored as the following:

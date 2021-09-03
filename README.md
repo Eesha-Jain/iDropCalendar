@@ -47,9 +47,9 @@ How to test (iPhone):
   * <s>Add stats (day vs % of drops taken graph)</s>
   * <s>Badges (perfect week, etc.) - related push notifications</s>
 * <s>Click on a previous day to see the drops</s>
-* Feedback from the team
+* <s>Feedback from the team</s>
   * <s>Write instructions next to dosing calendar to say "click on shapes"</s>
-  * Make it say "didn't take medications" if no drops on a day instead of "not on app"
+  * <s>Make it say "didn't take medications" if no drops on a day instead of "not on app"</s>
   * <s>Click on any day to see what drops you took - instructions</s>
   * <s>Fix bug can't view current day</s>
   * <s>Scrollbar by default or have like a "scroll down"</s>
