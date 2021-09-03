@@ -85,107 +85,6 @@ function CalendarLegend(props) {
   );
 }
 
-function Calendar(props) {
-  const [calendar, setCalendar] = useState([]);
-  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-  useEffect(() => {
-    const makeRequest = async () => {
-      const obj = await storage.getItem('generatevalues');
-      let dic = JSON.parse(obj);
-      const obj2 = await storage.getItem('dosage');
-      let dic2 = JSON.parse(obj2);
-
-      var today = new Date();
-      var finalCalendar = "";
-      var month = props.month;
-      var year = props.year;
-      var todayDay = today.getDate();
-      var todayMonth = today.getMonth();
-      var todayYear = today.getFullYear();
-
-      var arr = [[<DayOfWeek day="SUN" />, <DayOfWeek day="MON" />, <DayOfWeek day="TUE" />, <DayOfWeek day="WED" />, <DayOfWeek day="THU" />, <DayOfWeek day="FRI" />, <DayOfWeek day="SAT" />]];
-      var day = 1;
-
-      var dayMonth = new Date(year, month + 1, 0).getDate();
-      var dayOfTheWeek = new Date(year, month, 1).getDay();
-
-      for (var i = 0; i < 5; i++) {
-        var currentTable = [];
-        for (var j = 0; j < 7; j++) {
-          if (dayOfTheWeek == 0 && day <= dayMonth) {
-            if (todayDay == day && todayMonth == month && todayYear == year) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center'}}><Text>{day}</Text></View>);
-            } else if (day > todayDay && month == todayMonth && year == todayYear) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
-            } else if (month > todayMonth || year > todayYear) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
-            } else {
-              try {
-                var x = dic2[year][month + 1][day];
-                if (x.hasOwnProperty("status")) {
-                  currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
-                } else {
-                  currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
-                }
-              } catch(e) {
-                currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
-              }
-            }
-            day++;
-          } else { currentTable.push(<View></View>); dayOfTheWeek--; }
-        }
-
-        while (currentTable.length != 7) {
-          currentTable.push(<View style={{backgroundColor: 'transparent', alignItems: 'center'}}><Text></Text></View>);
-        }
-        arr.push(currentTable);
-      }
-
-      if (dayMonth - day >= 0) {
-        var currentTable = [];
-        for (var j = 0; j < 7; j++) {
-          if (dayOfTheWeek == 0 && day <= dayMonth) {
-            if (todayDay == day && todayMonth == month && todayYear == year) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center'}}><Text>{day}</Text></View>);
-            } else if (day > todayDay && month == todayMonth && year == todayYear) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
-            } else if (month > todayMonth || year > todayYear) {
-              currentTable.push(<View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center'}}><Text>{day}</Text></View>);
-            } else {
-              try {
-                var x = dic2[year][month + 1][day];
-                currentTable.push(<View style={{backgroundColor: Colors.calendar[x.status], alignItems: 'center'}}><Text>{day}</Text></View>);
-              } catch(e) {
-                currentTable.push(<View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center'}}><Text>{day}</Text></View>);
-              }
-            }
-            day++;
-          } else { currentTable.push(<View></View>); dayOfTheWeek--; }
-        }
-
-        while (currentTable.length != 7) {
-          currentTable.push(<View style={{backgroundColor: 'transparent', alignItems: 'center'}}><Text></Text></View>);
-        }
-
-        arr.push(currentTable);
-      }
-
-      setCalendar(arr);
-    }
-    makeRequest();
-  }, [props.month, props.year]);
-
-  return (
-    <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
-      <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5}}>{months[props.month]} {props.year}</Text>
-      <Table style={{width: '100%'}}>
-        <Rows data={calendar}/>
-      </Table>
-    </View>
-  );
-}
-
 function getDropShape(props) {
   if (props.drop == "drop1") {
     return ( <View style={{width: 20, height: 20, borderWidth: 1, backgroundColor: props.backColor, borderColor: props.color}}></View> );
@@ -519,4 +418,4 @@ function PreviousCalendarDay(props) {
   );
 }
 
-export {CalendarDay, PreviousCalendarDay, Calendar, CalendarLegend, DosingLegend, DayOfWeek};
+export {CalendarDay, PreviousCalendarDay, CalendarLegend, DosingLegend, DayOfWeek};

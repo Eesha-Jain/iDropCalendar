@@ -9,7 +9,7 @@ const win = Dimensions.get('window');
 import Colors from '../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
-import {CalendarDay, Calendar, CalendarLegend, DosingLegend, PreviousCalendarDay, DayOfWeek} from './GenerateScreens/CalendarCreation';
+import {CalendarDay, CalendarLegend, DosingLegend, PreviousCalendarDay, DayOfWeek} from './GenerateScreens/CalendarCreation';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 export default function TabTwoScreen({ navigation: { navigate } }) {
@@ -63,7 +63,7 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
           <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 15, width: '100%', backgroundColor: '#ADD8E6', padding: 10}}>Next Appointment: {appointment}</Text>
           <DosingLegend style={{width: '100%', marginBottom: 10}} />
           <CalendarDay style={{width: '100%', marginTop: 5, marginBottom: 10}} />
-          
+
           <View style={{marginBottom: 10, padding: 10, backgroundColor: Colors.regular["lightgray"], width: '100%'}}>
             <Text style={{fontSize: 16, fontFamily: 'os-semibold'}}>Instructions:</Text>
             <Text style={{fontSize: 16}}>- Click on the shapes to mark them taken</Text>

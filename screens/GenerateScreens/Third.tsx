@@ -10,7 +10,7 @@ const win = Dimensions.get('window');
 import Colors from '../../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
-import {CalendarDay, Calendar, CalendarLegend, DosingLegend, PreviousCalendarDay, DayOfWeek} from './CalendarCreation';
+import {CalendarDay, CalendarLegend, DosingLegend, PreviousCalendarDay, DayOfWeek} from './CalendarCreation';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 export default function Third({ navigation: { navigate } }) {
@@ -188,8 +188,6 @@ export default function Third({ navigation: { navigate } }) {
           <Text style={{fontFamily: 'os-regular'}}>Instructions: Click on the blue and green days below to view the drops that you took those days.</Text>
         </View>
 
-        {!dosing && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
-
         <View style={{flexDirection: 'row', flex: 1}}>
           <TouchableOpacity onPress={() => backward()} style={{width: '5%', marginRight: '1%', justifyContent: 'center'}}><AntDesign name="caretleft" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
           <View style={{backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center', width: '88%', marginBottom: 10}}>
@@ -201,6 +199,7 @@ export default function Third({ navigation: { navigate } }) {
           <TouchableOpacity onPress={() => forward()} style={{width: '5%', marginLeft: '0%', justifyContent: 'center'}}><AntDesign name="caretright" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
         </View>
 
+        {!dosing && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
         <CalendarLegend style={{marginTop: 10, marginBottom: 20, width: '100%'}} />
         <View style={{marginTop: 30}}></View>
       </ScrollView>
