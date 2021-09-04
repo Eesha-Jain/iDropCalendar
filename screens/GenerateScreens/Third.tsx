@@ -37,8 +37,8 @@ export default function Third({ navigation: { navigate } }) {
         if (dateOnString == null) {throw 'datestring null';}
         dateOn = new Date(dateOnString);
       } catch(e) {
-        await storage.setItem('dateOn', new Date('August 20, 2021').toString());
-        dateOn = new Date('August 20, 2021');
+        await storage.setItem('dateOn', new Date().toString());
+        dateOn = new Date();
       }
 
       var today = new Date();

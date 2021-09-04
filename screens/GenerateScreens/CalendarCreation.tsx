@@ -357,7 +357,7 @@ function PreviousCalendarDay(props) {
       }
 
       var arrNums = [];
-      for (var i = 1; i <= dic.numberOfDrops; i++) {arrNums.push(i);}
+      for (var i = 1; i <= cougarday["full"].length; i++) {arrNums.push(i);}
       full = [];
 
       arrNums.forEach(i => {

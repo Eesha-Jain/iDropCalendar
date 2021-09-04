@@ -56,6 +56,8 @@ How to test (iPhone):
   * <s>Legend calendar smaller</s>
   * <s>Calendar + dosing (two separate pages)??</s>
   * <s>Drops main page - automatically go to that page</s>
+* <s>Bugs</s>
+  * <s>When previewing a day with more drops than today, it doesn't show them</s>
 * Deployment onto App Store and Google Play
   * <s>Find links</s>
 * Testing and more Debugging with App Download
