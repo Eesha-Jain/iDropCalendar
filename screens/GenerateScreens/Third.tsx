@@ -125,6 +125,8 @@ export default function Third({ navigation: { navigate } }) {
       setCalendar(arr);
     }
     calendarMakeRequest();
+
+    return () => {};
   }, [month, year, dayDif, monthDif]);
 
   async function lookAtDate(dayp, monthp, yearp) {
@@ -225,13 +227,7 @@ export default function Third({ navigation: { navigate } }) {
           <TouchableOpacity onPress={() => forward()} style={{width: '5%', marginLeft: '0%', justifyContent: 'center'}}><AntDesign name="caretright" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
         </View>
 
-        {(!dosing && !empty) && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} />}
-        {(!dosing && empty) &&
-          <View style={{backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}}>
-            <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>{`${months[monthDif]} ${dayDif}, ${yearDif}`}</Text>
-            <Text>No drops taken on this day</Text>
-          </View>
-        }
+        {!dosing && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} empty={empty} />}
 
         <CalendarLegend style={{marginTop: 10, marginBottom: 20, width: '100%'}} />
         <View style={{marginTop: 30}}></View>

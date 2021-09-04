@@ -407,13 +407,24 @@ function PreviousCalendarDay(props) {
       setTime(times);
       setSet(<Table style={{width: '100%'}}><Rows data={time} flexArr={[1, 1, 1, 1]}/></Table>);
     }
-    makeRequest();
-  }, [set]);
+    if (!props.empty) {makeRequest()};
+  }, [set, props.empty]);
 
   return (
-    <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
-      <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>{`${months[props.month]} ${props.day}, ${props.year}`}</Text>
-      {set}
+    <View>
+      {(props.empty) &&
+        <View style={{backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}}>
+          <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>{`${months[props.month]} ${props.day}, ${props.year}`}</Text>
+          <Text>No drops taken on this day</Text>
+        </View>
+      }
+
+      {(!props.empty) &&
+        <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center'}]}>
+          <Text style={{fontSize: 20, fontFamily: 'os-bold'}}>{`${months[props.month]} ${props.day}, ${props.year}`}</Text>
+          {set}
+        </View>
+      }
     </View>
   );
 }
