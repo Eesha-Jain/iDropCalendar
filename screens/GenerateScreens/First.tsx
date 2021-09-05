@@ -77,6 +77,7 @@ export default function First({ navigation: { navigate } }) {
         drops: dropDict
       };
 
+      setMessage("");
       await storage.setItem('generatestep', "2");
       await storage.setItem('generatevalues', JSON.stringify(dict));
       navigate("Second");
