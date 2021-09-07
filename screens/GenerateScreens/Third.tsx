@@ -197,19 +197,8 @@ export default function Third({ navigation: { navigate } }) {
       </View>
 
       <ScrollView style={{padding: 10}} persistentScrollbar={true}>
-        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {navigate("Calendar")}}>
+        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 15}]} onPress={() => {navigate("Calendar")}}>
           <GradientButton style={[generateStyles.buttonText, {padding: 7}]} text="Click here to Fill Out Digitally" radius="5" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
-          <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to Download Calendar on Website</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 10}]} onPress={async () => {
-          await storage.setItem('generatestep', "1");
-          navigate("First");
-        }}>
-          <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, marginTop: 0, paddingRight: 0, width: '100%'}]}>Click here to Generate New Calendar</Text>
         </TouchableOpacity>
 
         <View style={{marginBottom: 10, padding: 10, backgroundColor: Colors.regular["lightgray"], width: '100%'}}>
@@ -230,6 +219,18 @@ export default function Third({ navigation: { navigate } }) {
         {!dosing && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} empty={empty} />}
 
         <CalendarLegend style={{marginTop: 10, marginBottom: 20, width: '100%'}} />
+
+        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
+          <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to Download Calendar on Website</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 10}]} onPress={async () => {
+          await storage.setItem('generatestep', "1");
+          navigate("First");
+        }}>
+          <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, marginTop: 0, paddingRight: 0, width: '100%'}]}>Click here to Generate New Calendar</Text>
+        </TouchableOpacity>
+
         <View style={{marginTop: 30}}></View>
       </ScrollView>
     </View>

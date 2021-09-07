@@ -96,7 +96,7 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
             chartConfig={chartConfig}
             withVerticalLabels={false}
             onDataPointClick={({ value, dataset }) =>
-              setMessage('% of Drops Taken: ' + Math.round(value))
+              setMessage('% of Drops Taken: ' + Math.round(value) + '%')
             }
           />
           <Text>{message}</Text>
