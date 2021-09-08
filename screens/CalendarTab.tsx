@@ -7,6 +7,7 @@ import {GradientButton} from '../assets/Gradients';
 import DatePicker from 'react-native-datepicker';
 const win = Dimensions.get('window');
 import Colors from '../constants/Colors';
+import generateStyles from './GenerateScreens/GenerateStyles';
 import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
 import {CalendarDay, CalendarLegend, DosingLegend, PreviousCalendarDay, DayOfWeek} from './GenerateScreens/CalendarCreation';
@@ -43,7 +44,7 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
     }
     if (isFocused) { makeRequest(); }
   }, [month, year, isFocused]);
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -62,7 +63,12 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
 
       <ScrollView persistentScrollbar={true}>
         <View style={{display: otherDisplay, padding: 20, alignItems: 'center', width: win.width}}>
-          <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 15, width: '100%', backgroundColor: '#ADD8E6', padding: 10}}>Next Appointment: {appointment}</Text>
+          <Text style={{fontSize: 20, fontFamily: 'os-bold', textAlign: 'center', marginBottom: 10, width: '100%', backgroundColor: '#ADD8E6', padding: 10}}>Next Appointment: {appointment}</Text>
+
+          <TouchableOpacity style={[generateStyles.button, {marginBottom: 10}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
+            <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["mediumgray"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to download calendar on website</Text>
+          </TouchableOpacity>
+
           <DosingLegend style={{width: '100%', marginBottom: 10}} />
           <CalendarDay style={{width: '100%', marginTop: 5, marginBottom: 10}} />
 

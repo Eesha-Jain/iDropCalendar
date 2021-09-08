@@ -220,15 +220,11 @@ export default function Third({ navigation: { navigate } }) {
 
         <CalendarLegend style={{marginTop: 10, marginBottom: 20, width: '100%'}} />
 
-        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 5}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
-          <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to download calendar on website</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 10}]} onPress={async () => {
+        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 15}]} onPress={async () => {
           await storage.setItem('generatestep', "1");
           navigate("First");
         }}>
-          <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["blue"], padding: 5, marginLeft: 0, marginRight: 0, marginTop: 0, paddingRight: 0, width: '100%'}]}>Click here to generate new calendar</Text>
+          <GradientButton style={[generateStyles.buttonText, {padding: 7}]} text="Click here to generate new calendar" radius="5" />
         </TouchableOpacity>
 
         <View style={{marginTop: 30}}></View>
