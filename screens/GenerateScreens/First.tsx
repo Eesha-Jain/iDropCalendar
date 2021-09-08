@@ -94,10 +94,10 @@ export default function First({ navigation: { navigate } }) {
       </View>
 
       <View style={generateStyles.inputBox}>
-        <Text style={generateStyles.question}>Number of Different Drops</Text>
+        <Text style={generateStyles.question}>Number of different drops</Text>
         <TextInput style={generateStyles.input} placeholder="Number" onChangeText={setDrops} multiline={false} keyboardType="number-pad" maxLength={1} />
 
-        <Text style={generateStyles.question}>Next Appointment Date</Text>
+        <Text style={generateStyles.question}>Next appointment date</Text>
         <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: oppoShow}]} onPress={showMode}>
           <Text style={[generateStyles.input, {width: win.width - 20, color: Colors.regular["blue"]}]}>{date.toString()}</Text>
         </TouchableOpacity>
@@ -116,7 +116,7 @@ export default function First({ navigation: { navigate } }) {
         )}
 
         <TouchableOpacity style={generateStyles.button} onPress={() => navigateTabs()}>
-          <GradientButton style={generateStyles.buttonText} text="Click here to Continue" radius="5" />
+          <GradientButton style={generateStyles.buttonText} text="Click here to continue" radius="5" />
         </TouchableOpacity>
       </View>
 

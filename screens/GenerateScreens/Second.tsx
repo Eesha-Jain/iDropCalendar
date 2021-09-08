@@ -269,9 +269,9 @@ export default function Second({ navigation: { navigate } }) {
                   <Picker style={{marginTop: 0, paddingTop: 0}} selectedValue={getValue(i, 4)} onValueChange={(itemValue, itemIndex) => {
                      updateDrop(i, 4, itemValue);
                   }} itemStyle={{fontSize: 16, padding: 0, margin: 10, height: 100, fontFamily: 'os-light'}} >
-                    <Picker.Item label="Both" value="Both Eyes"/>
-                    <Picker.Item label="Left" value="Left Eye" />
-                    <Picker.Item label="Right" value="Right Eye" />
+                    <Picker.Item label="Both" value="Both eyes"/>
+                    <Picker.Item label="Left" value="Left eye" />
+                    <Picker.Item label="Right" value="Right eye" />
                   </Picker>
 
                   <View style={{ borderBottomColor: Colors.regular["darkgray"], borderBottomWidth: 1, marginTop: 5, marginBottom: 5}}/>
@@ -280,7 +280,7 @@ export default function Second({ navigation: { navigate } }) {
             } else { return ( <View key={i}></View> ); }
           })}
 
-          <Text style={[generateStyles.question, {marginTop: 10}]}>Times for Notification Reminders</Text>
+          <Text style={[generateStyles.question, {marginTop: 10}]}>Times for notification reminders</Text>
           <Text style={[generateStyles.question, {marginTop: 10, fontFamily: 'os-lightitalic'}]}>Morning: </Text>
           <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: Platform.OS == 'ios' ? 'none' : 'flex'}]} onPress={() => {showMode(0)}}>
             <Text style={[generateStyles.input, {width: win.width - 30, color: Colors.regular["blue"]}]}>{pushnotif[0][0].getHours()}:{pushnotif[0][0].getMinutes()}</Text>
@@ -327,7 +327,7 @@ export default function Second({ navigation: { navigate } }) {
           )}
 
           <TouchableOpacity style={[generateStyles.button, {marginTop: 10}]} onPress={() => navigateTabs()}>
-            <GradientButton style={generateStyles.buttonText} text="Click here to Submit" radius="5" />
+            <GradientButton style={generateStyles.buttonText} text="Click here to submit" radius="5" />
           </TouchableOpacity>
 
           <Text style={{fontSize: 20, color: 'red', marginTop: 10, textAlign: 'center'}}>{message}</Text>

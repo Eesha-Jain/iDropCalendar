@@ -63,7 +63,7 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
 
   const data = {
     datasets: dataset,
-    legend: ["Percent of Dosage Complete"]
+    legend: ["Percent of dosage completed"]
   };
 
   const chartConfig = {
@@ -85,7 +85,7 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
       </View>
 
       <ScrollView persistentScrollbar={true}>
-        <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5}}>Statistics - Past 30 Days</Text>
+        <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5}}>Statistics - past 30 days</Text>
           <LineChart
             data={data}
             width={win.width - 40}
