@@ -131,7 +131,7 @@ export default function Third({ navigation: { navigate } }) {
 
   async function lookAtDate(dayp, monthp, yearp) {
     var today = new Date();
-    if (today.getDate() == dayp && today.getFullYear() == yearp && today.getMonth() == monthp) { return; }
+    if (today.getDate() == dayp && today.getFullYear() == yearp && today.getMonth() == monthp) { navigate("Log"); }
 
     const obj2 = await storage.getItem('dosage');
     let dic2 = JSON.parse(obj2);
@@ -190,14 +190,14 @@ export default function Third({ navigation: { navigate } }) {
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Text style={styles.topText}>Generating iDrop Calendar</Text>
+        <Text style={styles.topText}>Generated iDrop Calendar!</Text>
         <View style={{backgroundColor: 'transparent', marginTop: 10, flexDirection: 'row'}}>
           <Image source={require('../../assets/images/3.png')} style={generateStyles.topImage} />
         </View>
       </View>
 
       <ScrollView style={{padding: 10}} persistentScrollbar={true}>
-        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 15}]} onPress={() => {navigate("Calendar")}}>
+        <TouchableOpacity style={[generateStyles.button, {marginTop: 5, marginBottom: 15}]} onPress={() => {navigate("Log")}}>
           <GradientButton style={[generateStyles.buttonText, {padding: 7}]} text="Click here to fill out digitally" radius="5" />
         </TouchableOpacity>
 

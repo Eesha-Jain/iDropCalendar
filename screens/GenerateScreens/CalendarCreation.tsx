@@ -33,9 +33,9 @@ function DayOfWeek(props) {
 function DosingLegend(props) {
   const [arr, setArr] = useState([]);
   var shapes = {
-    drop1: [<View key={0} style={{width: 15, height: 15, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#293caa'}}></View>],
-    drop2: [<View key={1} style={{width: 15, height: 15, borderRadius: 15/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#585bc4'}}></View>],
-    drop3: [<View key={2} style={{width: 14, height: 14, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#7f7dde', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
+    drop1: [<View key={0} style={{width: 15, height: 15, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#1026a3'}}></View>],
+    drop2: [<View key={1} style={{width: 15, height: 15, borderRadius: 15/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#7f7dde'}}></View>],
+    drop3: [<View key={2} style={{width: 14, height: 14, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#505fbf', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
     drop4: [<FontAwesome key={3} style={{color: '#5d8abd'}} name={'star-o'} size={18} />]
   }
 
@@ -101,7 +101,8 @@ function CalendarDay(props) {
   let dic = {};
   const [time, setTime] = useState([]);
   let [full, setFull] = useState([])
-  let colors = ['#293caa', '#585bc4', '#7f7dde', 'star-o'];
+  let colors = ['#1026a3', '#7f7dde', '#505fbf', 'star-o'];
+
   let trans = ['transparent', 'transparent', 'transparent', 'star'];
   const [set, setSet] = useState(<View></View>);
 
