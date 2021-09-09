@@ -62,8 +62,9 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
   }, [isFocused]);
 
   const data = {
+    labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
     datasets: dataset,
-    legend: ["Percent of dosage completed"]
+    legend: ["Days from Today vs Percent of Drops Taken"]
   };
 
   const chartConfig = {
@@ -90,11 +91,13 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
             data={data}
             width={win.width - 40}
             height={220}
-            withVerticalLines={false}
+            withVerticalLines={true}
+            yAxisInterval={5}
             fromZero={true}
+            formatXLabel={(value) => value % 5 == 0 ? value : ''}
             yAxisSuffix={"%"}
             chartConfig={chartConfig}
-            withVerticalLabels={false}
+            withVerticalLabels={true}
             onDataPointClick={({ value, dataset }) =>
               setMessage('% of Drops Taken: ' + Math.round(value) + '%')
             }
