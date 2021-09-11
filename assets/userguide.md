@@ -14,6 +14,7 @@
 | dosage | dosage of previous + current days, months, and years | see below |
 | badges | whether users have received badges or not | Integer [] |
 | dateOn | the day they first downloaded the app | date |
+| previousCalendar | array of all the generated calendars | Array [] |
 
 ### Dictionaries
 **Generate values** is stored as the following:

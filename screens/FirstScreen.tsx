@@ -45,6 +45,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
     await storage.setItem('firsttime', 'false');
     await storage.setItem('generatedACalendar', 'false');
     await storage.setItem('generatestep', '1');
+    await storage.setItem('previousCalendar', JSON.stringify([]));
     await storage.setItem('generateValues', JSON.stringify({data: 'none'}));
     await storage.setItem('dosage', JSON.stringify({data: 'none'}));
     await storage.setItem('badges', JSON.stringify({badges: [0.3, 0.3]}));
