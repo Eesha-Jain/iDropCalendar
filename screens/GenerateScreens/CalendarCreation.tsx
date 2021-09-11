@@ -188,26 +188,28 @@ function CalendarDay(props) {
     var earned = [0.3, 0.3];
     var incase = true;
 
+    badge[0] = 0.3;
+
     if (badge.length >= 1 && badge[0] != 1) {
-      for (var i = 0; i <= 7; i++) {
+      for (var i = 0; i < 7; i++) {
         var today = new Date();
         today.setDate(today.getDate() - i);
         try {
           var day = dosageParsed[today.getFullYear()][today.getMonth() + 1][today.getDate()]["status"];
-          if (day == "notcompleted") {incase = false;}
-        } catch (e) {}
+          if (day == "notcompleted") {incase = false; break;}
+        } catch (e) {incase = false; break;}
       }
       if (incase) {earned[0] = 1};
     }
 
     if (badge.length >= 2 && badge[1] != 1 && incase) {
-      for (var i = 8; i < 30; i++) {
+      for (var i = 7; i < 30; i++) {
         var today = new Date();
         today.setDate(today.getDate() - i);
         try {
           var day = dosageParsed[today.getFullYear()][today.getMonth() + 1][today.getDate()]["status"];
-          if (day == "notcompleted") {incase = false;}
-        } catch (e) { incase = false; }
+          if (day == "notcompleted") {incase = false; break;}
+        } catch (e) {incase = false; break;}
       }
       if (incase) {earned[1] = 1};
     }
