@@ -21,9 +21,53 @@ export default function Preview({ navigation: { navigate } }) {
     drop4: [<FontAwesome key={3} style={{color: '#5d8abd'}} name={'star-o'} size={18} />]
   }
 
+  var [data, setData] = useState({});
+
+  async function update(index) {
+    var cal = await storage.getItem('previousCalendar');
+    var parsed = JSON.parse(cal);
+
+    var unparsed = await storage.getItem('generatevalues');
+    var valuesParsed = JSON.parse(unparsed);
+
+    valuesParsed["drops"] = parsed[index];
+    valuesParsed["numberOfDrops"] = Object.keys(parsed[index]).length;
+
+    var dosage = await storage.getItem('dosage');
+    var dosageParse = JSON.parse(dosage);
+
+    try {
+       var today = new Date();
+       delete dosageParse[today.getFullYear()][today.getMonth() + 1][today.getDate()];
+    } catch (e) {}
+
+    await storage.setItem('generatevalues', JSON.stringify(valuesParsed));
+    await storage.setItem('dosage', JSON.stringify(dosageParse));
+
+    navigate("Main");
+  }
+
   useEffect(() => {
     const makeRequest = async () => {
-      const oldCal = [[["e", "e", "e"], ["n", "e", "e"]]];
+      var cal = await storage.getItem('previousCalendar');
+      var parsed = JSON.parse(cal);
+      var oldCal = [];
+
+      for (var i = 0; i < parsed.length; i++) {
+        var arr = [];
+
+        Object.keys(parsed[i]).forEach(function(key) {
+          var dic = parsed[i][key];
+          arr.push([dic.morning, dic.afternoon, dic.night]);
+        })
+
+        oldCal.push({
+          key: i + "",
+          value: JSON.stringify(arr)
+        })
+      }
+
+      setData(oldCal);
     }
 
     makeRequest();
@@ -43,11 +87,7 @@ export default function Preview({ navigation: { navigate } }) {
       />
 
       <FlatList
-        data={[
-          {key: JSON.stringify([["e", "e", "e"], ["n", "e", "e"]])},
-          {key: JSON.stringify([["e", "e", "e"], ["n", "e", "e"]])},
-        ]}
-
+        data={data}
         style={{
           marginLeft: 10,
           marginRight: 10
@@ -55,18 +95,18 @@ export default function Preview({ navigation: { navigate } }) {
 
         renderItem={({item}) => {
           var t = [];
-          var it = JSON.parse(item["key"]);
+          var it = JSON.parse(item["value"]);
 
           for (var i = 0; i < it.length; i++) {
             var a = [];
             it[i].forEach((value) => {
-              if (value == "n") {a.push(<View><Text>_</Text></View>);}
-              else {a.push(shapes["drop" + (i + 1)])}
+              if (value == false) {a.push(<View style={{backgroundColor: 'transparent', padding: 5}}><Text style={{color: 'transparent'}}>_</Text></View>);}
+              else {a.push(<View style={{padding: 5, backgroundColor: 'transparent'}}>{shapes["drop" + (i + 1)]}</View>);}
             });
             t.push(a);
           }
 
-          return (<View key={0} style={{flexDirection: 'row', backgroundColor: Colors.regular["lightgray"], alignItems: 'center', marginBottom: 10, padding: 10, width: win.width * 0.9}}><Table style={{width: '50%'}}><Cols data={t}/></Table></View>);
+          return (<TouchableOpacity key={item["key"]} style={{flexDirection: 'row', backgroundColor: Colors.regular["lightgray"], alignItems: 'center', marginBottom: 10, padding: 10, width: win.width * 0.9}} onPress={() => {update(item["key"])}}><Table style={{width: '50%'}}><Cols data={t}/></Table></TouchableOpacity>);
         }}
       />
     </View>

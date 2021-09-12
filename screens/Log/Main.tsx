@@ -39,7 +39,7 @@ export default function Main({ navigation: { navigate } }) {
       const val = await storage.getItem('generatevalues');
       const parsed = JSON.parse(val);
       const appoint = parsed.nextAppointment.split("T");
-
+      
       setAppointment(appoint[0]);
     }
     if (isFocused) { makeRequest(); }
@@ -73,7 +73,7 @@ export default function Main({ navigation: { navigate } }) {
           </TouchableOpacity>
 
           <TouchableOpacity style={[generateStyles.button, {marginBottom: 10}]} onPress={() => {navigate("Preview")}}>
-            <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["mediumgray"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to view old calendars</Text>
+            <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["mediumgray"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to use an old calendar</Text>
           </TouchableOpacity>
 
           <View style={{marginBottom: 10, padding: 10, backgroundColor: Colors.regular["lightgray"], width: '100%'}}>

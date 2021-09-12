@@ -14,7 +14,7 @@
 | dosage | dosage of previous + current days, months, and years | see below |
 | badges | whether users have received badges or not | Integer [] |
 | dateOn | the day they first downloaded the app | date |
-| previousCalendar | array of all the generated calendars | Array [] |
+| previousCalendar | array of all the generated calendars | Dictionary [] |
 
 ### Dictionaries
 **Generate values** is stored as the following:
@@ -32,6 +32,21 @@
     ...
   }
 }
+
+**Previous Calendar** is stored as the following:
+[
+  {
+    drop1: {
+      name: String,
+      morning: Boolean,
+      afternoon: Boolean,
+      night: Boolean,
+      eyes: String
+    },
+    ...
+  },
+  ...
+]
 
 **Dosage** is stored as the following:
 {
