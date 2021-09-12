@@ -223,6 +223,11 @@ export default function Second({ navigation: { navigate } }) {
     setMessage("");
     generateValueData["drops"] = drops;
 
+    var previousCalendarUnparsed = await storage.getItem('previousCalendar');
+    var previousCalParsed = JSON.parse(previousCalendarUnparsed);
+    previousCalParsed.unshift(drops);
+    await storage.setItem('previousCalendar', JSON.stringify(previousCalParsed));
+
     if (!(year in parsed)) { parsed[year] = {};}
     if (!(month in parsed[year])) { parsed[year][month] = {};}
     if (day in parsed[year][month]) {delete parsed[year][month][day];};
