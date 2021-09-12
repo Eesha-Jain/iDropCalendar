@@ -47,6 +47,13 @@ export default function Preview({ navigation: { navigate } }) {
     navigate("Main");
   }
 
+  async function delet(index) {
+    var cal = await storage.getItem('previousCalendar');
+    var parsed = JSON.parse(cal);
+    parsed.splice(index, 1);
+    await storage.setItem('previousCalendar', JSON.stringify(parsed));
+  }
+
   useEffect(() => {
     const makeRequest = async () => {
       var cal = await storage.getItem('previousCalendar');
@@ -106,7 +113,17 @@ export default function Preview({ navigation: { navigate } }) {
             t.push(a);
           }
 
-          return (<TouchableOpacity key={item["key"]} style={{flexDirection: 'row', backgroundColor: Colors.regular["lightgray"], alignItems: 'center', marginBottom: 10, padding: 10, width: win.width * 0.9}} onPress={() => {update(item["key"])}}><Table style={{width: '50%'}}><Cols data={t}/></Table></TouchableOpacity>);
+          return (
+            <View style={{backgroundColor: Colors.regular["lightgray"], marginBottom: 10, padding: 10, width: win.width * 0.9}}>
+              <TouchableOpacity key={item["key"]} style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => {update(item["key"])}}>
+                <Table style={{width: '50%'}}><Cols data={t}/></Table>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={{marginTop: 10}} onPress={() => {delet(item["key"])}}>
+                <Text style={{color: 'red'}}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          );
         }}
       />
     </View>
