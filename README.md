@@ -58,6 +58,11 @@ How to test (iPhone):
   * <s>Drops main page - automatically go to that page</s>
 * <s>Bugs</s>
   * <s>When previewing a day with more drops than today, it doesn't show them</s>
+  * Fix Android
+      * Generate 2 "submit" button doesn't work (and therefore calendar regeneration)
+      * Website generation - space in title, icons don't appear in description
+      * Can't fill out drops
+      * Test previous calendar
 * Deployment onto App Store and Google Play
   * <s>Find links</s>
 * Testing and more Debugging with App Download
