@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions, Image, TouchableHighlight } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 const win = Dimensions.get('window');
@@ -20,7 +20,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
           finalStatus = status;
         }
         if (finalStatus !== 'granted') {
-          alert('Please enable push notifications to get dosing and appointment reminders!');
+          alert('Enable push notifications to get dosing and appointment reminders!');
           await storage.setItem('expopushtoken', "");
           return;
         }
@@ -39,19 +39,25 @@ export default function FirstScreen ({ navigation: { navigate } }) {
         });
       }
     };
-
     registerForPushNotificationsAsync();
-    await storage.setItem('dateOn', new Date().toString());
-    await storage.setItem('firsttime', 'false');
-    await storage.setItem('generatedACalendar', 'false');
-    await storage.setItem('generatestep', '1');
-    await storage.setItem('previousCalendar', JSON.stringify([]));
-    await storage.setItem('generateValues', JSON.stringify({data: 'none'}));
-    await storage.setItem('dosage', JSON.stringify({data: 'none'}));
-    await storage.setItem('badges', JSON.stringify({badges: [0.3, 0.3]}));
-
+    
     navigate("Tabs");
   }
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      await storage.setItem('dateOn', new Date().toString());
+      await storage.setItem('firsttime', 'false');
+      await storage.setItem('generatedACalendar', 'false');
+      await storage.setItem('generatestep', '1');
+      await storage.setItem('previousCalendar', JSON.stringify([]));
+      await storage.setItem('generateValues', JSON.stringify({data: 'none', numberOfDrops: 0}));
+      await storage.setItem('dosage', JSON.stringify({data: 'none', numberOfDrops: 0}));
+      await storage.setItem('badges', JSON.stringify([0.3, 0.3]));
+    }
+
+    makeRequest();
+  }, []);
 
   return (
     <View style={styles.container}>

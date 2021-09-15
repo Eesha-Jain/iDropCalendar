@@ -45,6 +45,8 @@ function DosingLegend(props) {
       const parsed = JSON.parse(unparsed);
       let list = [];
 
+      if (parsed == null) {return;}
+
       for (var i = 1; i <= parsed.numberOfDrops; i++) {
         let drop = parsed.drops["drop" + i];
         let num = 0;
@@ -235,14 +237,16 @@ function CalendarDay(props) {
 
     const makeRequest = async () => {
       const obj = await storage.getItem('generatevalues');
-      dic = JSON.parse(obj);
+      dic = await JSON.parse(obj);
       var unparsed = await storage.getItem('dosage');
-      var parsed = JSON.parse(unparsed);
+      var parsed = await JSON.parse(unparsed);
       var today = new Date();
       var year = today.getFullYear();
       var month = today.getMonth() + 1;
       var day = today.getDate();
       var exists = false;
+
+      if (dic == null || parsed == null) {return;}
 
       try {
         var a = parsed[year][month][day];

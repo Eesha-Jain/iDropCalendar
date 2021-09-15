@@ -16,7 +16,7 @@ import { useIsFocused } from "@react-navigation/native";
 export default function TabThreeScreen({ navigation: { navigate } }) {
   const [dataset, setDataSet] = useState([{ data: [0] }]);
   const [message, setMessage] = useState("");
-  const [earn, setEarn] = useState([0, 0]);
+  const [earn, setEarn] = useState([0.3, 0.3]);
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -33,7 +33,6 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
         badge.push(0.3);
       }
       setEarn(badge);
-
       await storage.setItem('badges', JSON.stringify(badge));
 
       for (var i = 0; i < 30; i++) {

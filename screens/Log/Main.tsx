@@ -38,8 +38,11 @@ export default function Main({ navigation: { navigate } }) {
 
       const val = await storage.getItem('generatevalues');
       const parsed = JSON.parse(val);
-      const appoint = parsed.nextAppointment.split("T");
-      
+      var appoint;
+
+      try { appoint = parsed.nextAppointment.split("T"); }
+      catch (e) { appoint = ""; }
+
       setAppointment(appoint[0]);
     }
     if (isFocused) { makeRequest(); }
