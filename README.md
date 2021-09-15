@@ -63,6 +63,7 @@ How to test (iPhone):
       * Website generation - space in title, icons don't appear in description
       * Can't fill out drops
       * Test previous calendar
+      * Strange back button
 * Deployment onto App Store and Google Play
   * <s>Find links</s>
 * Testing and more Debugging with App Download
