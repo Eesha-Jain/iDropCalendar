@@ -34,7 +34,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.yourcompany.yourappname",
+      "package": "com.nanodropperinc.nanodropper",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
