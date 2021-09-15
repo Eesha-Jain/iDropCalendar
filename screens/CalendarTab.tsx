@@ -24,15 +24,6 @@ export default function TabTwoScreen({ navigation: { navigate } }) {
         component={Preview}
         options={{
           title: "Old Calendars",
-          headerLeft: () => (
-            <Button
-              onPress={() => {
-                navigate("Main");
-              }}
-              title="< Back"
-              color="#299bff"
-            />
-          ),
         }}
       />
     </CalStack.Navigator>

@@ -81,7 +81,7 @@ function CalendarLegend(props) {
     <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10}]}>
       <Text style={{fontSize: 15, fontFamily: 'os-bold', marginBottom: 5}}>Calendar legend:</Text>
       <Table borderStyle={{borderWidth: 0}} style={{width: '100%'}}>
-        <Rows data={arr} flexArr={[1, 1]}/>
+        <Rows data={arr} flexArr={[1, 2]}/>
       </Table>
     </View>
   );
