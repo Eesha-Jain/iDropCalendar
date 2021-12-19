@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
@@ -13,7 +13,8 @@ import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/GenerateTab';
 import TabTwoScreen from '../screens/CalendarTab';
 import TabThreeScreen from '../screens/Stats';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from '../types';
+import TabFourScreen from '../screens/Questions';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList, TabFourParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -25,13 +26,6 @@ export default function BottomTabNavigator() {
       initialRouteName="Log"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="Log"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="calendar-outline" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
         name="Generate"
         component={TabOneNavigator}
         options={{
@@ -39,10 +33,24 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
+        name="Log"
+        component={TabTwoNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="calendar-outline" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
         name="Stats"
         component={TabThreeNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="stats-chart" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="FQA"
+        component={TabFourNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon2 name="questioncircle" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -53,6 +61,10 @@ export default function BottomTabNavigator() {
 // https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function TabBarIcon2(props: { name: React.ComponentProps<typeof AntDesign>['name']; color: string }) {
+  return <AntDesign size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
@@ -96,5 +108,19 @@ function TabThreeNavigator() {
         options={{ headerTitle: 'Stats', headerShown:false }}
       />
     </TabThreeStack.Navigator>
+  );
+}
+
+const TabFourStack = createStackNavigator<TabFourParamList>();
+
+function TabFourNavigator() {
+  return (
+    <TabFourStack.Navigator>
+      <TabFourStack.Screen
+        name="Question"
+        component={TabFourScreen}
+        options={{ headerTitle: 'FQA', headerShown:false }}
+      />
+    </TabFourStack.Navigator>
   );
 }

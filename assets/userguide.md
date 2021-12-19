@@ -15,6 +15,7 @@
 | badges | whether users have received badges or not | Integer [] |
 | dateOn | the day they first downloaded the app | date |
 | previousCalendar | array of all the generated calendars | Dictionary [] |
+| alternate | generatevalues while it is being filled in | see generatevalues below |
 
 ### Dictionaries
 **Generate values** is stored as the following:

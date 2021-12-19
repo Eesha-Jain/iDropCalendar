@@ -2,16 +2,16 @@
   "expo": {
     "name": "Nanodropper",
     "slug": "Nanodropper",
-    "version": "1.0.0",
+    "version": "1.5.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "automatic",
     "plugins": [
       [
         "expo-notifications",
         {
-          "icon": "./assets/images/icon.png",
+          "icon": "./assets/images/adaptive-icon.png",
           "color": "#ffffff",
           "mode": "production"
         }
@@ -29,16 +29,16 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.yourcompany.yourappname",
-      "buildNumber": "1.0.0",
+      "bundleIdentifier": "com.nanodropperinc.nanodropper",
+      "buildNumber": "1.5.0",
+      "icon": "./assets/images/icon.png",
       "supportsTablet": true
     },
     "android": {
       "package": "com.nanodropperinc.nanodropper",
-      "versionCode": 1,
+      "versionCode": 5,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/adaptive-icon.png"
       }
     },
     "web": {
