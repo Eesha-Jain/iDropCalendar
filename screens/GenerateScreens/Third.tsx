@@ -60,12 +60,19 @@ export default function Third({ navigation: { navigate } }) {
             var color = Colors.calendar["notcompleted"];
 
             if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
+            else if (dic2[year][month + 1][day]) {
+              try {
+                var x = dic2[year][month + 1][day];
+                if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
+                else { color = Colors.calendar["notcompleted"];}
+              } catch(e) { color = Colors.calendar["notcompleted"]; }
+            }
             else if (day > todayDay && month == todayMonth && year == todayYear) { color = Colors.calendar["future"]; }
-            else if (month > todayMonth || year > todayYear) { color = Colors.calendar["future"]; }
+            else if ((month > todayMonth && year == todayYear) || year > todayYear) { color = Colors.calendar["future"]; }
             else if (day < dateOn.getDate() && month == dateOn.getMonth() && year==dateOn.getFullYear()) {color = Colors.calendar["noton"];}
             else if (month < dateOn.getMonth() && year == dateOn.getFullYear() ) { color = Colors.calendar["noton"]; }
-            else if (year < dateOn.getFullYear() ) { color = Colors.calendar["noton"];
-            } else {
+            else if (year < dateOn.getFullYear() ) { color = Colors.calendar["noton"]; }
+            else {
               try {
                 var x = dic2[year][month + 1][day];
                 if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
