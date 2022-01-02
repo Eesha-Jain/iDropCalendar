@@ -1,19 +1,5 @@
 # Nanodropper App
-
-## How to test the current progress on your own?
-How to test (Android):
-* Go to the Google Play Store
-* Download "Expo"
-* Create an account
-* Once downloaded, open this link: https://expo.dev/@eeja/Nanodropper
-* Scan the QR Code on the app
-
-How to test (iPhone):
-* Go to the App Store
-* Download "Expo Go"
-* Create an account
-* Once downloaded, open this link: https://expo.dev/@eeja/Nanodropper
-* Scan the QR Code on the "Camera" App and then open the pop-up that leads to Expo Go
+Download the Nanodropper App Today! Available on Google Play and App Store.
 
 ## To-Do List
 * <s>Create a Expo React Native App</s>
@@ -63,7 +49,4 @@ How to test (iPhone):
       * <s>Can't fill out drops</s>
       * <s>Test previous calendar</s>
       * <s>Strange back button</s>
-* Deployment onto App Store and Google Play
-  * <s>Find links</s>
-* Testing and more Debugging with App Download
-      * Website generation - space in title, icons don't appear in description
+* <s>Deployment onto App Store and Google Play</s>
