@@ -60,9 +60,12 @@ export default function Third({ navigation: { navigate } }) {
             var color = Colors.calendar["notcompleted"];
 
             try {
-              var x = dic2[year][month + 1][day];
-              if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
-              else { color = Colors.calendar["notcompleted"];}
+              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
+              else {
+                var x = dic2[year][month + 1][day];
+                if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
+                else { color = Colors.calendar["notcompleted"];}
+              }
             } catch(e) {
               if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
               else if (day > todayDay && month == todayMonth && year == todayYear) { color = Colors.calendar["future"]; }
@@ -96,9 +99,12 @@ export default function Third({ navigation: { navigate } }) {
             var color = Colors.calendar["notcompleted"];
 
             try {
-              var x = dic2[year][month + 1][day];
-              if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
-              else { color = Colors.calendar["notcompleted"];}
+              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
+              else {
+                var x = dic2[year][month + 1][day];
+                if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
+                else { color = Colors.calendar["notcompleted"];}
+              }
             } catch(e) {
               if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
               else if (day > todayDay && month == todayMonth && year == todayYear) { color = Colors.calendar["future"]; }
