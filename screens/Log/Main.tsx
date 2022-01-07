@@ -59,9 +59,9 @@ export default function Main({ navigation: { navigate } }) {
         <Entypo name="emoji-sad" size={150} color={Colors.regular["mediumgray"]} />
         <Text style={{color: Colors.regular["mediumgray"], fontSize: 20, margin: 20}}>You haven't created a calendar yet</Text>
 
-        <TouchableHighlight style={singleStyles.button} onPress={() => navigateTabs()}>
+        <TouchableOpacity style={singleStyles.button} onPress={() => navigateTabs()}>
           <GradientButton style={singleStyles.buttonText} text="Click here to Generate Calendar" radius="5" />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
 
       <ScrollView persistentScrollbar={true}>

@@ -40,7 +40,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
       }
     };
     registerForPushNotificationsAsync();
-    
+
     navigate("Tabs");
   }
 
@@ -66,9 +66,9 @@ export default function FirstScreen ({ navigation: { navigate } }) {
       <GradientText text="Need a remEYEnder?" style={styles.smallText} />
       <GradientText text="Begin using iDrop Calendar!" style={styles.smallText} />
 
-      <TouchableHighlight style={styles.button} onPress={() => navigateTabs()}>
+      <TouchableOpacity style={styles.button} onPress={() => navigateTabs()}>
         <GradientButton style={styles.buttonText} text="Start Now!" radius="5" />
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 }
