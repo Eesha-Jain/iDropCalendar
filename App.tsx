@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import storage from "@react-native-async-storage/async-storage";
+import * as Updates from 'expo-updates';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -15,6 +16,7 @@ import Navigation from './navigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
+import { Alert } from 'react-native';
 
 export default function App() {
   const [route, setRoute] = useState(true);
@@ -30,7 +32,21 @@ export default function App() {
       }
     })
   }
-  makeRequest();
+
+  const checkUpdate = async () => {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        Updates.reloadAsync();
+      }
+    } catch (e) {}
+  }
+
+  useEffect(() => {
+    checkUpdate();
+    makeRequest();
+  }, []);
 
   if (!isLoadingComplete) {
     return null;

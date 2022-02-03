@@ -2,7 +2,7 @@
   "expo": {
     "name": "Nanodropper",
     "slug": "Nanodropper",
-    "version": "1.9.0",
+    "version": "1.10.0",
     "orientation": "portrait",
     "scheme": "myapp",
     "icon": "./assets/images/icon.png",
@@ -30,13 +30,16 @@
     ],
     "ios": {
       "bundleIdentifier": "com.nanodropperinc.nanodropper",
-      "buildNumber": "1.9.0",
+      "buildNumber": "1.10.0",
       "icon": "./assets/images/icon.png",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIRequiresFullScreen": true
+      }
     },
     "android": {
       "package": "com.nanodropperinc.nanodropper",
-      "versionCode": 9,
+      "versionCode": 10,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png"
       }
