@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Nanodropper",
+    "name": "iDrop Cal",
     "slug": "Nanodropper",
     "version": "1.10.0",
     "orientation": "portrait",
@@ -34,7 +34,7 @@
       "icon": "./assets/images/icon.png",
       "supportsTablet": true,
       "infoPlist": {
-        "UIRequiresFullScreen": true
+        "UIRequiresFullScreen": false
       }
     },
     "android": {
