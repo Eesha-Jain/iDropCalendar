@@ -2,7 +2,7 @@
   "expo": {
     "name": "iDrop Cal",
     "slug": "Nanodropper",
-    "version": "1.10.0",
+    "version": "1.11.0",
     "orientation": "portrait",
     "scheme": "myapp",
     "icon": "./assets/images/icon.png",
@@ -30,7 +30,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.nanodropperinc.nanodropper",
-      "buildNumber": "1.10.0",
+      "buildNumber": "1.11.0",
       "icon": "./assets/images/icon.png",
       "supportsTablet": true,
       "infoPlist": {
@@ -39,7 +39,7 @@
     },
     "android": {
       "package": "com.nanodropperinc.nanodropper",
-      "versionCode": 10,
+      "versionCode": 11,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png"
       }
