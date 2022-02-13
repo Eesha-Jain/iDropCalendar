@@ -24,7 +24,7 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Log"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      screenOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
         name="Generate"
         component={TabOneNavigator}

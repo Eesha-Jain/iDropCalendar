@@ -1,6 +1,4 @@
-# User Guide
-
-## Local Storage
+# Async Storage User Guide
 
 ### Keys
 
