@@ -34,5 +34,3 @@ export default {
     noton: 'rgb(204, 204, 204)'
   }
 };
-
-//https://gka.github.io/palettes/#/3|s|00a9d6,ffff2c,fcbc58|ffffe0,ff005e,93003a|1|1

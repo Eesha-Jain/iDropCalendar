@@ -47,7 +47,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="FQA"
+        name="FQAs"
         component={TabFourNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon2 name="questioncircle" color={color} />,
@@ -119,7 +119,7 @@ function TabFourNavigator() {
       <TabFourStack.Screen
         name="Question"
         component={TabFourScreen}
-        options={{ headerTitle: 'FQA', headerShown:false }}
+        options={{ headerTitle: 'FQAs', headerShown:false }}
       />
     </TabFourStack.Navigator>
   );

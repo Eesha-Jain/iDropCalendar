@@ -40,7 +40,7 @@ export default function Questions({ navigation: { navigate } }) {
     <View style={styles.container}>
       <View style={[styles.top, {marginBottom: 10}]}>
         <Image source={require('../assets/images/logos/NanodropperLong.jpg')} style={styles.topImage} />
-        <Text style={styles.topText}>Questions</Text>
+        <Text style={styles.topText}>FQAs</Text>
       </View>
 
       <ScrollView persistentScrollbar={true}>
@@ -51,7 +51,7 @@ export default function Questions({ navigation: { navigate } }) {
         </View>
 
         <View style={{alignItems: 'center'}}>
-          <Text style={{fontSize: 25, fontFamily: 'os-bold', marginBottom: 10, textAlign: 'center'}}>FQA</Text>
+          <Text style={{fontSize: 25, fontFamily: 'os-bold', marginBottom: 10, textAlign: 'center'}}>FQAs</Text>
 
           <TouchableOpacity style={[generateStyles.button, {marginBottom: 10, width: '80%'}]} onPress={() => {Linking.openURL('https://drive.google.com/file/d/15Dw18tBDBgg4I7supeI-TH7BjK3C-21T/view?usp=sharing')}}>
             <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["mediumgray"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>App use instructions</Text>

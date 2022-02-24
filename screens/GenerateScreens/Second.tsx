@@ -5,7 +5,6 @@ import styles from '../styles.ts';
 import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
 import {GradientButton} from '../../assets/Gradients';
-import DatePicker from 'react-native-datepicker';
 const win = Dimensions.get('window');
 import Colors from '../../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
