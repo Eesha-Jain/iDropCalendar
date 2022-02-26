@@ -45,7 +45,8 @@ export default function Main({ navigation: { navigate } }) {
 
       setAppointment(appoint[0]);
     }
-    if (isFocused) { makeRequest(); }
+
+    makeRequest();
   }, [month, year, isFocused]);
 
   return (
