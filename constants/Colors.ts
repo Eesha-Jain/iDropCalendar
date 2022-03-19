@@ -1,6 +1,12 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
 
+//Dictionary of colors
 export default {
   light: {
     text: '#000',

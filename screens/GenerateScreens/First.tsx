@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, TouchableOpacity } from 'react-native';
@@ -19,6 +24,7 @@ export default function First({ navigation: { navigate } }) {
   d.setDate(d.getDate() + 1);
   const [date, setDate] = useState(d);
 
+  //Functions for when inputs are set on page
   useEffect(() => {
     const makeRequest = async () => {
       if (Platform.OS === 'ios') { setOppoShow('none'); }
@@ -54,6 +60,7 @@ export default function First({ navigation: { navigate } }) {
     }
   }
 
+  //Update information in async storage and navigate tabs
   async function navigateTabs() {
     if (drops < 1 || drops > 4) {
       setMessage("Set number of drops between 1 and 4");
@@ -84,6 +91,7 @@ export default function First({ navigation: { navigate } }) {
     }
   }
 
+  //"First" page app code
   return (
     <View style={styles.container}>
       <View style={styles.top}>

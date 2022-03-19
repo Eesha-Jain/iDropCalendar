@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState, useEffect, useRef} from 'react';
 import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, TouchableOpacity, ScrollView, Linking } from 'react-native';
@@ -11,6 +16,7 @@ import Colors from '../constants/Colors';
 import storage from "@react-native-async-storage/async-storage";
 
 export default function Questions({ navigation: { navigate } }) {
+  //List of questions and respective answers
   const questions = [
     `What is the right dose for eyedrops? Will the drop have enough medication?`,
     `Why are smaller eyedrops safer?`,
@@ -36,6 +42,7 @@ export default function Questions({ navigation: { navigate } }) {
     `If you'd like to double-check the fit, you can find our compatibility card here: https://nanodropper.com/compatibility. Please note our 100% Fit Guarantee: if you order and the Nanodropper doesn’t fit your bottle, we will offer a full refund. If you are still unsure, you can send an image of your bottle in front of the compatibility card and we can confirm.`
   ];
 
+  //"Question" page app code
   return (
     <View style={styles.container}>
       <View style={[styles.top, {marginBottom: 10}]}>

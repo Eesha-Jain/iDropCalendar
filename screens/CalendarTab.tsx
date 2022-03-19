@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState} from 'react';
 import { StyleSheet, Image, Button } from 'react-native';
@@ -11,6 +16,7 @@ import Main from './Log/Main';
 import Preview from './Log/Preview';
 
 export default function TabTwoScreen({ navigation: { navigate } }) {
+  //Stack Navigation for CalendarTab (filling out daily calendar)
   return (
     <CalStack.Navigator initialRouteName={"Main"}>
       <CalStack.Screen

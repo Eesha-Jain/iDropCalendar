@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { FlatList, StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, TouchableOpacity, ScrollView, Linking } from 'react-native';
@@ -23,6 +28,7 @@ export default function Preview({ navigation: { navigate } }) {
 
   var [data, setData] = useState({});
 
+  //Update screen with new list of previously generated calendar
   async function update(index) {
     var cal = await storage.getItem('previousCalendar');
     var parsed = JSON.parse(cal);
@@ -47,6 +53,7 @@ export default function Preview({ navigation: { navigate } }) {
     navigate("Main");
   }
 
+  //Delete previous calendars that are selected to be deleted
   async function delet(index) {
     var cal = await storage.getItem('previousCalendar');
     var parsed = JSON.parse(cal);
@@ -54,6 +61,7 @@ export default function Preview({ navigation: { navigate } }) {
     await storage.setItem('previousCalendar', JSON.stringify(parsed));
   }
 
+  //Access list of previously generated calendar and store in state on screen load
   useEffect(() => {
     const makeRequest = async () => {
       var cal = await storage.getItem('previousCalendar');
@@ -80,6 +88,7 @@ export default function Preview({ navigation: { navigate } }) {
     makeRequest();
   }, []);
 
+  //"Preview" page app code
   return (
     <View style={styles.container}>
       <Text style={{marginTop: 10, color: Colors.regular["blue"], textAlign: "center", fontSize: 16}}>Click to Use A Previously Generated Calendar</Text>
@@ -130,6 +139,7 @@ export default function Preview({ navigation: { navigate } }) {
   );
 }
 
+//Styles specific to "Preview" page
 const singleStyles = StyleSheet.create({
   none: {
     marginTop: 40,

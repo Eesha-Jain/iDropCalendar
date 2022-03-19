@@ -1,8 +1,14 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import { StyleSheet, Dimensions, Image } from 'react-native';
 const win = Dimensions.get('window');
 import Colors from '../constants/Colors';
 
+//Universal app styles
 export default StyleSheet.create({
   container: {
     flex: 1,

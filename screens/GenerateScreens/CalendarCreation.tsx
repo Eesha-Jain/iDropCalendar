@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState, useEffect, useRef} from 'react';
 import { StyleSheet, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, Linking } from 'react-native';
@@ -24,69 +29,14 @@ Notifications.setNotificationHandler({
   }),
 });
 
+//Text indicating the day of the week
 function DayOfWeek(props) {
   return (
     <View style={{backgroundColor: 'transparent', alignItems: 'center'}}><Text>{props.day}</Text></View>
   );
 }
 
-function DosingLegend(props) {
-  const [arr, setArr] = useState([]);
-  var shapes = {
-    drop1: [<View key={0} style={{width: 15, height: 15, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#1026a3'}}></View>],
-    drop2: [<View key={1} style={{width: 15, height: 15, borderRadius: 15/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#7f7dde'}}></View>],
-    drop3: [<View key={2} style={{width: 14, height: 14, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#505fbf', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
-    drop4: [<FontAwesome key={3} style={{color: '#5d8abd'}} name={'star-o'} size={18} />]
-  }
-
-  useEffect(() => {
-    const makeRequest = async () => {
-      const unparsed = await storage.getItem('generatevalues');
-      const parsed = JSON.parse(unparsed);
-      let list = [];
-
-      if (parsed == null) {return;}
-
-      for (var i = 1; i <= parsed.numberOfDrops; i++) {
-        let drop = parsed.drops["drop" + i];
-        let num = 0;
-
-        if (drop.morning) {num++;}
-        if (drop.afternoon) {num++;}
-        if (drop.night) {num++;}
-
-        let arr = [<View key={0} style={generateStyles.dosingLegendRepeat}><Text>{i}</Text></View>, <View style={generateStyles.dosingLegendRepeat} key={1}>{shapes["drop" + i]}</View>, <View style={generateStyles.dosingLegendRepeat} key={2}><Text>{drop.name}</Text></View>, <View style={generateStyles.dosingLegendRepeat} key={3}><Text>{num + "x / day"}</Text></View>, <View style={generateStyles.dosingLegendRepeat} key={4}><Text>{drop.eyes}</Text></View>];
-        list.push(arr);
-      }
-
-      setArr(list);
-    }
-    makeRequest();
-  }, [arr]);
-
-  return (
-    <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10}]}>
-      <Text style={{fontSize: 15, fontFamily: 'os-bold', marginBottom: 5}}>Dosing legend:</Text>
-      <Table borderStyle={{borderWidth: 0.5, borderColor: 'gray'}} style={{width: '100%'}}>
-        <Rows data={arr} flexArr={[1, 1, 4, 3, 3]}/>
-      </Table>
-    </View>
-  );
-}
-
-function CalendarLegend(props) {
-  var arr = [[<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center', padding: 5}}><Text>Today</Text></View>, <View style={{backgroundColor: Colors.calendar["completed"], alignItems: 'center', padding: 5}}><Text>Took all your medication</Text></View>], [<View style={{backgroundColor: Colors.calendar["notcompleted"], alignItems: 'center', padding: 5}}><Text>Didn't take all your medication</Text></View>], [ <View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center', padding: 5}}><Text>Not on app</Text></View>, <View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center', padding: 5}}><Text>Day in the future</Text></View>]];
-
-  return (
-    <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10}]}>
-      <Text style={{fontSize: 15, fontFamily: 'os-bold', marginBottom: 5}}>Calendar legend:</Text>
-      <Table borderStyle={{borderWidth: 0}} style={{width: '100%'}}>
-        <Rows data={arr} flexArr={[1, 2]}/>
-      </Table>
-    </View>
-  );
-}
-
+//Returns shape respective to drop #
 function getDropShape(props) {
   if (props.drop == "drop1") {
     return ( <View style={{width: 20, height: 20, borderWidth: 1, backgroundColor: props.backColor, borderColor: props.color}}></View> );
@@ -99,6 +49,7 @@ function getDropShape(props) {
   }
 }
 
+//Daily dosing calendar for patients to fill out as they take their eyedrop medication
 function CalendarDay(props) {
   let dic = {};
   const [time, setTime] = useState([]);
@@ -113,6 +64,7 @@ function CalendarDay(props) {
   const notificationListener = useRef();
   const responseListener = useRef();
 
+  //Schedule push notifications
   async function schedulePushNotifWeek() {
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -135,6 +87,7 @@ function CalendarDay(props) {
     });
   }
 
+  //Change colored to noncolored shape
   async function onClick(my, mx) {
     var x = mx - 1;
     var y = my - 1;
@@ -184,6 +137,7 @@ function CalendarDay(props) {
     await storage.setItem('dosage', JSON.stringify(parsed));
   }
 
+  //See whether user deserve badges
   async function testPerfect(dosageParsed) {
     var badgeUnparsed = await storage.getItem('badges');
     var badge = JSON.parse(badgeUnparsed);
@@ -223,6 +177,7 @@ function CalendarDay(props) {
     await storage.setItem('badges', JSON.stringify(earned));
   }
 
+  //Set up the daily calendar log based on async storage
   useEffect(() => {
     const pushFunction = async () => {
       const token = await storage.getItem('expopushtoken');
@@ -326,6 +281,7 @@ function CalendarDay(props) {
   );
 }
 
+//Previous daily dosing calendar for patients to fill out as they take their eyedrop medication (non editable)
 function PreviousCalendarDay(props) {
   let dic = {};
   const [time, setTime] = useState([]);
@@ -432,6 +388,66 @@ function PreviousCalendarDay(props) {
           {set}
         </View>
       }
+    </View>
+  );
+}
+
+
+//Legend that tells patients what each shape means
+function DosingLegend(props) {
+  const [arr, setArr] = useState([]);
+  var shapes = {
+    drop1: [<View key={0} style={{width: 15, height: 15, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#1026a3'}}></View>],
+    drop2: [<View key={1} style={{width: 15, height: 15, borderRadius: 15/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#7f7dde'}}></View>],
+    drop3: [<View key={2} style={{width: 14, height: 14, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#505fbf', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
+    drop4: [<FontAwesome key={3} style={{color: '#5d8abd'}} name={'star-o'} size={18} />]
+  }
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      const unparsed = await storage.getItem('generatevalues');
+      const parsed = JSON.parse(unparsed);
+      let list = [];
+
+      if (parsed == null) {return;}
+
+      for (var i = 1; i <= parsed.numberOfDrops; i++) {
+        let drop = parsed.drops["drop" + i];
+        let num = 0;
+
+        if (drop.morning) {num++;}
+        if (drop.afternoon) {num++;}
+        if (drop.night) {num++;}
+
+        let arr = [<View key={0} style={generateStyles.dosingLegendRepeat}><Text>{i}</Text></View>, <View style={generateStyles.dosingLegendRepeat} key={1}>{shapes["drop" + i]}</View>, <View style={generateStyles.dosingLegendRepeat} key={2}><Text>{drop.name}</Text></View>, <View style={generateStyles.dosingLegendRepeat} key={3}><Text>{num + "x / day"}</Text></View>, <View style={generateStyles.dosingLegendRepeat} key={4}><Text>{drop.eyes}</Text></View>];
+        list.push(arr);
+      }
+
+      setArr(list);
+    }
+    makeRequest();
+  }, [arr]);
+
+  return (
+    <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10}]}>
+      <Text style={{fontSize: 15, fontFamily: 'os-bold', marginBottom: 5}}>Dosing legend:</Text>
+      <Table borderStyle={{borderWidth: 0.5, borderColor: 'gray'}} style={{width: '100%'}}>
+        <Rows data={arr} flexArr={[1, 1, 4, 3, 3]}/>
+      </Table>
+    </View>
+  );
+}
+
+//Legend that explains the color coding on monthly calendar
+function CalendarLegend(props) {
+  var arr = [[<View style={{backgroundColor: Colors.calendar["today"], alignItems: 'center', padding: 5}}><Text>Today</Text></View>, <View style={{backgroundColor: Colors.calendar["completed"], alignItems: 'center', padding: 5}}><Text>Took all your medication</Text></View>], [<View style={{backgroundColor: Colors.calendar["notcompleted"], alignItems: 'center', padding: 5}}><Text>Didn't take all your medication</Text></View>], [ <View style={{backgroundColor: Colors.calendar["noton"], alignItems: 'center', padding: 5}}><Text>Not on app</Text></View>, <View style={{backgroundColor: Colors.calendar["future"], alignItems: 'center', padding: 5}}><Text>Day in the future</Text></View>]];
+
+  return (
+    <View style={[props.style, {backgroundColor: Colors.regular["lightgray"], padding: 10}]}>
+      <Text style={{fontSize: 15, fontFamily: 'os-bold', marginBottom: 5}}>Calendar legend:</Text>
+      <Table borderStyle={{borderWidth: 0}} style={{width: '100%'}}>
+        <Rows data={arr} flexArr={[1, 2]}/>
+      </Table>
     </View>
   );
 }

@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, TouchableOpacity, ScrollView, Linking } from 'react-native';
@@ -23,6 +28,7 @@ export default function Third({ navigation: { navigate } }) {
   const [dosing, setDosing] = useState(true);
   const [empty, setEmpty] = useState(false);
 
+  //Access async storage values to display on screen
   useEffect(() => {
     const calendarMakeRequest = async () => {
       const obj = await storage.getItem('generatevalues');
@@ -138,6 +144,7 @@ export default function Third({ navigation: { navigate } }) {
     return () => {};
   }, [month, year, dayDif, monthDif]);
 
+  //Look at the PreviousCalendarDay by clicking on calendar function
   async function lookAtDate(dayp, monthp, yearp) {
     var today = new Date();
     if (today.getDate() == dayp && today.getFullYear() == yearp && today.getMonth() == monthp) { navigate("Log"); }
@@ -174,6 +181,7 @@ export default function Third({ navigation: { navigate } }) {
     }
   }
 
+  //Progress through calendar
   function forward() {
     var amonth = month + 1;
     var ayear = year;
@@ -196,6 +204,7 @@ export default function Third({ navigation: { navigate } }) {
     setYear(ayear);
   }
 
+  //"Third" page app code
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -242,6 +251,7 @@ export default function Third({ navigation: { navigate } }) {
   );
 }
 
+//Styles specific to "Third" page
 const singleStyles = StyleSheet.create({
   none: {
     marginTop: 40,

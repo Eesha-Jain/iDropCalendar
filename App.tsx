@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
@@ -23,6 +28,7 @@ export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
+  //Display "FirstScreen" page if user's first time on app. Otherwise, navigate to the "Home" page
   const makeRequest = async () => {
     storage.getItem('firsttime').then((item) => {
       if (item) {
@@ -33,6 +39,7 @@ export default function App() {
     })
   }
 
+  //Check whether update is available for app. If so, automatically update the app.
   const checkUpdate = async () => {
     try {
       const update = await Updates.checkForUpdateAsync();
@@ -52,6 +59,7 @@ export default function App() {
     return null;
   } else {
     return (
+      //Create a Navigation Stack between Tabs and "FirstScreen"
       <SafeAreaProvider>
         <NavigationContainer independent={true}>
           <Stack.Navigator initialRouteName={route}>

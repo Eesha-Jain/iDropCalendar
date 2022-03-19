@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
@@ -10,6 +15,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 
 export default function FirstScreen ({ navigation: { navigate } }) {
+  //Get permission to send push notifications to user
   async function navigateTabs() {
     const registerForPushNotificationsAsync = async () => {
       if (Constants.isDevice) {
@@ -44,6 +50,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
     navigate("Tabs");
   }
 
+  //Set default values for async storage keys
   useEffect(() => {
     const makeRequest = async () => {
       await storage.setItem('dateOn', new Date().toString());
@@ -59,6 +66,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
     makeRequest();
   }, []);
 
+  //"FirstScreen" page app code
   return (
     <View style={styles.container}>
       <Image source={require('../assets/images/NanodropperCircle.png')} style={styles.topImage} />
@@ -73,6 +81,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
   );
 }
 
+//Styles specific to "FirstScreen" page
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',

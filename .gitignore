@@ -11,7 +11,6 @@ web-build/
 
 # macOS
 .DS_Store
-Nanodropper.jks
-key.txt
 credentials.json
-upload_certificate.pem
+*.pem
+*.der

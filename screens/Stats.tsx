@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState, useEffect, useRef} from 'react';
 import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, TouchableOpacity, ScrollView, Linking } from 'react-native';
@@ -21,6 +26,7 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
 
   useEffect(() => {
     const makeRequest = async () => {
+      //Access dosage and badge information from async storage
       var dosageUnparsed = await storage.getItem('dosage');
       var dosageParsed = JSON.parse(dosageUnparsed);
       var ans = [];
@@ -28,6 +34,7 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
       var badgeUnparsed = await storage.getItem('badges');
       var badge = JSON.parse(badgeUnparsed);
 
+      //Update amount of earned badges
       while (earn.length > badge.length) {
         console.log("ins");
         badge.push(0.3);
@@ -35,6 +42,7 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
       setEarn(badge);
       await storage.setItem('badges', JSON.stringify(badge));
 
+      //Set stat data for "Past 30 Day" chart based on dosage dictionary from async storage
       for (var i = 0; i < 30; i++) {
         var today = new Date();
         today.setDate(today.getDate() - i);
@@ -60,11 +68,13 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
     if (isFocused) { makeRequest(); }
   }, [isFocused]);
 
+  //"Past 30 Day" stats data
   const data = {
     labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
     datasets: dataset
   };
 
+  //"Past 30 Day" chart styles
   const chartConfig = {
       backgroundColor: "#ffffff",
       backgroundGradientFrom: "#ffffff",
@@ -76,42 +86,44 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
       propsForDots: { r: "2", strokeWidth: "1", stroke: Colors.regular["blue"] }
     };
 
-  return (
-    <View style={styles.container}>
-      <View style={[styles.top, {marginBottom: 10}]}>
-        <Image source={require('../assets/images/logos/NanodropperLong.jpg')} style={styles.topImage} />
-        <Text style={styles.topText}>Statistics & Badges</Text>
-      </View>
-
-      <ScrollView persistentScrollbar={true}>
-        <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 10}}>Statistics - past 30 days</Text>
-        <Text style={{marginBottom: 5, color: Colors.regular["blue"], textAlign: "center"}}>Days from Today vs Percent of Drops Taken</Text>
-          <LineChart
-            data={data}
-            width={win.width - 40}
-            height={220}
-            withVerticalLines={true}
-            yAxisInterval={5}
-            fromZero={true}
-            formatXLabel={(value) => value % 5 == 0 ? value : ''}
-            yAxisSuffix={"%"}
-            chartConfig={chartConfig}
-            withVerticalLabels={true}
-            onDataPointClick={({ value, dataset }) =>
-              setMessage('% of Drops Taken: ' + Math.round(value) + '%')
-            }
-          />
-          <Text>{message}</Text>
-        <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 20}}>Badges</Text>
-        <View style={{flexDirection: 'row'}}>
-          <Image source={require('../assets/images/badges/perfectWeek.png')} style={[singleStyles.badge, {opacity: earn[0]}]} />
-          <Image source={require('../assets/images/badges/perfectMonth.png')} style={[singleStyles.badge, {opacity: earn[1]}]} />
+    //"Stats" page app code
+    return (
+      <View style={styles.container}>
+        <View style={[styles.top, {marginBottom: 10}]}>
+          <Image source={require('../assets/images/logos/NanodropperLong.jpg')} style={styles.topImage} />
+          <Text style={styles.topText}>Statistics & Badges</Text>
         </View>
-      </ScrollView>
-    </View>
-  );
+
+        <ScrollView persistentScrollbar={true}>
+          <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 10}}>Statistics - past 30 days</Text>
+          <Text style={{marginBottom: 5, color: Colors.regular["blue"], textAlign: "center"}}>Days from Today vs Percent of Drops Taken</Text>
+            <LineChart
+              data={data}
+              width={win.width - 40}
+              height={220}
+              withVerticalLines={true}
+              yAxisInterval={5}
+              fromZero={true}
+              formatXLabel={(value) => value % 5 == 0 ? value : ''}
+              yAxisSuffix={"%"}
+              chartConfig={chartConfig}
+              withVerticalLabels={true}
+              onDataPointClick={({ value, dataset }) =>
+                setMessage('% of Drops Taken: ' + Math.round(value) + '%')
+              }
+            />
+            <Text>{message}</Text>
+          <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 20}}>Badges</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Image source={require('../assets/images/badges/perfectWeek.png')} style={[singleStyles.badge, {opacity: earn[0]}]} />
+            <Image source={require('../assets/images/badges/perfectMonth.png')} style={[singleStyles.badge, {opacity: earn[1]}]} />
+          </View>
+        </ScrollView>
+      </View>
+    );
 }
 
+//Styles specific to "Stats" page
 const singleStyles = StyleSheet.create({
   none: {
     marginTop: 40,

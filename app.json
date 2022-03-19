@@ -2,7 +2,7 @@
   "expo": {
     "name": "iDrop Cal",
     "slug": "idropcal",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -28,7 +28,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.nanodropperinc.nanodropper",
-      "buildNumber": "2.1.2",
+      "buildNumber": "2.1.3",
       "icon": "./assets/images/icon.png",
       "supportsTablet": true,
       "infoPlist": {

@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState} from 'react';
 import { StyleSheet, Image } from 'react-native';
@@ -14,6 +19,7 @@ import Third from './GenerateScreens/Third';
 export default function TabOneScreen({ navigation: { navigate } }) {
   const [route, setRoute] = useState("First");
 
+  //Navigate to the page user is in for calendar creation
   const makeRequest = async () => {
     const step = await storage.getItem("generatestep");
     if (step == 3) {
@@ -24,6 +30,7 @@ export default function TabOneScreen({ navigation: { navigate } }) {
   }
   makeRequest();
 
+  //Stack Navigation for "GenerateTab" (calendar creation) screens
   return (
     <MiniStack.Navigator initialRouteName={route}>
       <MiniStack.Screen

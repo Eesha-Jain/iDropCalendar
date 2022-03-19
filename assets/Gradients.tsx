@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import { StyleSheet, Text, View, Dimensions, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -5,6 +10,7 @@ import MaskedView from '@react-native-masked-view/masked-view';
 const win = Dimensions.get('window');
 import Colors from '../constants/Colors';
 
+//"GradientButton" function: creates a button with a gradient background
 function GradientButton(props) {
   return (
     <View>
@@ -18,6 +24,7 @@ function GradientButton(props) {
   );
 }
 
+//"GradientText" function: creates text with a gradient color
 function GradientText(props) {
   return (
     <MaskedView maskElement={<Text style={props.style}>{props.text}</Text>}>

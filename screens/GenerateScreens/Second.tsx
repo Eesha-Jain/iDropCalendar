@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Image, TextInput, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
@@ -38,6 +43,7 @@ export default function Second({ navigation: { navigate } }) {
   const day = today.getDate();
   let [pushnotif, setPushnotif] = useState([[new Date(year, month, day, 8, 0, 0), Platform.OS === 'ios'], [new Date(year, month, day, 12, 0, 0), Platform.OS === 'ios'], [new Date(year, month, day, 20, 0, 0), Platform.OS === 'ios']]);
 
+  //Functions that run when buttons clicked
   function showMode(i) {
     var dup = [...pushnotif];
     dup[i][1] = true;
@@ -62,35 +68,6 @@ export default function Second({ navigation: { navigate } }) {
       mountedRef.current = false
     }
   }, [])
-
-  useEffect(() => {
-    const makeRequest = async () => {
-      const generateValueDataUnparsed = await storage.getItem('generatevalues');
-      const generateValueData = JSON.parse(generateValueDataUnparsed);
-      const num = Number(generateValueData["numberOfDrops"]);
-
-      if (num >= 1) { updateDrop(1, 5, 'flex'); }
-      if (num >= 2) { updateDrop(2, 5, 'flex'); }
-      if (num >= 3) { updateDrop(3, 5, 'flex'); }
-      if (num >= 4) { updateDrop(4, 5, 'flex'); }
-    }
-
-    const pushFunction = async () => {
-      const token = await storage.getItem('expopushtoken');
-      setExpoPushToken(token);
-
-      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-        setNotification(notification);
-      });
-
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {});
-    }
-
-    if (mountedRef.current) {
-      makeRequest();
-      pushFunction();
-    }
-  }, []);
 
   let indexes = [1, 2, 3, 4];
   const times = ["morning", "afternoon", "night"];
@@ -123,6 +100,37 @@ export default function Second({ navigation: { navigate } }) {
     }
   }
 
+  //Access async storage values from "First" page to customize "Second" page display
+  useEffect(() => {
+    const makeRequest = async () => {
+      const generateValueDataUnparsed = await storage.getItem('generatevalues');
+      const generateValueData = JSON.parse(generateValueDataUnparsed);
+      const num = Number(generateValueData["numberOfDrops"]);
+
+      if (num >= 1) { updateDrop(1, 5, 'flex'); }
+      if (num >= 2) { updateDrop(2, 5, 'flex'); }
+      if (num >= 3) { updateDrop(3, 5, 'flex'); }
+      if (num >= 4) { updateDrop(4, 5, 'flex'); }
+    }
+
+    const pushFunction = async () => {
+      const token = await storage.getItem('expopushtoken');
+      setExpoPushToken(token);
+
+      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+      });
+
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {});
+    }
+
+    if (mountedRef.current) {
+      makeRequest();
+      pushFunction();
+    }
+  }, []);
+
+  //Schedule push notifications on submit
   async function schedulePushNotifications(appointment) {
     Notifications.cancelAllScheduledNotificationsAsync();
 
@@ -193,6 +201,7 @@ export default function Second({ navigation: { navigate } }) {
     } catch(e) {}
   }
 
+  //Sync "Second" input values into async storage & navigate tabs
   async function navigateTabs() {
     const generateValueDataUnparsed = await storage.getItem('generatevalues');
     const generateValueData = JSON.parse(generateValueDataUnparsed);
@@ -243,6 +252,7 @@ export default function Second({ navigation: { navigate } }) {
     navigate("Third");
   }
 
+  //"Second" page app code
   return (
     <View style={styles.container}>
       <View style={styles.top}>

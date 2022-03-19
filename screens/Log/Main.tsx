@@ -1,3 +1,8 @@
+/**
+Author: Eesha Jain
+In behalf of Nanodropper Inc.
+**/
+
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { StyleSheet, Image, TextInput, Dimensions, TouchableHighlight, TouchableOpacity, ScrollView, Linking } from 'react-native';
@@ -24,12 +29,14 @@ export default function Main({ navigation: { navigate } }) {
   const [dosing, setDosing] = useState(true);
   const isFocused = useIsFocused();
 
+  //Navigate to "Generate" page
   async function navigateTabs() {
     navigate("Generate")
   }
 
   useEffect(() => {
     const makeRequest = async () => {
+      //Accesses values from async storage & sets them to state values
       const obj = await storage.getItem('generatedACalendar');
       if (obj == "false") {
         setDisplay('flex');
@@ -49,6 +56,7 @@ export default function Main({ navigation: { navigate } }) {
     makeRequest();
   }, [month, year, isFocused]);
 
+  //"Main" page app code
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -93,6 +101,7 @@ export default function Main({ navigation: { navigate } }) {
   );
 }
 
+//Styles specific to "Main" page
 const singleStyles = StyleSheet.create({
   none: {
     marginTop: 40,

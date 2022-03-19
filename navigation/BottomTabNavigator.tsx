@@ -18,6 +18,7 @@ import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
+//Stack Navigation for Bottom Tabs
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
