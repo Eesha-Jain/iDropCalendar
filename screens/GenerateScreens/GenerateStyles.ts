@@ -6,7 +6,7 @@ In behalf of Nanodropper Inc.
 import * as React from 'react';
 import { StyleSheet, Dimensions, Image } from 'react-native';
 const win = Dimensions.get('window');
-import Colors from '../../constants/Colors';
+import Colors from '../../constants/ColorFunction';
 
 //Universal styles for "Generate" tab
 export default StyleSheet.create({
@@ -20,13 +20,13 @@ export default StyleSheet.create({
   },
   question: {
     fontSize: 20,
-    color: Colors.regular["inputgray"],
+    color: Colors("inputgray"),
     marginBottom: 10,
     fontFamily: 'os-light'
   },
   input: {
     borderWidth: 1,
-    borderColor: Colors.regular["inputgray"],
+    borderColor: Colors("inputgray"),
     backgroundColor: 'transparent',
     borderRadius: 10,
     height: 40,

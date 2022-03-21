@@ -11,7 +11,7 @@ import generateStyles from './GenerateStyles.ts';
 import { Text, View } from '../../components/Themed';
 import {GradientButton} from '../../assets/Gradients';
 const win = Dimensions.get('window');
-import Colors from '../../constants/Colors';
+import Colors from '../../constants/ColorFunction';
 import storage from "@react-native-async-storage/async-storage";
 import CheckBox from 'react-native-check-box';
 import {Picker} from '@react-native-picker/picker';
@@ -274,7 +274,7 @@ export default function Second({ navigation: { navigate } }) {
                   <View style={{marginBottom: 10, paddingBottom: 10}}>
                     {times.map((timeValue, j) => {
                       return (
-                        <CheckBox key={j} style={{marginLeft: 15}} isChecked={getValue(i, j + 1)} onClick={() => { updateDrop(i, j + 1, !getValue(i, j + 1)); }} checkBoxColor={Colors.regular["blue"]} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop {i}" in the {timeValue}</Text>} />
+                        <CheckBox key={j} style={{marginLeft: 15}} isChecked={getValue(i, j + 1)} onClick={() => { updateDrop(i, j + 1, !getValue(i, j + 1)); }} checkBoxColor={Colors("blue")} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop {i}" in the {timeValue}</Text>} />
                       );
                     })}
                   </View>
@@ -288,7 +288,7 @@ export default function Second({ navigation: { navigate } }) {
                     <Picker.Item label="Right" value="Right eye" />
                   </Picker>
 
-                  <View style={{ borderBottomColor: Colors.regular["darkgray"], borderBottomWidth: 1, marginTop: 5, marginBottom: 5}}/>
+                  <View style={{ borderBottomColor: Colors("darkgray"), borderBottomWidth: 1, marginTop: 5, marginBottom: 5}}/>
                 </View>
               );
             } else { return ( <View key={i}></View> ); }
@@ -297,7 +297,7 @@ export default function Second({ navigation: { navigate } }) {
           <Text style={[generateStyles.question, {marginTop: 10}]}>Times for notification reminders</Text>
           <Text style={[generateStyles.question, {marginTop: 10, fontFamily: 'os-lightitalic'}]}>Morning: </Text>
           <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: Platform.OS == 'ios' ? 'none' : 'flex'}]} onPress={() => {showMode(0)}}>
-            <Text style={[generateStyles.input, {width: win.width - 30, color: Colors.regular["blue"]}]}>{pushnotif[0][0].getHours()}:{pushnotif[0][0].getMinutes()}</Text>
+            <Text style={[generateStyles.input, {width: win.width - 30, color: Colors("blue")}]}>{pushnotif[0][0].getHours()}:{pushnotif[0][0].getMinutes()}</Text>
           </TouchableOpacity>
           {pushnotif[0][1] && (
               <DateTimePicker
@@ -312,7 +312,7 @@ export default function Second({ navigation: { navigate } }) {
 
           <Text style={[generateStyles.question, {marginTop: 10, fontFamily: 'os-lightitalic'}]}>Afternoon: </Text>
           <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: Platform.OS == 'ios' ? 'none' : 'flex'}]} onPress={() => {showMode(1)}}>
-            <Text style={[generateStyles.input, {width: win.width - 30, color: Colors.regular["blue"]}]}>{pushnotif[1][0].getHours()}:{pushnotif[1][0].getMinutes()}</Text>
+            <Text style={[generateStyles.input, {width: win.width - 30, color: Colors("blue")}]}>{pushnotif[1][0].getHours()}:{pushnotif[1][0].getMinutes()}</Text>
           </TouchableOpacity>
           {pushnotif[1][1] && (
               <DateTimePicker
@@ -327,7 +327,7 @@ export default function Second({ navigation: { navigate } }) {
 
           <Text style={[generateStyles.question, {marginTop: 10, fontFamily: 'os-lightitalic'}]}>Night: </Text>
           <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: Platform.OS == 'ios' ? 'none' : 'flex'}]} onPress={() => {showMode(2)}}>
-            <Text style={[generateStyles.input, {width: win.width - 30, color: Colors.regular["blue"]}]}>{pushnotif[2][0].getHours()}:{pushnotif[2][0].getMinutes()}</Text>
+            <Text style={[generateStyles.input, {width: win.width - 30, color: Colors("blue")}]}>{pushnotif[2][0].getHours()}:{pushnotif[2][0].getMinutes()}</Text>
           </TouchableOpacity>
           {pushnotif[2][1] && (
               <DateTimePicker

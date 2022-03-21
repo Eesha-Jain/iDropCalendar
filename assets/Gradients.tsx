@@ -8,7 +8,7 @@ import { StyleSheet, Text, View, Dimensions, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
 const win = Dimensions.get('window');
-import Colors from '../constants/Colors';
+import Colors from '../constants/ColorFunction';
 
 //"GradientButton" function: creates a button with a gradient background
 function GradientButton(props) {
@@ -17,7 +17,7 @@ function GradientButton(props) {
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}
-        colors={[Colors.regular["teal"], Colors.regular["blue"]]}>
+        colors={[Colors("teal"), Colors("blue")]}>
         <Text style={props.style}>{props.text}</Text>
       </LinearGradient>
     </View>
@@ -28,7 +28,7 @@ function GradientButton(props) {
 function GradientText(props) {
   return (
     <MaskedView maskElement={<Text style={props.style}>{props.text}</Text>}>
-      <LinearGradient colors={[Colors.regular["teal"], Colors.regular["blue"]]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+      <LinearGradient colors={[Colors("teal"), Colors("blue")]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
         <Text style={[props.style, {opacity: 0}]}>{props.text}</Text>
       </LinearGradient>
     </MaskedView>

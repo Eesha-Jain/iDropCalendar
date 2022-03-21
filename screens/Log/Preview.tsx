@@ -11,7 +11,7 @@ import { Text, View } from '../../components/Themed';
 import {GradientButton} from '../../assets/Gradients';
 import DatePicker from 'react-native-datepicker';
 const win = Dimensions.get('window');
-import Colors from '../../constants/Colors';
+import Colors from '../../constants/ColorFunction';
 import generateStyles from '../GenerateScreens/GenerateStyles';
 import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
@@ -56,9 +56,16 @@ export default function Preview({ navigation: { navigate } }) {
   //Delete previous calendars that are selected to be deleted
   async function delet(index) {
     var cal = await storage.getItem('previousCalendar');
+
     var parsed = JSON.parse(cal);
     parsed.splice(index, 1);
+
+    var datadup = data;
+    datadup.splice(index, 1);
+    setData(datadup);
+
     await storage.setItem('previousCalendar', JSON.stringify(parsed));
+    navigate("Main");
   }
 
   //Access list of previously generated calendar and store in state on screen load
@@ -85,13 +92,13 @@ export default function Preview({ navigation: { navigate } }) {
       setData(oldCal);
     }
 
-    makeRequest();
-  }, []);
+    if (!("1" in data)) {makeRequest();}
+  }, [data]);
 
   //"Preview" page app code
   return (
     <View style={styles.container}>
-      <Text style={{marginTop: 10, color: Colors.regular["blue"], textAlign: "center", fontSize: 16}}>Click to Use A Previously Generated Calendar</Text>
+      <Text style={{marginTop: 10, color: Colors("blue"), textAlign: "center", fontSize: 16}}>Click to Use A Previously Generated Calendar</Text>
 
       <View
         style={{
@@ -123,7 +130,7 @@ export default function Preview({ navigation: { navigate } }) {
           }
 
           return (
-            <View style={{backgroundColor: Colors.regular["lightgray"], marginBottom: 10, padding: 10, width: win.width * 0.9}}>
+            <View style={{backgroundColor: Colors("lightgray"), marginBottom: 10, padding: 10, width: win.width * 0.9}}>
               <TouchableOpacity key={item["key"]} style={{flexDirection: 'row', alignItems: 'center'}} onPress={() => {update(item["key"])}}>
                 <Table style={{width: '50%'}}><Cols data={t}/></Table>
               </TouchableOpacity>

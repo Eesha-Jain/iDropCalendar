@@ -7,8 +7,9 @@ import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
+import { View } from 'react-native';
 
-import Colors from '../constants/Colors';
+import Colors from '../constants/ColorFunction';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/GenerateTab';
 import TabTwoScreen from '../screens/CalendarTab';
@@ -25,12 +26,22 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Log"
-      screenOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      screenOptions={{
+        tabBarActiveTintColor: Colors("tabIconSelected"),
+        tabBarInactiveTintColor: Colors("tabIconDefault"),
+        tabBarStyle: {
+          position: 'absolute' ,
+          display: 'flex',
+          backgroundColor: Colors("tabBackground"),
+          borderWidth: 0
+        },
+      }}>
       <BottomTab.Screen
         name="Generate"
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="pencil" color={color} />,
+          headerShown: false,
         }}
       />
       <BottomTab.Screen
@@ -38,6 +49,7 @@ export default function BottomTabNavigator() {
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="calendar-outline" color={color} />,
+          headerShown: false
         }}
       />
       <BottomTab.Screen
@@ -45,13 +57,15 @@ export default function BottomTabNavigator() {
         component={TabThreeNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="stats-chart" color={color} />,
+          headerShown: false
         }}
       />
       <BottomTab.Screen
-        name="FQAs"
+        name="FAQs"
         component={TabFourNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon2 name="questioncircle" color={color} />,
+          headerShown: false
         }}
       />
     </BottomTab.Navigator>

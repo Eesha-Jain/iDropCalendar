@@ -12,7 +12,7 @@ import { Text, View } from '../../components/Themed';
 import {GradientButton} from '../../assets/Gradients';
 import DateTimePicker from '@react-native-community/datetimepicker';
 const win = Dimensions.get('window');
-import Colors from '../../constants/Colors';
+import Colors from '../../constants/ColorFunction';
 import storage from "@react-native-async-storage/async-storage";
 
 export default function First({ navigation: { navigate } }) {
@@ -107,7 +107,7 @@ export default function First({ navigation: { navigate } }) {
 
         <Text style={generateStyles.question}>Next appointment date</Text>
         <TouchableOpacity style={[generateStyles.button, {position: 'relative', display: oppoShow}]} onPress={showMode}>
-          <Text style={[generateStyles.input, {width: win.width - 20, color: Colors.regular["blue"]}]}>{date.toString()}</Text>
+          <Text style={[generateStyles.input, {width: win.width - 20, color: Colors("blue")}]}>{date.toString()}</Text>
         </TouchableOpacity>
 
         {show && (

@@ -6,14 +6,15 @@ In behalf of Nanodropper Inc.
 import * as React from 'react';
 import { StyleSheet, Dimensions, Image } from 'react-native';
 const win = Dimensions.get('window');
-import Colors from '../constants/Colors';
+import Colors from '../constants/ColorFunction';
 
 //Universal app styles
 export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    fontFamily: 'os-light'
+    fontFamily: 'os-light',
+    backgroundColor: Colors("background")
   },
   title: {
     fontSize: 20,
@@ -26,7 +27,7 @@ export default StyleSheet.create({
   },
   top: {
     width: win.width,
-    backgroundColor: Colors.regular["lightgray"],
+    backgroundColor: Colors("lightgray"),
     paddingTop: 20,
     alignItems: 'center',
     paddingBottom: 10
@@ -35,7 +36,7 @@ export default StyleSheet.create({
     marginTop: 10,
     fontFamily: 'os-semibold',
     fontSize: 20,
-    color: Colors.regular["darkgray"],
+    color: Colors("darkgray"),
     textAlign: 'center'
   },
   topImage: {

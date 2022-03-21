@@ -8,7 +8,6 @@ import {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 const win = Dimensions.get('window');
-import Colors from '../constants/Colors';
 import {GradientText, GradientButton} from '../assets/Gradients';
 import storage from "@react-native-async-storage/async-storage";
 import Constants from 'expo-constants';

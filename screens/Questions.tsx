@@ -12,7 +12,8 @@ import {GradientButton} from '../assets/Gradients';
 import generateStyles from './GenerateScreens/GenerateStyles';
 import DatePicker from 'react-native-datepicker';
 const win = Dimensions.get('window');
-import Colors from '../constants/Colors';
+import Colors from '../constants/ColorFunction';
+import Header from '../constants/DarkImage';
 import storage from "@react-native-async-storage/async-storage";
 
 export default function Questions({ navigation: { navigate } }) {
@@ -45,10 +46,7 @@ export default function Questions({ navigation: { navigate } }) {
   //"Question" page app code
   return (
     <View style={styles.container}>
-      <View style={[styles.top, {marginBottom: 10}]}>
-        <Image source={require('../assets/images/logos/NanodropperLong.jpg')} style={styles.topImage} />
-        <Text style={styles.topText}>FQAs</Text>
-      </View>
+      <Header title="FAQs" />
 
       <ScrollView persistentScrollbar={true}>
         <View style={{marginBottom: 20}}>
@@ -61,12 +59,12 @@ export default function Questions({ navigation: { navigate } }) {
           <Text style={{fontSize: 25, fontFamily: 'os-bold', marginBottom: 10, textAlign: 'center'}}>FQAs</Text>
 
           <TouchableOpacity style={[generateStyles.button, {marginBottom: 10, width: '80%'}]} onPress={() => {Linking.openURL('https://drive.google.com/file/d/15Dw18tBDBgg4I7supeI-TH7BjK3C-21T/view?usp=sharing')}}>
-            <Text style={[generateStyles.buttonText, {backgroundColor: Colors.regular["mediumgray"], padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>App use instructions</Text>
+            <Text style={[generateStyles.buttonText, {backgroundColor: Colors("mediumgray"), padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>App use instructions</Text>
           </TouchableOpacity>
 
           {questions.map((val, i) => (
               <View style={{width: '98%', padding: 10, paddingBottom: 0, margin: 0}} key={i}>
-                <View style={{ borderBottomColor: Colors.regular["darkgray"], padding: 0, margin: 0, borderBottomWidth: 1, marginTop: 5, marginBottom: 5}}/>
+                <View style={{ borderBottomColor: Colors("darkgray"), padding: 0, margin: 0, borderBottomWidth: 1, marginTop: 5, marginBottom: 5}}/>
                 <View style={{marginTop: 15}}>
                   <Text style={{fontSize: 18, fontFamily: 'os-regular', margin: 0, padding: 0, marginBottom: 10, textAlign: 'left'}}><Text style={{fontFamily: 'os-extrabold'}}>Q:</Text> {val}</Text>
                   <Text style={{fontSize: 18, fontFamily: 'os-light', margin: 0, padding: 0, marginBottom: 10, textAlign: 'left'}}><Text style={{fontFamily: 'os-extrabold'}}>A:</Text> {answers[i]}</Text>

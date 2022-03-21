@@ -11,7 +11,8 @@ import generateStyles from './GenerateStyles';
 import { Text, View } from '../../components/Themed';
 import {GradientButton} from '../../assets/Gradients';
 const win = Dimensions.get('window');
-import Colors from '../../constants/Colors';
+import Colors from '../../constants/ColorFunction';
+import Header from '../constants/DarkImage';
 import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
 import {CalendarDay, CalendarLegend, DosingLegend, PreviousCalendarDay, DayOfWeek} from './CalendarCreation';
@@ -62,24 +63,24 @@ export default function Third({ navigation: { navigate } }) {
         var currentTable = [];
         for (var j = 0; j < 7; j++) {
           if (dayOfTheWeek == 0 && day <= dayMonth) {
-            var color = Colors.calendar["notcompleted"];
+            var color = Colors("notcompleted");
 
             try {
-              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
+              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors("today"); }
               else {
                 var x = dic2[year][month + 1][day];
-                if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
-                else { color = Colors.calendar["notcompleted"];}
+                if (x.hasOwnProperty("status")) { color = Colors(x.status); }
+                else { color = Colors("notcompleted");}
               }
             } catch(e) {
-              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
-              else if (day > todayDay && month == todayMonth && year == todayYear) { color = Colors.calendar["future"]; }
-              else if ((month > todayMonth && year == todayYear) || year > todayYear) { color = Colors.calendar["future"]; }
-              else if (day < dateOn.getDate() && month == dateOn.getMonth() && year==dateOn.getFullYear()) {color = Colors.calendar["noton"];}
-              else if (month < dateOn.getMonth() && year == dateOn.getFullYear() ) { color = Colors.calendar["noton"]; }
-              else if (year < dateOn.getFullYear() ) { color = Colors.calendar["noton"]; }
+              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors("today"); }
+              else if (day > todayDay && month == todayMonth && year == todayYear) { color = Colors("future"); }
+              else if ((month > todayMonth && year == todayYear) || year > todayYear) { color = Colors("future"); }
+              else if (day < dateOn.getDate() && month == dateOn.getMonth() && year==dateOn.getFullYear()) {color = Colors("noton");}
+              else if (month < dateOn.getMonth() && year == dateOn.getFullYear() ) { color = Colors("noton"); }
+              else if (year < dateOn.getFullYear() ) { color = Colors("noton"); }
               else {
-                color = Colors.calendar["notcompleted"];
+                color = Colors("notcompleted");
               }
             }
 
@@ -101,24 +102,24 @@ export default function Third({ navigation: { navigate } }) {
         var currentTable = [];
         for (var j = 0; j < 7; j++) {
           if (dayOfTheWeek == 0 && day <= dayMonth) {
-            var color = Colors.calendar["notcompleted"];
+            var color = Colors("notcompleted");
 
             try {
-              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
+              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors("today"); }
               else {
                 var x = dic2[year][month + 1][day];
-                if (x.hasOwnProperty("status")) { color = Colors.calendar[x.status]; }
-                else { color = Colors.calendar["notcompleted"];}
+                if (x.hasOwnProperty("status")) { color = Colors(x.status); }
+                else { color = Colors("notcompleted");}
               }
             } catch(e) {
-              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors.calendar["today"]; }
-              else if (day > todayDay && month == todayMonth && year == todayYear) { color = Colors.calendar["future"]; }
-              else if ((month > todayMonth && year == todayYear) || year > todayYear) { color = Colors.calendar["future"]; }
-              else if (day < dateOn.getDate() && month == dateOn.getMonth() && year==dateOn.getFullYear()) {color = Colors.calendar["noton"];}
-              else if (month < dateOn.getMonth() && year == dateOn.getFullYear() ) { color = Colors.calendar["noton"]; }
-              else if (year < dateOn.getFullYear() ) { color = Colors.calendar["noton"]; }
+              if (todayDay == day && todayMonth == month && todayYear == year) { color = Colors("today"); }
+              else if (day > todayDay && month == todayMonth && year == todayYear) { color = Colors("future"); }
+              else if ((month > todayMonth && year == todayYear) || year > todayYear) { color = Colors("future"); }
+              else if (day < dateOn.getDate() && month == dateOn.getMonth() && year==dateOn.getFullYear()) {color = Colors("noton");}
+              else if (month < dateOn.getMonth() && year == dateOn.getFullYear() ) { color = Colors("noton"); }
+              else if (year < dateOn.getFullYear() ) { color = Colors("noton"); }
               else {
-                color = Colors.calendar["notcompleted"];
+                color = Colors("notcompleted");
               }
             }
 
@@ -219,19 +220,19 @@ export default function Third({ navigation: { navigate } }) {
           <GradientButton style={[generateStyles.buttonText, {padding: 7}]} text="Click here to fill out digitally" radius="5" />
         </TouchableOpacity>
 
-        <View style={{marginBottom: 10, padding: 10, backgroundColor: Colors.regular["lightgray"], width: '100%'}}>
+        <View style={{marginBottom: 10, padding: 10, backgroundColor: Colors("lightgray"), width: '100%'}}>
           <Text style={{fontFamily: 'os-regular'}}>Instructions: Click on the blue and green days below to view the drops that you took those days.</Text>
         </View>
 
         <View style={{flexDirection: 'row', flex: 1}}>
-          <TouchableOpacity onPress={() => backward()} style={{width: '5%', marginRight: '1%', justifyContent: 'center'}}><AntDesign name="caretleft" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
-          <View style={{backgroundColor: Colors.regular["lightgray"], padding: 10, alignItems: 'center', width: '88%', marginBottom: 10}}>
+          <TouchableOpacity onPress={() => backward()} style={{width: '5%', marginRight: '1%', justifyContent: 'center'}}><AntDesign name="caretleft" size={20} color={Colors("darkgray")} /></TouchableOpacity>
+          <View style={{backgroundColor: Colors("lightgray"), padding: 10, alignItems: 'center', width: '88%', marginBottom: 10}}>
             <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5}}>{months[month]} {year}</Text>
             <Table style={{width: '100%'}}>
               <Rows data={calendar}/>
             </Table>
           </View>
-          <TouchableOpacity onPress={() => forward()} style={{width: '5%', marginLeft: '0%', justifyContent: 'center'}}><AntDesign name="caretright" size={20} color={Colors.regular["darkgray"]} /></TouchableOpacity>
+          <TouchableOpacity onPress={() => forward()} style={{width: '5%', marginLeft: '0%', justifyContent: 'center'}}><AntDesign name="caretright" size={20} color={Colors("darkgray")} /></TouchableOpacity>
         </View>
 
         {!dosing && <PreviousCalendarDay day={dayDif} month={monthDif} year={yearDif} style={{width: '100%', marginTop: 10, marginBottom: 10}} empty={empty} />}

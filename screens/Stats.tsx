@@ -11,7 +11,8 @@ import { Text, View } from '../components/Themed';
 import {GradientButton} from '../assets/Gradients';
 import DatePicker from 'react-native-datepicker';
 const win = Dimensions.get('window');
-import Colors from '../constants/Colors';
+import Colors from '../constants/ColorFunction';
+import Header from '../constants/DarkImage';
 import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
 import {CalendarDay, Calendar, CalendarLegend, DosingLegend} from './GenerateScreens/CalendarCreation';
@@ -83,20 +84,17 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
       color: (opacity = 1) => `rgba(42, 59, 159, ${opacity})`,
       labelColor: (opacity = 1) => `rgba(42, 59, 159, ${opacity})`,
       style: { borderRadius: 16 },
-      propsForDots: { r: "2", strokeWidth: "1", stroke: Colors.regular["blue"] }
+      propsForDots: { r: "2", strokeWidth: "1", stroke: Colors("blue") }
     };
 
     //"Stats" page app code
     return (
       <View style={styles.container}>
-        <View style={[styles.top, {marginBottom: 10}]}>
-          <Image source={require('../assets/images/logos/NanodropperLong.jpg')} style={styles.topImage} />
-          <Text style={styles.topText}>Statistics & Badges</Text>
-        </View>
+        <Header title="Statistics & Badges" />
 
         <ScrollView persistentScrollbar={true}>
           <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 10}}>Statistics - past 30 days</Text>
-          <Text style={{marginBottom: 5, color: Colors.regular["blue"], textAlign: "center"}}>Days from Today vs Percent of Drops Taken</Text>
+          <Text style={{marginBottom: 5, color: Colors("blue"), textAlign: "center"}}>Days from Today vs Percent of Drops Taken</Text>
             <LineChart
               data={data}
               width={win.width - 40}
