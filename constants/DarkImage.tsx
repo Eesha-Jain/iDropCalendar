@@ -14,7 +14,7 @@ export default function DarkImage({title}) {
 
   return (
     <View style={[styles.top, {marginBottom: 10}]}>
-      <Image source={theme != "light" ? require('../assets/images/logos/NanodropperLong.jpg') : require('../assets/images/logos/NanodropperLongDark.png')} style={styles.topImage} />
+      <Image source={theme == "light" ? require('../assets/images/logos/NanodropperLong.jpg') : require('../assets/images/logos/NanodropperLongDark.png')} style={styles.topImage} />
       <Text style={styles.topText}>{title}</Text>
     </View>
   );
