@@ -87,7 +87,7 @@ export default function Third({ navigation: { navigate } }) {
             let newDay = day;
             let newMonth = month;
             let newYear = year;
-            currentTable.push(<TouchableOpacity onPress={() => {lookAtDate(newDay, newMonth, newYear)}} style={{backgroundColor: color, alignItems: 'center'}}><Text>{day}</Text></TouchableOpacity>);
+            currentTable.push(<TouchableOpacity onPress={() => {lookAtDate(newDay, newMonth, newYear)}} style={{backgroundColor: color, alignItems: 'center'}}><Text style={{color: Colors("text")}}>{day}</Text></TouchableOpacity>);
             day++;
           } else { currentTable.push(<View></View>); dayOfTheWeek--; }
         }
@@ -126,7 +126,7 @@ export default function Third({ navigation: { navigate } }) {
             let newDay = day;
             let newMonth = month;
             let newYear = year;
-            currentTable.push(<TouchableOpacity onPress={() => {lookAtDate(newDay, newMonth, newYear)}} style={{backgroundColor: color, alignItems: 'center'}}><Text>{day}</Text></TouchableOpacity>);
+            currentTable.push(<TouchableOpacity onPress={() => {lookAtDate(newDay, newMonth, newYear)}} style={{backgroundColor: color, alignItems: 'center'}}><Text style={{color: Colors("text")}}>{day}</Text></TouchableOpacity>);
             day++;
           } else { currentTable.push(<View></View>); dayOfTheWeek--; }
         }
@@ -221,13 +221,13 @@ export default function Third({ navigation: { navigate } }) {
         </TouchableOpacity>
 
         <View style={{marginBottom: 10, padding: 10, backgroundColor: Colors("lightgray"), width: '100%'}}>
-          <Text style={{fontFamily: 'os-regular'}}>Instructions: Click on the blue and green days below to view the drops that you took those days.</Text>
+          <Text style={{fontFamily: 'os-regular', color: Colors("text")}}>Instructions: Click on the blue and green days below to view the drops that you took those days.</Text>
         </View>
 
-        <View style={{flexDirection: 'row', flex: 1}}>
+        <View style={{flexDirection: 'row', flex: 1, backgroundColor: 'transparent'}}>
           <TouchableOpacity onPress={() => backward()} style={{width: '5%', marginRight: '1%', justifyContent: 'center'}}><AntDesign name="caretleft" size={20} color={Colors("darkgray")} /></TouchableOpacity>
           <View style={{backgroundColor: Colors("lightgray"), padding: 10, alignItems: 'center', width: '88%', marginBottom: 10}}>
-            <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5}}>{months[month]} {year}</Text>
+            <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 5, color: Colors("text")}}>{months[month]} {year}</Text>
             <Table style={{width: '100%'}}>
               <Rows data={calendar}/>
             </Table>
@@ -246,7 +246,7 @@ export default function Third({ navigation: { navigate } }) {
           <GradientButton style={[generateStyles.buttonText, {padding: 7}]} text="Click here to generate new calendar" radius="5" />
         </TouchableOpacity>
 
-        <View style={{marginTop: 30}}></View>
+        <View style={{marginTop: 30, marginBottom: 50}}></View>
       </ScrollView>
     </View>
   );

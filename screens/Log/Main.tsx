@@ -18,7 +18,6 @@ import storage from "@react-native-async-storage/async-storage";
 import { FontAwesome5, Ionicons, MaterialIcons, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons';
 import {CalendarDay, CalendarLegend, DosingLegend, PreviousCalendarDay, DayOfWeek} from '../GenerateScreens/CalendarCreation';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-import { useIsFocused } from "@react-navigation/native";
 
 export default function Main({ navigation: { navigate } }) {
   const [display, setDisplay] = useState('none');
@@ -28,7 +27,6 @@ export default function Main({ navigation: { navigate } }) {
   const [year, setYear] = useState(new Date().getFullYear());
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const [dosing, setDosing] = useState(true);
-  const isFocused = useIsFocused();
 
   //Navigate to "Generate" page
   async function navigateTabs() {
@@ -55,16 +53,16 @@ export default function Main({ navigation: { navigate } }) {
     }
 
     makeRequest();
-  }, [isFocused]);
+  }, []);
 
   //"Main" page app code
   return (
     <View style={styles.container}>
       <Header title="iDrop Calendar" />
 
-      <View style={[singleStyles.none, {display: display}]}>
-        <Entypo name="emoji-sad" size={150} color={Colors("mediumgray")} />
-        <Text style={{color: Colors("mediumgray"), fontSize: 20, margin: 20}}>You haven't created a calendar yet</Text>
+      <View style={[singleStyles.none, {display: display, backgroundColor: 'transparent'}]}>
+        <Entypo name="emoji-sad" size={150} color={Colors("darkgray")} />
+        <Text style={{color: Colors("darkgray"), fontSize: 20, margin: 20}}>You haven't created a calendar yet</Text>
 
         <TouchableOpacity style={singleStyles.button} onPress={() => navigateTabs()}>
           <GradientButton style={singleStyles.buttonText} text="Click here to Generate Calendar" radius="5" />

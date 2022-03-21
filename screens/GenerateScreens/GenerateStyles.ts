@@ -16,7 +16,8 @@ export default StyleSheet.create({
   },
   inputBox: {
     padding: 10,
-    width: win.width
+    width: win.width,
+    backgroundColor: 'transparent'
   },
   question: {
     fontSize: 20,
@@ -27,11 +28,12 @@ export default StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: Colors("inputgray"),
-    backgroundColor: 'transparent',
+    backgroundColor: Colors("textinput"),
     borderRadius: 10,
     height: 40,
     padding: 10,
     fontFamily: 'os-light',
+    color: "black",
     marginBottom: 20,
     textAlign: 'center'
   },

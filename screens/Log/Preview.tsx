@@ -20,10 +20,10 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 
 export default function Preview({ navigation: { navigate } }) {
   var shapes = {
-    drop1: [<View key={0} style={{width: 15, height: 15, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#1026a3'}}></View>],
-    drop2: [<View key={1} style={{width: 15, height: 15, borderRadius: 15/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: '#7f7dde'}}></View>],
-    drop3: [<View key={2} style={{width: 14, height: 14, borderWidth: 1, backgroundColor: 'transparent', borderColor: '#505fbf', marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
-    drop4: [<FontAwesome key={3} style={{color: '#5d8abd'}} name={'star-o'} size={18} />]
+    drop1: [<View key={0} style={{width: 15, height: 15, borderWidth: 1, backgroundColor: 'transparent', borderColor: Colors("drop1")}}></View>],
+    drop2: [<View key={1} style={{width: 15, height: 15, borderRadius: 15/2, backgroundColor: 'transparent', borderWidth: 1, borderColor: Colors("drop2")}}></View>],
+    drop3: [<View key={2} style={{width: 14, height: 14, borderWidth: 1, backgroundColor: 'transparent', borderColor: Colors("drop3"), marginLeft: 3, transform: [{rotate: "45deg"}]}}></View>],
+    drop4: [<FontAwesome key={3} style={{color: Colors("drop4")}} name={'star-o'} size={18} />]
   }
 
   var [data, setData] = useState({});
@@ -103,7 +103,7 @@ export default function Preview({ navigation: { navigate } }) {
       <View
         style={{
             borderWidth: 1,
-            borderColor: 'black',
+            borderColor: Colors("text"),
             width: win.width * 0.8,
             margin: 20
         }}
@@ -136,7 +136,7 @@ export default function Preview({ navigation: { navigate } }) {
               </TouchableOpacity>
 
               <TouchableOpacity style={{marginTop: 10}} onPress={() => {delet(item["key"])}}>
-                <Text style={{color: 'red'}}>Delete</Text>
+                <Text style={{color: Colors('red')}}>Delete</Text>
               </TouchableOpacity>
             </View>
           );

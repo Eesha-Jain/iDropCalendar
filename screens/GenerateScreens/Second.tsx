@@ -268,21 +268,21 @@ export default function Second({ navigation: { navigate } }) {
             var i = id + 1;
             if (getValue(i, 5) == 'flex') {
               return (
-                <View key={i}>
+                <View key={i} style={{backgroundColor: 'transparent'}}>
                   <Text style={[generateStyles.question, {marginTop: 10}]}>Drop {i}</Text>
                   <TextInput style={generateStyles.input} placeholder="Name" onChangeText={(val) => { updateDrop(i, 0, val); }} value={getValue(i, 0)} multiline={false} />
-                  <View style={{marginBottom: 10, paddingBottom: 10}}>
+                  <View style={{marginBottom: 10, paddingBottom: 10, backgroundColor: 'transparent'}}>
                     {times.map((timeValue, j) => {
                       return (
-                        <CheckBox key={j} style={{marginLeft: 15}} isChecked={getValue(i, j + 1)} onClick={() => { updateDrop(i, j + 1, !getValue(i, j + 1)); }} checkBoxColor={Colors("blue")} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16}}>I take "drop {i}" in the {timeValue}</Text>} />
+                        <CheckBox key={j} style={{marginLeft: 15}} isChecked={getValue(i, j + 1)} onClick={() => { updateDrop(i, j + 1, !getValue(i, j + 1)); }} checkBoxColor={Colors("blue")} rightTextView={<Text style={{marginLeft: 5, fontFamily: 'os-light', fontSize: 16, color: Colors("text")}}>I take "drop {i}" in the {timeValue}</Text>} />
                       );
                     })}
                   </View>
-                  <Text style={{fontFamily: 'os-light', color: 'rgb(51, 51, 51)', marginBottom: 0, paddingBottom: 0, fontSize: 16}}>Which eye(s) do you put "drop {i}"?</Text>
+                  <Text style={{fontFamily: 'os-light', color: Colors("darkgray"), marginBottom: 0, paddingBottom: 0, fontSize: 16}}>Which eye(s) do you put "drop {i}"?</Text>
 
                   <Picker style={{marginTop: 0, paddingTop: 0}} selectedValue={getValue(i, 4)} onValueChange={(itemValue, itemIndex) => {
                      updateDrop(i, 4, itemValue);
-                  }} itemStyle={{fontSize: 16, padding: 0, margin: 10, height: 100, fontFamily: 'os-light'}} >
+                  }} itemStyle={{fontSize: 16, padding: 0, margin: 10, height: 100, fontFamily: 'os-light', backgroundColor: 'rgb(242, 242, 242)'}} >
                     <Picker.Item label="Both" value="Both eyes"/>
                     <Picker.Item label="Left" value="Left eye" />
                     <Picker.Item label="Right" value="Right eye" />
@@ -344,7 +344,7 @@ export default function Second({ navigation: { navigate } }) {
             <GradientButton style={generateStyles.buttonText} text="Click here to submit" radius="5" />
           </TouchableOpacity>
 
-          <Text style={{fontSize: 20, color: 'red', marginTop: 10, textAlign: 'center'}}>{message}</Text>
+          <Text style={{fontSize: 20, color: 'red', marginTop: 10, textAlign: 'center', marginBottom: 50}}>{message}</Text>
         </View>
       </ScrollView>
     </View>

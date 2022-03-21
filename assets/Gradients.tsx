@@ -17,7 +17,7 @@ function GradientButton(props) {
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}
-        colors={[Colors("teal"), Colors("blue")]}>
+        colors={[Colors("gradientone"), Colors("gradienttwo")]}>
         <Text style={props.style}>{props.text}</Text>
       </LinearGradient>
     </View>
@@ -28,7 +28,7 @@ function GradientButton(props) {
 function GradientText(props) {
   return (
     <MaskedView maskElement={<Text style={props.style}>{props.text}</Text>}>
-      <LinearGradient colors={[Colors("teal"), Colors("blue")]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+      <LinearGradient colors={[Colors("gradientone"), Colors("gradienttwo")]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
         <Text style={[props.style, {opacity: 0}]}>{props.text}</Text>
       </LinearGradient>
     </MaskedView>

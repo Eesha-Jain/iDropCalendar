@@ -10,6 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 const win = Dimensions.get('window');
 import {GradientText, GradientButton} from '../assets/Gradients';
 import storage from "@react-native-async-storage/async-storage";
+import Colors from '../constants/ColorFunction';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 
@@ -84,7 +85,7 @@ export default function FirstScreen ({ navigation: { navigate } }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: Colors("background"),
     height: win.height
   },
   topImage: {

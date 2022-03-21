@@ -49,25 +49,25 @@ export default function Questions({ navigation: { navigate } }) {
       <Header title="FAQs" />
 
       <ScrollView persistentScrollbar={true}>
-        <View style={{marginBottom: 20}}>
-          <Text style={{fontSize: 25, fontFamily: 'os-bold', marginBottom: 10, textAlign: 'center'}}>Contact Us</Text>
-          <Text style={{fontSize: 18, fontFamily: 'os-light', marginBottom: 10, textAlign: 'center'}}><Text style={{fontFamily: 'os-semibold'}}>Email:</Text> support@nanodropper.com</Text>
-          <Text style={{fontSize: 18, fontFamily: 'os-light', marginBottom: 10, textAlign: 'center'}}><Text style={{fontFamily: 'os-semibold'}}>Phone:</Text> (507) 405-5676</Text>
+        <View style={{marginBottom: 20, backgroundColor: Colors("background")}}>
+          <Text style={{fontSize: 25, fontFamily: 'os-bold', marginBottom: 10, textAlign: 'center', color: Colors("text")}}>Contact Us</Text>
+          <Text style={{fontSize: 18, fontFamily: 'os-light', marginBottom: 10, textAlign: 'center', color: Colors("text")}}><Text style={{fontFamily: 'os-semibold', color: Colors("text")}}>Email:</Text> support@nanodropper.com</Text>
+          <Text style={{fontSize: 18, fontFamily: 'os-light', marginBottom: 10, textAlign: 'center', color: Colors("text")}}><Text style={{fontFamily: 'os-semibold', color: Colors("text")}}>Phone:</Text> (507) 405-5676</Text>
         </View>
 
-        <View style={{alignItems: 'center'}}>
-          <Text style={{fontSize: 25, fontFamily: 'os-bold', marginBottom: 10, textAlign: 'center'}}>FQAs</Text>
+        <View style={{alignItems: 'center', backgroundColor: Colors("background"), marginBottom: 60}}>
+          <Text style={{fontSize: 25, fontFamily: 'os-bold', marginBottom: 10, textAlign: 'center', color: Colors("text")}}>FQAs</Text>
 
           <TouchableOpacity style={[generateStyles.button, {marginBottom: 10, width: '80%'}]} onPress={() => {Linking.openURL('https://drive.google.com/file/d/15Dw18tBDBgg4I7supeI-TH7BjK3C-21T/view?usp=sharing')}}>
             <Text style={[generateStyles.buttonText, {backgroundColor: Colors("mediumgray"), padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>App use instructions</Text>
           </TouchableOpacity>
 
           {questions.map((val, i) => (
-              <View style={{width: '98%', padding: 10, paddingBottom: 0, margin: 0}} key={i}>
+              <View style={{width: '98%', padding: 10, paddingBottom: 0, margin: 0, backgroundColor: Colors("background")}} key={i}>
                 <View style={{ borderBottomColor: Colors("darkgray"), padding: 0, margin: 0, borderBottomWidth: 1, marginTop: 5, marginBottom: 5}}/>
-                <View style={{marginTop: 15}}>
-                  <Text style={{fontSize: 18, fontFamily: 'os-regular', margin: 0, padding: 0, marginBottom: 10, textAlign: 'left'}}><Text style={{fontFamily: 'os-extrabold'}}>Q:</Text> {val}</Text>
-                  <Text style={{fontSize: 18, fontFamily: 'os-light', margin: 0, padding: 0, marginBottom: 10, textAlign: 'left'}}><Text style={{fontFamily: 'os-extrabold'}}>A:</Text> {answers[i]}</Text>
+                <View style={{marginTop: 15, backgroundColor: Colors("background")}}>
+                  <Text style={{fontSize: 18, fontFamily: 'os-regular', margin: 0, padding: 0, marginBottom: 10, textAlign: 'left', color: Colors("text")}}><Text style={{fontFamily: 'os-extrabold', color: Colors("text")}}>Q:</Text> {val}</Text>
+                  <Text style={{fontSize: 18, fontFamily: 'os-light', margin: 0, padding: 0, marginBottom: 10, textAlign: 'left', color: Colors("text")}}><Text style={{fontFamily: 'os-extrabold', color: Colors("text")}}>A:</Text> {answers[i]}</Text>
                 </View>
               </View>
           ))}

@@ -77,12 +77,12 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
 
   //"Past 30 Day" chart styles
   const chartConfig = {
-      backgroundColor: "#ffffff",
-      backgroundGradientFrom: "#ffffff",
-      backgroundGradientTo: "#ffffff",
+      backgroundColor: 'transparent',
+      backgroundGradientFrom: 'transparent',
+      backgroundGradientTo: 'transparent',
       decimalPlaces: 0,
-      color: (opacity = 1) => `rgba(42, 59, 159, ${opacity})`,
-      labelColor: (opacity = 1) => `rgba(42, 59, 159, ${opacity})`,
+      color: (opacity = 1) => `#6176f2`,
+      labelColor: (opacity = 1) => `#6176f2`,
       style: { borderRadius: 16 },
       propsForDots: { r: "2", strokeWidth: "1", stroke: Colors("blue") }
     };
@@ -93,8 +93,8 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
         <Header title="Statistics & Badges" />
 
         <ScrollView persistentScrollbar={true}>
-          <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 10}}>Statistics - past 30 days</Text>
-          <Text style={{marginBottom: 5, color: Colors("blue"), textAlign: "center"}}>Days from Today vs Percent of Drops Taken</Text>
+          <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 15, color: Colors("text")}}>Statistics - past 30 days</Text>
+          <Text style={{marginBottom: 20, color: Colors("blue"), textAlign: "center"}}>Days from Today vs Percent of Drops Taken</Text>
             <LineChart
               data={data}
               width={win.width - 40}
@@ -111,8 +111,8 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
               }
             />
             <Text>{message}</Text>
-          <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 20}}>Badges</Text>
-          <View style={{flexDirection: 'row'}}>
+          <Text style={{fontSize: 20, fontFamily: 'os-bold', marginBottom: 20, color: Colors("text")}}>Badges</Text>
+          <View style={{flexDirection: 'row', backgroundColor: Colors("background")}}>
             <Image source={require('../assets/images/badges/perfectWeek.png')} style={[singleStyles.badge, {opacity: earn[0]}]} />
             <Image source={require('../assets/images/badges/perfectMonth.png')} style={[singleStyles.badge, {opacity: earn[1]}]} />
           </View>
