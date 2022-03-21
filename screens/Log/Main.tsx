@@ -21,14 +21,13 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 import { useIsFocused } from "@react-navigation/native";
 
 export default function Main({ navigation: { navigate } }) {
-  const [display, setDisplay] = useState('none');
-  const [otherDisplay, setOtherDisplay] = useState('flex');
   const [appointment, setAppointment] = useState("");
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const [dosing, setDosing] = useState(true);
   const isFocused = useIsFocused();
+  const [display, setDisplay] = useState(false);
 
   //Navigate to "Generate" page
   async function navigateTabs() {
@@ -39,9 +38,8 @@ export default function Main({ navigation: { navigate } }) {
     const makeRequest = async () => {
       //Accesses values from async storage & sets them to state values
       const obj = await storage.getItem('generatedACalendar');
-      if (obj == "false") {
-        setDisplay('flex');
-        setOtherDisplay('none');
+      if (obj == "true" && display == false) {
+        setDisplay(true);
       }
 
       const val = await storage.getItem('generatevalues');
@@ -54,47 +52,47 @@ export default function Main({ navigation: { navigate } }) {
       setAppointment(appoint[0]);
     }
 
-    return () => {makeRequest();}
-  }, [isFocused]);
+    if (isFocused) {makeRequest();}
+  }, [isFocused, display]);
 
   //"Main" page app code
   return (
     <View style={styles.container}>
       <Header title="iDrop Calendar" />
 
-      <View style={[singleStyles.none, {display: display, backgroundColor: 'transparent'}]}>
-        <Entypo name="emoji-sad" size={150} color={Colors("darkgray")} />
-        <Text style={{color: Colors("darkgray"), fontSize: 20, margin: 20}}>You haven't created a calendar yet</Text>
+      { display ?
+        <ScrollView persistentScrollbar={true}>
+          <View style={{padding: 20, alignItems: 'center', width: win.width, backgroundColor: Colors("background")}}>
+            <Text style={{fontSize: 20, fontFamily: 'os-bold', textAlign: 'center', marginBottom: 10, width: '100%', backgroundColor: Colors("appointment"), padding: 10, color: Colors('text')}}>Next Appointment: {appointment}</Text>
 
-        <TouchableOpacity style={singleStyles.button} onPress={() => navigateTabs()}>
-          <GradientButton style={singleStyles.buttonText} text="Click here to Generate Calendar" radius="5" />
-        </TouchableOpacity>
-      </View>
+            <DosingLegend style={{width: '100%', marginBottom: 10}} />
+            <CalendarDay style={{width: '100%', marginTop: 5, marginBottom: 10}} />
 
-      <ScrollView persistentScrollbar={true}>
-        <View style={{display: otherDisplay, padding: 20, alignItems: 'center', width: win.width, backgroundColor: Colors("background")}}>
-          <Text style={{fontSize: 20, fontFamily: 'os-bold', textAlign: 'center', marginBottom: 10, width: '100%', backgroundColor: Colors("appointment"), padding: 10, color: Colors('text')}}>Next Appointment: {appointment}</Text>
+            <TouchableOpacity style={[generateStyles.button, {marginBottom: 10}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
+              <Text style={[generateStyles.buttonText, {backgroundColor: Colors("mediumgray"), padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to download calendar on website</Text>
+            </TouchableOpacity>
 
-          <DosingLegend style={{width: '100%', marginBottom: 10}} />
-          <CalendarDay style={{width: '100%', marginTop: 5, marginBottom: 10}} />
+            <TouchableOpacity style={[generateStyles.button, {marginBottom: 10}]} onPress={() => {navigate("Preview")}}>
+              <Text style={[generateStyles.buttonText, {backgroundColor: Colors("mediumgray"), padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to use an old calendar</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={[generateStyles.button, {marginBottom: 10}]} onPress={() => {Linking.openURL('https://www.nanodropper.com/calendar/')}}>
-            <Text style={[generateStyles.buttonText, {backgroundColor: Colors("mediumgray"), padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to download calendar on website</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={[generateStyles.button, {marginBottom: 10}]} onPress={() => {navigate("Preview")}}>
-            <Text style={[generateStyles.buttonText, {backgroundColor: Colors("mediumgray"), padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>Click here to use an old calendar</Text>
-          </TouchableOpacity>
-
-          <View style={{marginBottom: 50, padding: 10, backgroundColor: Colors("lightgray"), width: '100%'}}>
-            <Text style={{fontSize: 16, fontFamily: 'os-semibold', color: Colors("text")}}>Instructions:</Text>
-            <Text style={{fontSize: 16, color: Colors("text")}}>- Click on the shapes to mark them taken</Text>
-            <Text style={{fontSize: 16, color: Colors("text")}}>- Take <FontAwesome5 name="coffee" size={15} color={Colors("coffeeicons")} style={{margin: 5}} /> drops in the morning</Text>
-            <Text style={{fontSize: 16, color: Colors("text")}}>- Take <Ionicons name="sunny" size={15} color={Colors("coffeeicons")} style={{margin: 5}} /> drops in the afternoon</Text>
-            <Text style={{fontSize: 16, color: Colors("text")}}>- Take <MaterialIcons name="nightlight-round" size={15} color={Colors("coffeeicons")} style={{margin: 5}} /> drops in the night</Text>
+            <View style={{marginBottom: 50, padding: 10, backgroundColor: Colors("lightgray"), width: '100%'}}>
+              <Text style={{fontSize: 16, fontFamily: 'os-semibold', color: Colors("text")}}>Instructions:</Text>
+              <Text style={{fontSize: 16, color: Colors("text")}}>- Click on the shapes to mark them taken</Text>
+              <Text style={{fontSize: 16, color: Colors("text")}}>- Take <FontAwesome5 name="coffee" size={15} color={Colors("coffeeicons")} style={{margin: 5}} /> drops in the morning</Text>
+              <Text style={{fontSize: 16, color: Colors("text")}}>- Take <Ionicons name="sunny" size={15} color={Colors("coffeeicons")} style={{margin: 5}} /> drops in the afternoon</Text>
+              <Text style={{fontSize: 16, color: Colors("text")}}>- Take <MaterialIcons name="nightlight-round" size={15} color={Colors("coffeeicons")} style={{margin: 5}} /> drops in the night</Text>
+            </View>
           </View>
+        </ScrollView> : <View style={[singleStyles.none, {backgroundColor: 'transparent'}]}>
+          <Entypo name="emoji-sad" size={150} color={Colors("darkgray")} />
+          <Text style={{color: Colors("darkgray"), fontSize: 20, margin: 20}}>You haven't created a calendar yet</Text>
+
+          <TouchableOpacity style={singleStyles.button} onPress={() => navigateTabs()}>
+            <GradientButton style={singleStyles.buttonText} text="Click here to Generate Calendar" radius="5" />
+          </TouchableOpacity>
         </View>
-      </ScrollView>
+      }
     </View>
   );
 }
