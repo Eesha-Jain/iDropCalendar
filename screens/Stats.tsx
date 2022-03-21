@@ -77,9 +77,9 @@ export default function TabThreeScreen({ navigation: { navigate } }) {
 
   //"Past 30 Day" chart styles
   const chartConfig = {
-      backgroundColor: 'transparent',
-      backgroundGradientFrom: 'transparent',
-      backgroundGradientTo: 'transparent',
+      backgroundColor: Colors("background"),
+      backgroundGradientFrom: Colors("background"),
+      backgroundGradientTo: Colors("background"),
       decimalPlaces: 0,
       color: (opacity = 1) => `#6176f2`,
       labelColor: (opacity = 1) => `#6176f2`,

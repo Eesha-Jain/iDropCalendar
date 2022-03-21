@@ -24,6 +24,8 @@ export default {
     darkgray: 'rgb(179, 179, 179)',
     inputgray: 'rgb(77, 77, 77)',
     gradient: 'linear-gradient(to right, rgb(0, 148, 162), #2A3B9F)',
+    gradientone: 'rgb(0, 148, 162)',
+    gradienttwo: '#2A3B9F',
     notcompleted: '#83bcb5',
     completed: '#00a9d6',
     coffeeicons: "#2A3B9F",
