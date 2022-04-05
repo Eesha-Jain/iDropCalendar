@@ -56,7 +56,7 @@ export default function Questions({ navigation: { navigate } }) {
         </View>
 
         <View style={{alignItems: 'center', backgroundColor: Colors("background"), marginBottom: 60}}>
-          <Text style={{fontSize: 25, fontFamily: 'os-bold', marginBottom: 10, textAlign: 'center', color: Colors("text")}}>FQAs</Text>
+          <Text style={{fontSize: 25, fontFamily: 'os-bold', marginBottom: 10, textAlign: 'center', color: Colors("text")}}>FAQs</Text>
 
           <TouchableOpacity style={[generateStyles.button, {marginBottom: 10, width: '80%'}]} onPress={() => {Linking.openURL('https://drive.google.com/file/d/15Dw18tBDBgg4I7supeI-TH7BjK3C-21T/view?usp=sharing')}}>
             <Text style={[generateStyles.buttonText, {backgroundColor: Colors("mediumgray"), padding: 5, marginLeft: 0, marginRight: 0, paddingRight: 0, width: '100%'}]}>App use instructions</Text>
