@@ -86,6 +86,7 @@ function TabBarIcon2(props: { name: React.ComponentProps<typeof AntDesign>['name
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
+//Generation tab
 function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
@@ -98,8 +99,8 @@ function TabOneNavigator() {
   );
 }
 
+//Calendar page
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
 function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator>
@@ -112,8 +113,8 @@ function TabTwoNavigator() {
   );
 }
 
+//Statistics page
 const TabThreeStack = createStackNavigator<TabThreeParamList>();
-
 function TabThreeNavigator() {
   return (
     <TabThreeStack.Navigator>
@@ -126,8 +127,8 @@ function TabThreeNavigator() {
   );
 }
 
+//FAQ page
 const TabFourStack = createStackNavigator<TabFourParamList>();
-
 function TabFourNavigator() {
   return (
     <TabFourStack.Navigator>
